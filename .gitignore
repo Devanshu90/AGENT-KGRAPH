@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local datasets
+data/raw/
+data/processed/
+
+# Generated KG
+data/kg/
+
+# Model checkpoints / adapters
+runs/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Environment variables
+.env
+.env.*
+
+# Temporary files
+*.tmp
+*.temp
