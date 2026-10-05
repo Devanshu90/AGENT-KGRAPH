@@ -1,35 +1,27 @@
 import re
-import math
 
 
 class VectorRetriever:
-    def __init__(self,top_k=4):
+    def __init__(self,passages=None,top_k=4):
+        self.passages=passages or []
         self.top_k=top_k
-        self.passages=[]
-
-    def build(self,passages):
-        self.passages=passages
 
     def _tokens(self,text):
         return set(
             re.findall(
                 r"\b[a-zA-Z0-9]+\b",
-                text.lower()
+                str(text).lower()
             )
         )
 
     def _score(self,query,text):
         q=self._tokens(query)
-        t=self._tokens(text)
+        p=self._tokens(text)
 
-        if not q or not t:
+        if not q or not p:
             return 0.0
 
-        overlap=len(q&t)
-
-        return overlap/math.sqrt(
-            len(q)*len(t)
-        )
+        return len(q&p)/len(q)
 
     def search(self,query):
         results=[]
@@ -40,12 +32,15 @@ class VectorRetriever:
                 passage["text"]
             )
 
-            if score>0:
-                results.append({
-                    "passage_id":passage["passage_id"],
-                    "text":passage["text"],
-                    "score":score
-                })
+            if score<=0:
+                continue
+
+            results.append({
+                "passage_id":passage["passage_id"],
+                "document_id":passage["document_id"],
+                "text":passage["text"],
+                "score":score
+            })
 
         results.sort(
             key=lambda x:x["score"],
