@@ -1,7 +1,6 @@
 import json
-import time
 import networkx as nx
-from dataclasses import dataclass,asdict
+from dataclasses import dataclass
 
 
 @dataclass
@@ -27,12 +26,15 @@ class GraphStore:
             )
         else:
             self.graph.nodes[name]["confidence"]=max(
-                self.graph.nodes[name].get("confidence",0),
+                self.graph.nodes[name].get(
+                    "confidence",
+                    0.0
+                ),
                 confidence
             )
 
     def commit(self,triple):
-        if triple.confidence<self.config.commit_min_conf:
+        if triple.confidence<self.config.kg.commit_min_conf:
             return False
 
         self.add_entity(
@@ -60,11 +62,13 @@ class GraphStore:
         if entity not in self.graph:
             return []
 
-        return list(self.graph.successors(entity))
+        return list(
+            self.graph.successors(entity)
+        )
 
     def get_paths(self,entity,max_hops=None):
         if max_hops is None:
-            max_hops=self.config.hop_limit
+            max_hops=self.config.kg.hop_limit
 
         paths=[]
 
@@ -85,7 +89,10 @@ class GraphStore:
                 return
 
             for nxt in self.graph.successors(node):
-                edges=self.graph.get_edge_data(node,nxt)
+                edges=self.graph.get_edge_data(
+                    node,
+                    nxt
+                )
 
                 if not edges:
                     continue
@@ -101,9 +108,13 @@ class GraphStore:
                         0.0
                     )
 
-                    new_score=score*node_conf*edge_conf
+                    new_score=(
+                        score*
+                        node_conf*
+                        edge_conf
+                    )
 
-                    if new_score<self.config.path_min_score:
+                    if new_score<self.config.kg.path_min_score:
                         continue
 
                     dfs(
@@ -130,7 +141,7 @@ class GraphStore:
             reverse=True
         )
 
-        return paths[:self.config.top_paths]
+        return paths[:self.config.kg.top_paths]
 
     def decay(self):
         remove_edges=[]
@@ -139,14 +150,21 @@ class GraphStore:
             keys=True,
             data=True
         ):
-            data["confidence"]*=1-self.config.decay_rate
+            data["confidence"]*=(
+                1-self.config.kg.decay_rate
+            )
 
-            if data["confidence"]<self.config.confidence_floor:
+            if (
+                data["confidence"]<
+                self.config.kg.confidence_floor
+            ):
                 remove_edges.append(
                     (u,v,key)
                 )
 
-        self.graph.remove_edges_from(remove_edges)
+        self.graph.remove_edges_from(
+            remove_edges
+        )
 
     def save(self,path):
         data={
@@ -197,6 +215,7 @@ class GraphStore:
         for node in data["nodes"]:
             node=dict(node)
             name=node.pop("name")
+
             self.graph.add_node(
                 name,
                 **node

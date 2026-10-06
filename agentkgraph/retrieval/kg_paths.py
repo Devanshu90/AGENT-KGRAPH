@@ -40,7 +40,6 @@ class KGRetriever:
 
         if not seeds:
             q=query.lower()
-
             matches=[]
 
             for key,entities in self.entity_lookup.items():
@@ -89,14 +88,17 @@ class KGRetriever:
         if score<self.kg.config.path_min_score:
             return None
 
+        predicate=data.get(
+            "predicate",
+            "related_to"
+        )
+
         return {
             "seed":seed,
             "path":[
-                (None,source),
-                (
-                    data.get("predicate"),
-                    target
-                )
+                source,
+                predicate,
+                target
             ],
             "score":score
         }
@@ -165,6 +167,11 @@ class KGRetriever:
                 continue
 
             seen.add(key)
+
+            result["path_id"]=(
+                f"kg_path_{len(unique)+1:04d}"
+            )
+
             unique.append(result)
 
         return unique[:8]

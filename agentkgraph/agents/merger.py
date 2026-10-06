@@ -1,5 +1,13 @@
 import re
 from difflib import SequenceMatcher
+from dataclasses import dataclass
+
+
+@dataclass
+class MergeResult:
+    canonical:str
+    matched:bool
+    score:float
 
 
 class EntityMerger:
@@ -7,50 +15,111 @@ class EntityMerger:
         self.threshold=threshold
 
     def canonicalize(self,name):
-        name=re.sub(r"\s+"," ",name.strip())
+        name=str(name).strip()
+        name=re.sub(r"\s+"," ",name)
         return name
+
+    def normalize(self,name):
+        name=self.canonicalize(name)
+        return name.casefold()
 
     def similarity(self,a,b):
         return SequenceMatcher(
             None,
-            a.lower(),
-            b.lower()
+            self.normalize(a),
+            self.normalize(b)
         ).ratio()
 
     def resolve(self,name,existing_entities):
         name=self.canonicalize(name)
 
-        if name in existing_entities:
-            return name
+        if not name:
+            return MergeResult(
+                canonical=name,
+                matched=False,
+                score=0.0
+            )
+
+        normalized=self.normalize(name)
+
+        for entity in existing_entities:
+            if self.normalize(entity)==normalized:
+                return MergeResult(
+                    canonical=entity,
+                    matched=True,
+                    score=1.0
+                )
 
         best=None
         best_score=0.0
 
         for entity in existing_entities:
-            score=self.similarity(name,entity)
+            score=self.similarity(
+                name,
+                entity
+            )
 
             if score>best_score:
                 best_score=score
                 best=entity
 
         if best is not None and best_score>=self.threshold:
-            return best
+            return MergeResult(
+                canonical=best,
+                matched=True,
+                score=best_score
+            )
 
-        return name
+        return MergeResult(
+            canonical=name,
+            matched=False,
+            score=best_score
+        )
 
     def merge_triple(self,triple,existing_entities):
-        triple.subject=self.resolve(
+        subject=self.resolve(
             triple.subject,
             existing_entities
         )
 
+        triple.subject=subject.canonical
         existing_entities.add(triple.subject)
 
-        triple.object=self.resolve(
+        obj=self.resolve(
             triple.object,
             existing_entities
         )
 
+        triple.object=obj.canonical
         existing_entities.add(triple.object)
 
         return triple
+
+    def merge_entities(self,names):
+        existing=set()
+        mapping={}
+
+        for name in names:
+            result=self.resolve(
+                name,
+                existing
+            )
+
+            mapping[name]=result.canonical
+            existing.add(result.canonical)
+
+        return mapping
+
+    def merge_triples(self,triples,existing_entities=None):
+        entities=existing_entities or set()
+        merged=[]
+
+        for triple in triples:
+            merged.append(
+                self.merge_triple(
+                    triple,
+                    entities
+                )
+            )
+
+        return merged,entities

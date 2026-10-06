@@ -1,3 +1,10 @@
 nltk
 pytest
 networkx
+torch==2.14.1
+transformers==5.18.0
+accelerate==1.15.0
+datasets==5.1.0
+peft==0.21.2
+bitsandbytes==0.50.2
+sentence-transformers==6.1.0

@@ -1,50 +1,42 @@
-import re
+from sentence_transformers import SentenceTransformer
+import numpy as np
 
 
 class VectorRetriever:
-    def __init__(self,passages=None,top_k=4):
+    def __init__(self,passages=None,top_k=4,model_name="BAAI/bge-small-en-v1.5"):
         self.passages=passages or []
         self.top_k=top_k
+        self.model=SentenceTransformer(model_name)
 
-    def _tokens(self,text):
-        return set(
-            re.findall(
-                r"\b[a-zA-Z0-9]+\b",
-                str(text).lower()
+        if self.passages:
+            self.embeddings=self.model.encode(
+                [p["text"] for p in self.passages],
+                normalize_embeddings=True,
+                show_progress_bar=True
             )
-        )
-
-    def _score(self,query,text):
-        q=self._tokens(query)
-        p=self._tokens(text)
-
-        if not q or not p:
-            return 0.0
-
-        return len(q&p)/len(q)
+        else:
+            self.embeddings=np.empty((0,384))
 
     def search(self,query):
+        if not self.passages:
+            return []
+
+        query_embedding=self.model.encode(
+            [query],
+            normalize_embeddings=True
+        )[0]
+
+        scores=np.dot(self.embeddings,query_embedding)
+        indices=np.argsort(scores)[::-1][:self.top_k]
+
         results=[]
 
-        for passage in self.passages:
-            score=self._score(
-                query,
-                passage["text"]
-            )
-
-            if score<=0:
-                continue
-
+        for i in indices:
             results.append({
-                "passage_id":passage["passage_id"],
-                "document_id":passage["document_id"],
-                "text":passage["text"],
-                "score":score
+                "passage_id":self.passages[i]["passage_id"],
+                "document_id":self.passages[i]["document_id"],
+                "text":self.passages[i]["text"],
+                "score":float(scores[i])
             })
 
-        results.sort(
-            key=lambda x:x["score"],
-            reverse=True
-        )
-
-        return results[:self.top_k]
+        return results
