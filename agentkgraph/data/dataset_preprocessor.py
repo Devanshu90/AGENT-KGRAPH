@@ -259,22 +259,50 @@ def process_hotpotqa():
 
                 supporting=set()
 
-                for item in row[
+                supporting_facts=row[
                     "supporting_facts"
-                ]:
-                    if (
-                        isinstance(
-                            item,
-                            (list,tuple)
-                        )
-                        and len(item)>=2
+                ]
+
+                if isinstance(
+                    supporting_facts,
+                    dict
+                ):
+                    titles=supporting_facts.get(
+                        "title",
+                        []
+                    )
+
+                    sentence_ids=supporting_facts.get(
+                        "sent_id",
+                        []
+                    )
+
+                    for title,sentence_id in zip(
+                        titles,
+                        sentence_ids
                     ):
                         supporting.add(
                             (
-                                str(item[0]),
-                                int(item[1])
+                                clean_text(title),
+                                int(sentence_id)
                             )
                         )
+
+                else:
+                    for item in supporting_facts:
+                        if (
+                            isinstance(
+                                item,
+                                (list,tuple)
+                            )
+                            and len(item)>=2
+                        ):
+                            supporting.add(
+                                (
+                                    clean_text(item[0]),
+                                    int(item[1])
+                                )
+                            )
 
                 contexts=row["context"]
 
@@ -282,29 +310,22 @@ def process_hotpotqa():
                     contexts,
                     dict
                 ):
-                    contexts=list(
-                        contexts.items()
+                    titles=contexts.get(
+                        "title",
+                        []
                     )
 
-                for context_item in contexts:
+                    sentence_groups=contexts.get(
+                        "sentences",
+                        []
+                    )
 
-                    if isinstance(
-                        context_item,
-                        dict
-                    ):
-                        title=context_item.get(
-                            "title",
-                            ""
-                        )
+                    contexts=zip(
+                        titles,
+                        sentence_groups
+                    )
 
-                        sentences=context_item.get(
-                            "sentences",
-                            []
-                        )
-
-                    else:
-                        title=context_item[0]
-                        sentences=context_item[1]
+                for title,sentences in contexts:
 
                     title=clean_text(
                         title

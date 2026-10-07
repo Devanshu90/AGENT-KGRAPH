@@ -1,0 +1,8 @@
+﻿{"text":"Inception was directed by Christopher Nolan.","triples":[{"subject":"Inception","predicate":"directed_by","object":"Christopher Nolan","confidence":1.0}]}
+{"text":"The Dark Knight was directed by Christopher Nolan and released in 2008.","triples":[{"subject":"The Dark Knight","predicate":"directed_by","object":"Christopher Nolan","confidence":1.0},{"subject":"The Dark Knight","predicate":"release_year","object":"2008","confidence":1.0}]}
+{"text":"Titanic was directed by James Cameron.","triples":[{"subject":"Titanic","predicate":"directed_by","object":"James Cameron","confidence":1.0}]}
+{"text":"Tom Hanks starred in Forrest Gump.","triples":[{"subject":"Forrest Gump","predicate":"starred_actors","object":"Tom Hanks","confidence":1.0}]}
+{"text":"The Matrix was directed by the Wachowskis and released in 1999.","triples":[{"subject":"The Matrix","predicate":"directed_by","object":"the Wachowskis","confidence":1.0},{"subject":"The Matrix","predicate":"release_year","object":"1999","confidence":1.0}]}
+{"text":"Christopher Nolan directed Interstellar.","triples":[{"subject":"Interstellar","predicate":"directed_by","object":"Christopher Nolan","confidence":1.0}]}
+{"text":"The Godfather was directed by Francis Ford Coppola.","triples":[{"subject":"The Godfather","predicate":"directed_by","object":"Francis Ford Coppola","confidence":1.0}]}
+{"text":"Leonardo DiCaprio starred in Inception.","triples":[{"subject":"Inception","predicate":"starred_actors","object":"Leonardo DiCaprio","confidence":1.0}]}
