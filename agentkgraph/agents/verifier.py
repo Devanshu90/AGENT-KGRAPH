@@ -24,9 +24,14 @@ class Verifier:
         self.model=None
 
         if not self.dry_run:
-            self.model=CrossEncoder(
-                self.model_name
-            )
+            self._load_model()
+
+    def _load_model(self):
+        self.model=CrossEncoder(
+            self.model_name
+        )
+
+        self.model.model.eval()
 
     def _predicate_to_text(self,predicate):
         predicate=predicate.strip()
@@ -47,12 +52,10 @@ class Verifier:
         if predicate in mapping:
             return mapping[predicate]
 
-        predicate=predicate.replace(
+        return predicate.replace(
             "_",
             " "
         )
-
-        return predicate
 
     def _build_hypothesis(self,triple):
         subject=str(
@@ -67,43 +70,105 @@ class Verifier:
             triple.object
         ).strip()
 
-        if predicate in {
-            "was released in",
-            "has genre",
-            "has tag"
-        }:
-            return (
-                f"{subject} "
-                f"{predicate} "
-                f"{obj}."
-            )
-
-        if predicate in {
-            "directed",
-            "starred",
-            "produced by",
-            "is married to"
-        }:
-            return (
-                f"{subject} "
-                f"{predicate} "
-                f"{obj}."
-            )
-
-        if predicate in {
-            "was written by",
-            "was produced by"
-        }:
-            return (
-                f"{subject} "
-                f"{predicate} "
-                f"{obj}."
-            )
-
         return (
             f"{subject} "
             f"{predicate} "
             f"{obj}."
+        )
+
+    def _get_labels(self,scores):
+        labels=[
+            "contradiction",
+            "entailment",
+            "neutral"
+        ]
+
+        try:
+            mapping=self.model.model.config.id2label
+
+            if mapping:
+                labels=[
+                    str(
+                        mapping.get(
+                            i,
+                            str(i)
+                        )
+                    ).lower()
+                    for i in range(
+                        len(scores)
+                    )
+                ]
+        except (
+            AttributeError,
+            TypeError
+        ):
+            pass
+
+        return labels
+
+    def _entailment_confidence(self,scores):
+        scores=np.asarray(
+            scores,
+            dtype=np.float32
+        )
+
+        if scores.ndim==0:
+            value=float(
+                scores
+            )
+
+            return float(
+                1.0/
+                (
+                    1.0+
+                    np.exp(-value)
+                )
+            )
+
+        scores=scores.reshape(-1)
+
+        if len(scores)==1:
+            value=float(
+                scores[0]
+            )
+
+            return float(
+                1.0/
+                (
+                    1.0+
+                    np.exp(-value)
+                )
+            )
+
+        labels=self._get_labels(
+            scores
+        )
+
+        entailment_index=None
+
+        for i,label in enumerate(labels):
+            if "entail" in label:
+                entailment_index=i
+                break
+
+        if entailment_index is None:
+            entailment_index=1 if len(scores)>1 else 0
+
+        shifted=scores-np.max(
+            scores
+        )
+
+        probabilities=(
+            np.exp(shifted)/
+            np.sum(
+                np.exp(shifted)
+            )
+        )
+
+        return float(
+            probabilities[
+                entailment_index
+            ]
         )
 
     def verify(self,triple,text):
@@ -121,96 +186,8 @@ class Verifier:
             [(text,hypothesis)]
         )
 
-        scores=np.asarray(
-            scores[0],
-            dtype=np.float32
-        )
-
-        if scores.ndim==0:
-            confidence=float(
-                1.0/
-                (
-                    1.0+
-                    np.exp(
-                        -float(scores)
-                    )
-                )
-            )
-
-            confidence=max(
-                0.0,
-                min(
-                    1.0,
-                    confidence
-                )
-            )
-
-            accepted=(
-                confidence>=self.threshold
-            )
-
-            return VerificationResult(
-                accepted=accepted,
-                confidence=confidence,
-                reason=(
-                    "The passage entails the "
-                    "extracted triple."
-                    if accepted
-                    else
-                    "The passage does not sufficiently "
-                    "entail the extracted triple."
-                )
-            )
-
-        labels=[
-            "contradiction",
-            "entailment",
-            "neutral"
-        ]
-
-        if hasattr(
-            self.model.model.config,
-            "id2label"
-        ):
-            mapping=self.model.model.config.id2label
-
-            labels=[
-                str(
-                    mapping.get(
-                        i,
-                        str(i)
-                    )
-                ).lower()
-                for i in range(
-                    len(scores)
-                )
-            ]
-
-        entailment_index=None
-
-        for i,label in enumerate(labels):
-            if "entail" in label:
-                entailment_index=i
-                break
-
-        if entailment_index is None:
-            entailment_index=1
-
-        shifted=scores-np.max(
-            scores
-        )
-
-        probabilities=(
-            np.exp(shifted)/
-            np.sum(
-                np.exp(shifted)
-            )
-        )
-
-        confidence=float(
-            probabilities[
-                entailment_index
-            ]
+        confidence=self._entailment_confidence(
+            scores[0]
         )
 
         confidence=max(
@@ -225,16 +202,14 @@ class Verifier:
             confidence>=self.threshold
         )
 
-        if accepted:
-            reason=(
-                "The passage entails the "
-                "extracted triple."
-            )
-        else:
-            reason=(
-                "The passage does not sufficiently "
-                "entail the extracted triple."
-            )
+        reason=(
+            "The passage entails the "
+            "extracted triple."
+            if accepted
+            else
+            "The passage does not sufficiently "
+            "entail the extracted triple."
+        )
 
         return VerificationResult(
             accepted=accepted,
@@ -243,9 +218,17 @@ class Verifier:
         )
 
     def _dry_verify(self,triple,text):
-        s=triple.subject.lower()
-        o=triple.object.lower()
-        t=text.lower()
+        s=str(
+            triple.subject
+        ).lower()
+
+        o=str(
+            triple.object
+        ).lower()
+
+        t=str(
+            text
+        ).lower()
 
         supported=(
             s in t and

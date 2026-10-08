@@ -20,7 +20,13 @@ class RetrievalConfig:
 
 @dataclass
 class RoutingConfig:
-    actions:list=field(default_factory=lambda:["vector","kg","hybrid"])
+    actions:list=field(
+        default_factory=lambda:[
+            "vector",
+            "kg",
+            "hybrid"
+        ]
+    )
     ucb_beta:float=1.0
     min_explore:int=30
 
@@ -36,10 +42,17 @@ class EvolutionConfig:
 @dataclass
 class ModelConfig:
     extractor:str="Qwen/Qwen2.5-1.5B-Instruct"
+    extractor_adapter:str|None=None
     verifier:str="cross-encoder/nli-deberta-v3-base"
     router:str="Qwen/Qwen2.5-0.5B-Instruct"
     synthesizer:str="Qwen/Qwen2.5-3B-Instruct"
     embedder:str="BAAI/bge-small-en-v1.5"
+    extractor_max_new_tokens:int=256
+    extractor_temperature:float=0.1
+    router_max_new_tokens:int=80
+    synthesizer_max_new_tokens:int=128
+    synthesizer_temperature:float=0.2
+    load_in_4bit:bool=False
 
 
 @dataclass

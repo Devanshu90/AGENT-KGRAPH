@@ -30,12 +30,17 @@ class Engine:
         )
 
         self.router=Router(
-            self.config.routing
+            config=self.config.routing,
+            model_name=self.config.models.router,
+            max_new_tokens=self.config.models.router_max_new_tokens,
+            dry_run=self.dry_run
         )
 
         self.vector=VectorRetriever(
             passages or [],
-            self.config.retrieval.top_k
+            self.config.retrieval.top_k,
+            model_name=self.config.models.embedder,
+            dry_run=self.dry_run
         )
 
         self.kg_retriever=None
@@ -79,9 +84,11 @@ class Engine:
         from agentkgraph.generation.synthesizer import Synthesizer
 
         self.synthesizer=Synthesizer(
+            model_name=self.config.models.synthesizer,
             dry_run=self.dry_run,
-            max_new_tokens=128,
-            temperature=0.2
+            max_new_tokens=self.config.models.synthesizer_max_new_tokens,
+            temperature=self.config.models.synthesizer_temperature,
+            load_in_4bit=self.config.models.load_in_4bit
         )
 
     def _load_evolution_components(self):
@@ -93,12 +100,19 @@ class Engine:
         from agentkgraph.agents.merger import EntityMerger
         from agentkgraph.agents.feedback import FeedbackEngine
 
+        self._load_synthesizer()
+
         self.extractor=Extractor(
-            dry_run=self.dry_run
+            model_name=self.config.models.extractor,
+            adapter_path=self.config.models.extractor_adapter,
+            dry_run=self.dry_run,
+            max_new_tokens=self.config.models.extractor_max_new_tokens,
+            temperature=self.config.models.extractor_temperature
         )
 
         self.verifier=Verifier(
-            threshold=0.60,
+            threshold=self.config.evolution.threshold,
+            model_name=self.config.models.verifier,
             dry_run=self.dry_run
         )
 
@@ -107,15 +121,15 @@ class Engine:
         )
 
         self.feedback=FeedbackEngine(
-            synthesizer=None,
+            synthesizer=self.synthesizer,
             extractor=self.extractor,
             verifier=self.verifier,
             merger=self.merger,
             kg=self.kg,
-            consistency_n=2,
-            threshold=0.80,
-            user_feedback_weight=0.30,
-            max_retry=2
+            consistency_n=self.config.evolution.n,
+            threshold=self.config.evolution.threshold,
+            user_feedback_weight=self.config.evolution.user_feedback_weight,
+            max_retry=self.config.evolution.max_retry
         )
 
     def _free_synthesizer(self):

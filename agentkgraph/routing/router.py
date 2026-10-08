@@ -10,8 +10,9 @@ class Router:
     def __init__(
         self,
         config=None,
-        model_name="Qwen/Qwen2.5-0.5B-Instruct",
-        dry_run=False
+        model_name=None,
+        dry_run=False,
+        max_new_tokens=80
     ):
         self.config=config
 
@@ -45,17 +46,27 @@ class Router:
         self.dimension=8
 
         self.A={
-            action:np.eye(self.dimension)
+            action:np.eye(
+                self.dimension
+            )
             for action in self.actions
         }
 
         self.b={
-            action:np.zeros(self.dimension)
+            action:np.zeros(
+                self.dimension
+            )
             for action in self.actions
         }
 
         self.dry_run=dry_run
-        self.model_name=model_name
+        self.model_name=(
+            model_name
+            or "Qwen/Qwen2.5-0.5B-Instruct"
+        )
+
+        self.max_new_tokens=max_new_tokens
+
         self.model=None
         self.tokenizer=None
 
@@ -67,17 +78,34 @@ class Router:
             self.model_name
         )
 
-        dtype=(
-            torch.float16
-            if torch.cuda.is_available()
-            else torch.float32
-        )
+        if self.tokenizer.pad_token is None:
+            self.tokenizer.pad_token=(
+                self.tokenizer.eos_token
+            )
+
+        if torch.cuda.is_available():
+            dtype=torch.float16
+            device_map="auto"
+        else:
+            dtype=torch.float32
+            device_map=None
+
+        kwargs={
+            "torch_dtype":dtype
+        }
+
+        if device_map is not None:
+            kwargs["device_map"]=device_map
 
         self.model=AutoModelForCausalLM.from_pretrained(
             self.model_name,
-            dtype=dtype,
-            device_map="auto"
+            **kwargs
         )
+
+        if device_map is None:
+            self.model.to(
+                "cpu"
+            )
 
         self.model.eval()
 
@@ -96,27 +124,34 @@ class Router:
             "has_where":q.startswith("where"),
             "has_when":q.startswith("when"),
             "has_how":q.startswith("how"),
-            "length":len(q.split())
+            "length":len(
+                q.split()
+            )
         }
 
     def _context(self,query):
-        f=self.features(query)
+        f=self.features(
+            query
+        )
 
         length=min(
             f["length"]/20.0,
             1.0
         )
 
-        return np.array([
-            float(f["has_entity"]),
-            float(f["has_who"]),
-            float(f["has_what"]),
-            float(f["has_where"]),
-            float(f["has_when"]),
-            float(f["has_how"]),
-            length,
-            1.0
-        ],dtype=np.float64)
+        return np.array(
+            [
+                float(f["has_entity"]),
+                float(f["has_who"]),
+                float(f["has_what"]),
+                float(f["has_where"]),
+                float(f["has_when"]),
+                float(f["has_how"]),
+                length,
+                1.0
+            ],
+            dtype=np.float64
+        )
 
     def _prompt(self,query):
         return f"""
@@ -141,7 +176,9 @@ Query:
 
     def _model_scores(self,query):
         if self.dry_run:
-            return self._dry_scores(query)
+            return self._dry_scores(
+                query
+            )
 
         messages=[
             {
@@ -151,27 +188,36 @@ Query:
             },
             {
                 "role":"user",
-                "content":self._prompt(query)
+                "content":
+                    self._prompt(query)
             }
         ]
 
-        prompt=self.tokenizer.apply_chat_template(
+        formatted=self.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True
         )
 
         inputs=self.tokenizer(
-            prompt,
+            formatted,
             return_tensors="pt"
-        ).to(self.model.device)
+        )
+
+        if hasattr(
+            self.model,
+            "device"
+        ):
+            inputs=inputs.to(
+                self.model.device
+            )
 
         with torch.no_grad():
             outputs=self.model.generate(
                 **inputs,
-                max_new_tokens=80,
+                max_new_tokens=self.max_new_tokens,
                 do_sample=False,
-                pad_token_id=self.tokenizer.eos_token_id
+                pad_token_id=self.tokenizer.pad_token_id
             )
 
         generated=outputs[0][
@@ -189,20 +235,42 @@ Query:
         )
 
         if not match:
-            return self._dry_scores(query)
+            return self._dry_scores(
+                query
+            )
 
         try:
             data=json.loads(
                 match.group(0)
             )
         except json.JSONDecodeError:
-            return self._dry_scores(query)
+            return self._dry_scores(
+                query
+            )
 
-        scores=np.array([
-            float(data.get("vector",0.0)),
-            float(data.get("kg",0.0)),
-            float(data.get("hybrid",0.0))
-        ])
+        scores=np.array(
+            [
+                float(
+                    data.get(
+                        "vector",
+                        0.0
+                    )
+                ),
+                float(
+                    data.get(
+                        "kg",
+                        0.0
+                    )
+                ),
+                float(
+                    data.get(
+                        "hybrid",
+                        0.0
+                    )
+                )
+            ],
+            dtype=np.float64
+        )
 
         scores=np.maximum(
             scores,
@@ -212,17 +280,25 @@ Query:
         total=scores.sum()
 
         if total<=0:
-            return self._dry_scores(query)
+            return self._dry_scores(
+                query
+            )
 
         scores=scores/total
 
         return {
-            action:float(scores[i])
-            for i,action in enumerate(self.actions)
+            action:float(
+                scores[i]
+            )
+            for i,action in enumerate(
+                self.actions
+            )
         }
 
     def _dry_scores(self,query):
-        f=self.features(query)
+        f=self.features(
+            query
+        )
 
         scores={
             "vector":0.34,
@@ -239,7 +315,8 @@ Query:
 
         elif (
             f["has_who"]
-            and "direct" in query.lower()
+            and
+            "direct" in query.lower()
         ):
             scores={
                 "vector":0.15,
@@ -268,7 +345,10 @@ Query:
                 self.A[action]
             )
 
-            theta=A_inv@self.b[action]
+            theta=(
+                A_inv@
+                self.b[action]
+            )
 
             mean=float(
                 theta@context
@@ -276,27 +356,32 @@ Query:
 
             uncertainty=float(
                 np.sqrt(
-                    context@A_inv@context
+                    context@
+                    A_inv@
+                    context
                 )
             )
 
             exploration=(
-                self.beta*uncertainty
+                self.beta*
+                uncertainty
             )
 
             if total_count<self.min_explore:
                 exploration*=0.25
 
             scores[action]=(
-                mean
-                + exploration
-                + prior[action]
+                mean+
+                exploration+
+                prior[action]
             )
 
         return scores
 
     def _obvious_route(self,query):
-        f=self.features(query)
+        f=self.features(
+            query
+        )
 
         if f["has_entity"]:
             return "kg"
@@ -305,7 +390,8 @@ Query:
 
         if (
             f["has_who"]
-            and "direct" in q
+            and
+            "direct" in q
         ):
             return "hybrid"
 
@@ -322,8 +408,13 @@ Query:
         if obvious is not None:
             return obvious
 
-        context=self._context(query)
-        prior=self._model_scores(query)
+        context=self._context(
+            query
+        )
+
+        prior=self._model_scores(
+            query
+        )
 
         scores=self._ucb_scores(
             context,
@@ -336,8 +427,13 @@ Query:
         )
 
     def route_with_scores(self,query):
-        context=self._context(query)
-        prior=self._model_scores(query)
+        context=self._context(
+            query
+        )
+
+        prior=self._model_scores(
+            query
+        )
 
         scores=self._ucb_scores(
             context,
@@ -372,7 +468,9 @@ Query:
                 f"Unknown routing action: {action}"
             )
 
-        context=self._context(query)
+        context=self._context(
+            query
+        )
 
         self.A[action]+=np.outer(
             context,
@@ -380,7 +478,8 @@ Query:
         )
 
         self.b[action]+=(
-            float(reward)*context
+            float(reward)*
+            context
         )
 
         self.counts[action]+=1
@@ -392,11 +491,27 @@ Query:
         }
 
         self.A={
-            action:np.eye(self.dimension)
+            action:np.eye(
+                self.dimension
+            )
             for action in self.actions
         }
 
         self.b={
-            action:np.zeros(self.dimension)
+            action:np.zeros(
+                self.dimension
+            )
             for action in self.actions
         }
+
+    def unload(self):
+        if self.model is not None:
+            del self.model
+            self.model=None
+
+        if self.tokenizer is not None:
+            del self.tokenizer
+            self.tokenizer=None
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()

@@ -29,8 +29,10 @@ class Extractor:
         self.dry_run=dry_run
         self.max_new_tokens=max_new_tokens
         self.temperature=temperature
+
         self.model=None
         self.tokenizer=None
+        self.device="cuda" if torch.cuda.is_available() else "cpu"
 
         if not self.dry_run:
             self._load_model()
@@ -40,20 +42,39 @@ class Extractor:
             self.model_name
         )
 
-        dtype=(
-            torch.float16
-            if torch.cuda.is_available()
-            else torch.float32
-        )
+        if self.tokenizer.pad_token is None:
+            self.tokenizer.pad_token=self.tokenizer.eos_token
+
+        if torch.cuda.is_available():
+            dtype=torch.float16
+            device_map="auto"
+        else:
+            dtype=torch.float32
+            device_map=None
+
+        kwargs={
+            "torch_dtype":dtype
+        }
+
+        if device_map is not None:
+            kwargs["device_map"]=device_map
 
         self.model=AutoModelForCausalLM.from_pretrained(
             self.model_name,
-            dtype=dtype,
-            device_map="auto"
+            **kwargs
         )
 
+        if device_map is None:
+            self.model.to(self.device)
+
         if self.adapter_path:
-            from peft import PeftModel
+            try:
+                from peft import PeftModel
+            except ImportError as exc:
+                raise ImportError(
+                    "PEFT is required when adapter_path is provided. "
+                    "Install it with: pip install peft"
+                ) from exc
 
             self.model=PeftModel.from_pretrained(
                 self.model,
@@ -73,6 +94,13 @@ subject
 predicate
 object
 confidence
+
+Rules:
+- Extract only facts explicitly supported by the passage.
+- Do not invent entities or relationships.
+- Keep entity names concise and canonical.
+- Use normalized predicates.
+- Confidence must be a number between 0 and 1.
 
 Use normalized predicates such as:
 directed_by
@@ -120,8 +148,18 @@ JSON:
 
         inputs=self.tokenizer(
             formatted,
-            return_tensors="pt"
-        ).to(self.model.device)
+            return_tensors="pt",
+            truncation=True
+        )
+
+        if hasattr(self.model,"device"):
+            inputs=inputs.to(
+                self.model.device
+            )
+        else:
+            inputs=inputs.to(
+                self.device
+            )
 
         with torch.no_grad():
             outputs=self.model.generate(
@@ -129,7 +167,7 @@ JSON:
                 max_new_tokens=self.max_new_tokens,
                 do_sample=self.temperature>0,
                 temperature=self.temperature,
-                pad_token_id=self.tokenizer.eos_token_id
+                pad_token_id=self.tokenizer.pad_token_id
             )
 
         generated=outputs[0][
@@ -160,6 +198,9 @@ JSON:
                 match.group(0)
             )
         except json.JSONDecodeError:
+            return []
+
+        if not isinstance(data,list):
             return []
 
         triples=[]
