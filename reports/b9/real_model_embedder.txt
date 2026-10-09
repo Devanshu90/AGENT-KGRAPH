@@ -1,0 +1,14 @@
+Real Model Benchmark: embedder
+============================================================
+Status: PASS
+Load success: True
+Inference success: True
+Load time (ms): 10738.918
+Inference time (ms): 97.906
+Peak memory (KB): 6239.775
+
+Details:
+{
+  "output_length": 1,
+  "first_item_type": "dict"
+}

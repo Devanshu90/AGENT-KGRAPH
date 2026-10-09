@@ -1,0 +1,13 @@
+Real Model Benchmark: router
+============================================================
+Status: PASS
+Load success: True
+Inference success: True
+Load time (ms): 11027.608
+Inference time (ms): 2947.322
+Peak memory (KB): 59131.573
+
+Details:
+{
+  "output": "vector"
+}

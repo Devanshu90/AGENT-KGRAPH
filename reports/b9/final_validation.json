@@ -1,0 +1,215 @@
+{
+  "validation_mode": "dry_run",
+  "real_model_benchmark_status": "not_run",
+  "passed": 10,
+  "failed": 0,
+  "total": 10,
+  "success": true,
+  "checks": [
+    {
+      "name": "environment",
+      "status": "PASS",
+      "duration_ms": 3053.106,
+      "details": {
+        "python": "3.13.15",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "networkx": "3.6.1",
+        "torch": "2.13.0+cpu",
+        "cuda_available": false,
+        "dry_run": true,
+        "project_root": "D:\\Studies\\Major Project - Yatendra Sir\\AGENT-KGRAPH"
+      },
+      "error": null
+    },
+    {
+      "name": "configuration",
+      "status": "PASS",
+      "duration_ms": 0.007,
+      "details": {
+        "extractor": "Qwen/Qwen2.5-1.5B-Instruct",
+        "verifier": "cross-encoder/nli-deberta-v3-base",
+        "router": "Qwen/Qwen2.5-0.5B-Instruct",
+        "synthesizer": "Qwen/Qwen2.5-3B-Instruct",
+        "embedder": "BAAI/bge-small-en-v1.5",
+        "routing_actions": [
+          "vector",
+          "kg",
+          "hybrid"
+        ],
+        "ucb_beta": 1.0,
+        "min_explore": 30
+      },
+      "error": null
+    },
+    {
+      "name": "evaluation_metrics",
+      "status": "PASS",
+      "duration_ms": 0.397,
+      "details": {
+        "count": 1,
+        "exact_match": 1.0,
+        "token_f1": 1.0,
+        "hits_at_1": 1.0,
+        "precision_at_k": 0.5,
+        "provenance_completeness": 1.0,
+        "routing_accuracy": 1.0,
+        "details": [
+          {
+            "exact_match": 1.0,
+            "token_f1": 1.0,
+            "hits_at_1": 1.0,
+            "precision_at_k": 0.5,
+            "provenance_completeness": 1.0,
+            "routing_accuracy": 1.0
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "dataset_evaluator",
+      "status": "PASS",
+      "duration_ms": 0.095,
+      "details": {
+        "count": 2,
+        "exact_match": 1.0,
+        "token_f1": 1.0
+      },
+      "error": null
+    },
+    {
+      "name": "retrieval_evaluator",
+      "status": "PASS",
+      "duration_ms": 0.04,
+      "details": {
+        "count": 1,
+        "hits_at_1": 1.0,
+        "precision_at_k": 0.3333333333333333,
+        "routing_accuracy": 1.0,
+        "by_method": {}
+      },
+      "error": null
+    },
+    {
+      "name": "ablation",
+      "status": "PASS",
+      "duration_ms": 0.061,
+      "details": {
+        "baseline": "full",
+        "configurations": {
+          "full": {
+            "exact_match": 0.8,
+            "token_f1": 0.85
+          },
+          "no_router": {
+            "exact_match": 0.7,
+            "token_f1": 0.78
+          },
+          "vector_only": {
+            "exact_match": 0.65,
+            "token_f1": 0.74
+          }
+        },
+        "deltas": {
+          "no_router": {
+            "exact_match": -0.1,
+            "token_f1": -0.07
+          },
+          "vector_only": {
+            "exact_match": -0.15,
+            "token_f1": -0.11
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "name": "evolution_evaluator",
+      "status": "PASS",
+      "duration_ms": 0.048,
+      "details": {
+        "before": {
+          "exact_match": 0.6,
+          "token_f1": 0.65,
+          "hits_at_1": 0.7,
+          "precision_at_k": 0.55,
+          "provenance_completeness": 0.5
+        },
+        "after": {
+          "exact_match": 0.7,
+          "token_f1": 0.72,
+          "hits_at_1": 0.75,
+          "precision_at_k": 0.62,
+          "provenance_completeness": 0.8
+        },
+        "delta": {
+          "exact_match": 0.1,
+          "token_f1": 0.07,
+          "hits_at_1": 0.05,
+          "precision_at_k": 0.07,
+          "provenance_completeness": 0.3
+        },
+        "kg_changes": 3,
+        "summary": {
+          "improved_metrics": [
+            "exact_match",
+            "token_f1",
+            "hits_at_1",
+            "precision_at_k",
+            "provenance_completeness"
+          ],
+          "degraded_metrics": [],
+          "num_improved": 5,
+          "num_degraded": 0,
+          "kg_changes": 3
+        }
+      },
+      "error": null
+    },
+    {
+      "name": "ucb_router",
+      "status": "PASS",
+      "duration_ms": 6267.974,
+      "details": {
+        "configured_actions": [
+          "hybrid",
+          "kg",
+          "vector"
+        ],
+        "actions_seen": [
+          "kg",
+          "vector"
+        ],
+        "updates": 30,
+        "all_actions_configured": true,
+        "final_update": null
+      },
+      "error": null
+    },
+    {
+      "name": "engine_end_to_end",
+      "status": "PASS",
+      "duration_ms": 3918.981,
+      "details": {
+        "kg_triples": 3,
+        "route": "vector",
+        "evidence_count": 3,
+        "answer_present": true
+      },
+      "error": null
+    },
+    {
+      "name": "resource_measurement",
+      "status": "PASS",
+      "duration_ms": 724.574,
+      "details": {
+        "measurement": "engine_retrieval",
+        "duration_ms": 0.766,
+        "peak_memory_kb": 4.805,
+        "route": "vector",
+        "evidence_count": 1
+      },
+      "error": null
+    }
+  ]
+}

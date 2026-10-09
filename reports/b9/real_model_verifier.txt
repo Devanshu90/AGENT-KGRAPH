@@ -1,0 +1,13 @@
+Real Model Benchmark: verifier
+============================================================
+Status: PASS
+Load success: True
+Inference success: True
+Load time (ms): 10376.753
+Inference time (ms): 1159.313
+Peak memory (KB): 21925.519
+
+Details:
+{
+  "output_type": "VerificationResult"
+}

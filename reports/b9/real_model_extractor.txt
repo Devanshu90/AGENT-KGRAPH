@@ -1,0 +1,14 @@
+Real Model Benchmark: extractor
+============================================================
+Status: PASS
+Load success: True
+Inference success: True
+Load time (ms): 14002.864
+Inference time (ms): 18432.068
+Peak memory (KB): 59326.001
+
+Details:
+{
+  "output_length": 2,
+  "first_item_type": "ExtractedTriple"
+}

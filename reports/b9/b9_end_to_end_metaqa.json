@@ -1,0 +1,157 @@
+{
+  "benchmark": "B9 real-model end-to-end MetaQA",
+  "split": "test",
+  "samples_per_hop": 2,
+  "sample_count": 6,
+  "settings": {
+    "synthesizer_max_new_tokens": 64,
+    "synthesizer_temperature": 0.0,
+    "vector_corpus_loaded": false,
+    "kg_path": "data/kg/metaqa_graph.json"
+  },
+  "overall": {
+    "exact_match": 0.0,
+    "token_f1": 0.3856435231435231,
+    "average_latency_ms": 41312.00829999822,
+    "total_latency_ms": 247880.28589999885
+  },
+  "hop_metrics": {
+    "1": {
+      "count": 2,
+      "exact_match": 0.0,
+      "token_f1": 0.4602272727272727,
+      "average_latency_ms": 45.96364999815705
+    },
+    "2": {
+      "count": 2,
+      "exact_match": 0.0,
+      "token_f1": 0.35384615384615387,
+      "average_latency_ms": 123184.01599999925
+    },
+    "3": {
+      "count": 2,
+      "exact_match": 0.0,
+      "token_f1": 0.34285714285714286,
+      "average_latency_ms": 706.0452499972598
+    }
+  },
+  "route_distribution": {
+    "kg": 6
+  },
+  "results": [
+    {
+      "question_id": "metaqa_1hop_test_0000000",
+      "hop": 1,
+      "question": "what does [Grégoire Colin] appear in",
+      "answers": [
+        "Before the Rain"
+      ],
+      "prediction": "Career Girls, Katrin Cartlidge, Labina Mitevska, Jason Statham, Jet Li, Before the Rain",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.375,
+      "latency_ms": 8.490799998980947
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000001",
+      "hop": 1,
+      "question": "[Joe Thomas] appears in which movies",
+      "answers": [
+        "The Inbetweeners Movie",
+        "The Inbetweeners 2"
+      ],
+      "prediction": "The Pyramid, The Inbetweeners Movie, The Inbetweeners 2",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.5454545454545454,
+      "latency_ms": 83.43649999733316
+    },
+    {
+      "question_id": "metaqa_2hop_test_0000000",
+      "hop": 2,
+      "question": "which person directed the movies starred by [John Krasinski]",
+      "answers": [
+        "Nancy Meyers",
+        "Sam Mendes",
+        "George Clooney",
+        "Ken Kwapis",
+        "Luke Greenfield"
+      ],
+      "prediction": "Sam Mendes Sources: kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0008",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.4,
+      "latency_ms": 119313.65599999845
+    },
+    {
+      "question_id": "metaqa_2hop_test_0000001",
+      "hop": 2,
+      "question": "who are movie co-directors of [Delbert Mann]",
+      "answers": [
+        "Franco Zeffirelli",
+        "Cary Fukunaga",
+        "Lewis Milestone",
+        "Robert Stevenson"
+      ],
+      "prediction": "Robert Stevenson Sources: kg_path_0001, kg_path_0002, kg_path_0003, kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.3076923076923077,
+      "latency_ms": 127054.37600000005
+    },
+    {
+      "question_id": "metaqa_3hop_test_0000000",
+      "hop": 3,
+      "question": "the films that share directors with the film [Catch Me If You Can] were in which languages",
+      "answers": [
+        "German",
+        "Polish",
+        "Mende",
+        "Japanese"
+      ],
+      "prediction": "Japanese, German, Polish, Mende",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.4,
+      "latency_ms": 1059.0767999965465
+    },
+    {
+      "question_id": "metaqa_3hop_test_0000001",
+      "hop": 3,
+      "question": "who starred movies for the director of [Written on the Wind]",
+      "answers": [
+        "Sandra Dee",
+        "Charles Coburn",
+        "Cornel Wilde",
+        "John Gavin",
+        "Warren William",
+        "Susan Kohner",
+        "Joan Bennett",
+        "Fred MacMurray",
+        "Barbara Stanwyck",
+        "Don Ameche",
+        "Jane Wyman",
+        "Rochelle Hudson",
+        "Boris Karloff",
+        "Patricia Knight",
+        "Robert Cummings",
+        "Rock Hudson",
+        "Lucille Ball",
+        "Claudette Colbert",
+        "Lana Turner",
+        "George Sanders"
+      ],
+      "prediction": "Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson",
+      "route": "kg",
+      "evidence_count": 8,
+      "exact_match": 0.0,
+      "token_f1": 0.2857142857142857,
+      "latency_ms": 353.01369999797316
+    }
+  ]
+}

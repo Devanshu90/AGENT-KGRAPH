@@ -52,7 +52,7 @@ class ModelConfig:
     router_max_new_tokens:int=80
     synthesizer_max_new_tokens:int=128
     synthesizer_temperature:float=0.2
-    load_in_4bit:bool=False
+    load_in_4bit:bool=True
 
 
 @dataclass

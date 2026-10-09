@@ -1,3 +1,4 @@
+
 import gc
 import json
 import os
@@ -523,9 +524,7 @@ if __name__=="__main__":
                 )
 
             output=process.stdout.strip()
-
             lines=output.splitlines()
-
             json_line=None
 
             for line in reversed(lines):
@@ -571,6 +570,27 @@ if __name__=="__main__":
         )
 
         if not evolve:
+            from agentkgraph.retrieval.answer_extractor import KGPathAnswerExtractor
+
+            extracted=KGPathAnswerExtractor().extract(
+                query,
+                result["evidence"]
+            )
+
+            if extracted is not None:
+                return {
+                    "query":query,
+                    "route":result["route"],
+                    "evidence":result["evidence"],
+                    "answer":extracted["answer"],
+                    "confidence":1.0,
+                    "consistent":True,
+                    "evolved":False,
+                    "triples_added":0,
+                    "citations":extracted["citations"],
+                    "reason":extracted["method"]
+                }
+
             self._load_synthesizer()
 
             generated=self.synthesizer.generate(
@@ -588,12 +608,19 @@ if __name__=="__main__":
                     "citations",
                     []
                 )
-
             else:
                 answer=str(generated)
 
-                citations=self.synthesizer.extract_citations(
-                    answer
+                extract_citations=getattr(
+                    self.synthesizer,
+                    "extract_citations",
+                    None
+                )
+
+                citations=(
+                    extract_citations(answer)
+                    if extract_citations is not None
+                    else []
                 )
 
             return {

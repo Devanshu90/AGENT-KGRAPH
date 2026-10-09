@@ -1,0 +1,13 @@
+Real Model Benchmark: synthesizer
+============================================================
+Status: PASS
+Load success: True
+Inference success: True
+Load time (ms): 38013.154
+Inference time (ms): 19595.937
+Peak memory (KB): 96921.423
+
+Details:
+{
+  "output": "source=benchmark_passage_00"
+}

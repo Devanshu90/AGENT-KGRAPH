@@ -18,6 +18,11 @@ class GraphStore:
         self.config=config
         self.graph=nx.MultiDiGraph()
 
+    def _kg_config(self):
+        if hasattr(self.config,"kg"):
+            return self.config.kg
+        return self.config
+
     def add_entity(self,name,confidence=1.0):
         if name not in self.graph:
             self.graph.add_node(
@@ -34,7 +39,9 @@ class GraphStore:
             )
 
     def commit(self,triple):
-        if triple.confidence<self.config.kg.commit_min_conf:
+        config=self._kg_config()
+
+        if triple.confidence<config.commit_min_conf:
             return False
 
         self.add_entity(
@@ -67,8 +74,10 @@ class GraphStore:
         )
 
     def get_paths(self,entity,max_hops=None):
+        config=self._kg_config()
+
         if max_hops is None:
-            max_hops=self.config.kg.hop_limit
+            max_hops=config.hop_limit
 
         paths=[]
 
@@ -114,7 +123,7 @@ class GraphStore:
                         edge_conf
                     )
 
-                    if new_score<self.config.kg.path_min_score:
+                    if new_score<config.path_min_score:
                         continue
 
                     dfs(
@@ -141,9 +150,10 @@ class GraphStore:
             reverse=True
         )
 
-        return paths[:self.config.kg.top_paths]
+        return paths[:config.top_paths]
 
     def decay(self):
+        config=self._kg_config()
         remove_edges=[]
 
         for u,v,key,data in self.graph.edges(
@@ -151,12 +161,12 @@ class GraphStore:
             data=True
         ):
             data["confidence"]*=(
-                1-self.config.kg.decay_rate
+                1-config.decay_rate
             )
 
             if (
                 data["confidence"]<
-                self.config.kg.confidence_floor
+                config.confidence_floor
             ):
                 remove_edges.append(
                     (u,v,key)

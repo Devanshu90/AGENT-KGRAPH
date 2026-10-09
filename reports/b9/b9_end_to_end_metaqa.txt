@@ -1,0 +1,87 @@
+B9 REAL-MODEL END-TO-END METAQA
+============================================================
+Split: test
+Samples: 6
+
+Overall:
+  Exact Match: 0.0000
+  Token F1: 0.3856
+  Average latency: 41312.01 ms
+
+Hop Metrics:
+  1-hop:
+    Count: 2
+    EM: 0.0000
+    F1: 0.4602
+    Latency: 45.96 ms
+  2-hop:
+    Count: 2
+    EM: 0.0000
+    F1: 0.3538
+    Latency: 123184.02 ms
+  3-hop:
+    Count: 2
+    EM: 0.0000
+    F1: 0.3429
+    Latency: 706.05 ms
+
+Route Distribution:
+{
+  "kg": 6
+}
+
+Per-question Results:
+
+Question ID: metaqa_1hop_test_0000000
+Hop: 1
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.3750
+Latency: 8.49 ms
+Prediction: Career Girls, Katrin Cartlidge, Labina Mitevska, Jason Statham, Jet Li, Before the Rain
+
+Question ID: metaqa_1hop_test_0000001
+Hop: 1
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.5455
+Latency: 83.44 ms
+Prediction: The Pyramid, The Inbetweeners Movie, The Inbetweeners 2
+
+Question ID: metaqa_2hop_test_0000000
+Hop: 2
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.4000
+Latency: 119313.66 ms
+Prediction: Sam Mendes Sources: kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0008
+
+Question ID: metaqa_2hop_test_0000001
+Hop: 2
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.3077
+Latency: 127054.38 ms
+Prediction: Robert Stevenson Sources: kg_path_0001, kg_path_0002, kg_path_0003, kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0
+
+Question ID: metaqa_3hop_test_0000000
+Hop: 3
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.4000
+Latency: 1059.08 ms
+Prediction: Japanese, German, Polish, Mende
+
+Question ID: metaqa_3hop_test_0000001
+Hop: 3
+Route: kg
+Evidence: 8
+EM: 0.0000
+F1: 0.2857
+Latency: 353.01 ms
+Prediction: Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson
