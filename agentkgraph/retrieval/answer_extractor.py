@@ -170,27 +170,15 @@ class KGPathAnswerExtractor:
 
         if target == "shared_movies":
             if shared_actors:
-                pattern = [
-                    "starred_actors",
-                    "starred_actors (reverse)",
-                ]
+                pattern = ["starred_actors", "starred_actors (reverse)"]
             elif shared_directors:
-                pattern = [
-                    "directed_by",
-                    "directed_by (reverse)",
-                ]
+                pattern = ["directed_by", "directed_by (reverse)"]
             elif shared_writers:
-                pattern = [
-                    "written_by",
-                    "written_by (reverse)",
-                ]
+                pattern = ["written_by", "written_by (reverse)"]
             else:
                 return []
 
-            if len(edges) != len(pattern):
-                return []
-
-            if self._matches_prefix(edges, pattern):
+            if len(edges) == len(pattern) and self._matches_prefix(edges, pattern):
                 return [(edges[-1][0], edges[-1][2])]
 
             return []
@@ -199,20 +187,11 @@ class KGPathAnswerExtractor:
             "in_language", "has_genre", "release_year", "has_tags",
         }:
             if shared_actors:
-                prefix = [
-                    "starred_actors",
-                    "starred_actors (reverse)",
-                ]
+                prefix = ["starred_actors", "starred_actors (reverse)"]
             elif shared_directors:
-                prefix = [
-                    "directed_by",
-                    "directed_by (reverse)",
-                ]
+                prefix = ["directed_by", "directed_by (reverse)"]
             elif shared_writers:
-                prefix = [
-                    "written_by",
-                    "written_by (reverse)",
-                ]
+                prefix = ["written_by", "written_by (reverse)"]
             else:
                 prefix = []
 
@@ -230,12 +209,13 @@ class KGPathAnswerExtractor:
 
                 return []
 
-            final = edges[-1]
-
-            if self._is_relation(final[1], target, reverse=False):
-                return [(final[0], final[2])]
-
-            return []
+            # Search for the requested forward relation anywhere in the path.
+            # A later unrelated reverse edge must not hide a valid answer.
+            return [
+                (idx, value)
+                for idx, rel, value in edges
+                if self._is_relation(rel, target, reverse=False)
+            ]
 
         if target == "directed_by":
             if any(x in q for x in [
@@ -258,10 +238,7 @@ class KGPathAnswerExtractor:
                 return []
 
             if "starred" in q or "actors" in q:
-                pattern = [
-                    "starred_actors (reverse)",
-                    "directed_by",
-                ]
+                pattern = ["starred_actors (reverse)", "directed_by"]
 
                 if len(edges) == 2 and self._matches_prefix(edges, pattern):
                     return [(edges[1][0], edges[1][2])]

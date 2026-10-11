@@ -1,3 +1,4 @@
+
 import re
 import unicodedata
 
@@ -195,52 +196,24 @@ class KGRetriever:
 
         mapping = {
             "starred_actors": [
-                "starred",
-                "star",
-                "appears",
-                "appear",
-                "acted",
-                "actor",
-                "actors",
-                "cast",
+                "starred", "star", "appears", "appear",
+                "acted", "actor", "actors", "cast",
                 "starred_actors",
             ],
             "directed_by": [
-                "directed",
-                "director",
-                "directors",
-                "direct",
-                "co-director",
-                "codirector",
-                "co-directors",
+                "directed", "director", "directors", "direct",
+                "co-director", "codirector", "co-directors",
             ],
             "written_by": [
-                "written",
-                "writer",
-                "writers",
-                "screenwriter",
-                "screenwriters",
+                "written", "writer", "writers",
+                "screenwriter", "screenwriters",
             ],
-            "in_language": [
-                "language",
-                "languages",
-            ],
-            "has_genre": [
-                "genre",
-                "genres",
-                "types",
-                "fall under",
-            ],
-            "has_tags": [
-                "tag",
-                "tags",
-            ],
+            "in_language": ["language", "languages"],
+            "has_genre": ["genre", "genres", "types", "fall under"],
+            "has_tags": ["tag", "tags"],
             "release_year": [
-                "release year",
-                "release years",
-                "released",
-                "release",
-                "year",
+                "release year", "release years",
+                "released", "release", "year",
             ],
         }
 
@@ -257,104 +230,65 @@ class KGRetriever:
     def _target_relations(self, query):
         q = query.casefold()
 
-        if any(word in q for word in [
-            "language",
-            "languages",
-        ]):
+        if any(word in q for word in ["language", "languages"]):
             return ["in_language"]
 
         if any(word in q for word in [
-            "genre",
-            "genres",
-            "types",
-            "fall under",
+            "genre", "genres", "types", "fall under",
         ]):
             return ["has_genre"]
 
         if any(word in q for word in [
-            "release year",
-            "release years",
-            "released",
-            "when did",
-            "when were",
-            "when was",
+            "release year", "release years", "released",
+            "when did", "when were", "when was",
         ]):
             return ["release_year"]
 
-        if any(word in q for word in [
-            "tag",
-            "tags",
-        ]):
+        if any(word in q for word in ["tag", "tags"]):
             return ["has_tags"]
 
-        if any(word in q for word in [
-            "screenwriter",
-            "screenwriters",
-            "who wrote",
-            "which writer",
-            "what writer",
+        if any(phrase in q for phrase in [
+            "screenwriter", "screenwriters", "who wrote",
+            "which writer", "what writer",
         ]):
             return ["written_by"]
 
         if any(phrase in q for phrase in [
-            "who starred",
-            "who stars",
-            "who acted",
-            "who appears",
-            "which actors",
-            "what actors",
-            "which actor",
-            "what actor",
+            "who starred", "who stars", "who acted",
+            "who appears", "which actors", "what actors",
+            "which actor", "what actor",
         ]):
             return ["starred_actors"]
 
         if any(phrase in q for phrase in [
-            "who directed",
-            "who are the directors",
-            "who are directors",
-            "directors of",
-            "directed by who",
-            "which director",
-            "what director",
-            "co-director",
-            "codirector",
+            "who directed", "who are the directors",
+            "who are directors", "directors of",
+            "directed by who", "which director",
+            "what director", "co-director", "codirector",
             "co-directors",
         ]):
             return ["directed_by"]
 
         if any(phrase in q for phrase in [
-            "who are the writers",
-            "who are writers",
-            "writers of",
-            "which writers",
-            "what writers",
-            "who is the writer",
-            "who was the writer",
+            "who are the writers", "who are writers",
+            "writers of", "which writers", "what writers",
+            "who is the writer", "who was the writer",
         ]):
             return ["written_by"]
 
         if any(word in q for word in [
-            "directed",
-            "director",
-            "directors",
+            "directed", "director", "directors",
         ]):
             return ["directed_by"]
 
         if any(word in q for word in [
-            "written",
-            "writer",
-            "writers",
+            "written", "writer", "writers",
         ]):
             return ["written_by"]
 
         if any(word in q for word in [
-            "starred",
-            "stars",
-            "actor",
-            "actors",
-            "cast",
-            "appear",
-            "acted",
+            "starred", "stars", "actor", "actors",
+            "cast", "appear", "acted",
         ]):
             return ["starred_actors"]
 
@@ -396,11 +330,39 @@ class KGRetriever:
     def _rank_path(self, result, relevant_relations, target_relations):
         path = result["path"]
         query = getattr(self, "_active_query", "").casefold()
+        hop_count = max(len(path) - 1, 0)
+
+        is_filmography = any(phrase in query for phrase in [
+            "what films did",
+            "what films does",
+            "what does",
+            "what movies did",
+            "what movies does",
+            "which movies did",
+            "which films did",
+            "appears in which movies",
+            "appears in which films",
+            "films did",
+            "movies did",
+            "films does",
+            "movies does",
+            "appear in",
+            "act in",
+        ])
+
+        if is_filmography:
+            if (
+                hop_count == 1
+                and len(path) == 2
+                and str(path[1][0]).casefold()
+                == "starred_actors (reverse)"
+            ):
+                return 200.0 + result["score"] * 0.01
+
+            return -100.0 + result["score"] * 0.01
 
         if any(word in query for word in [
-            "co-director",
-            "codirector",
-            "co-directors",
+            "co-director", "codirector", "co-directors",
         ]):
             relations = [
                 str(item[0]).casefold()
@@ -424,13 +386,10 @@ class KGRetriever:
             path,
             relevant_relations,
         )
-
         final_relation_score = self._final_relation_score(
             path,
             target_relations,
         )
-
-        hop_count = max(len(path) - 1, 0)
         target_bonus = (
             2.0
             if final_relation_score > 0 and hop_count >= 2
@@ -468,18 +427,13 @@ class KGRetriever:
         seen = set()
 
         for result in results:
-            path_key = tuple(
-                str(item)
-                for item in result["path"]
-            )
+            path_key = tuple(str(item) for item in result["path"])
 
             if path_key in seen:
                 continue
 
             seen.add(path_key)
-            result["path_id"] = (
-                f"kg_path_{len(unique) + 1:04d}"
-            )
+            result["path_id"] = f"kg_path_{len(unique) + 1:04d}"
             unique.append(result)
 
         return unique[:50]

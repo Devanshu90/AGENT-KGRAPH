@@ -1,5 +1,5 @@
-﻿
-import json
+﻿import json
+from pathlib import Path
 
 from agentkgraph.config import Config
 from agentkgraph.pipeline import Engine
@@ -10,7 +10,8 @@ DATA_PATH = "data/processed/metaqa/test.jsonl"
 GRAPH_PATH = "data/kg/metaqa_graph.json"
 SAMPLE_SIZE = 30
 FAILURES_PER_HOP = 10
-PATHS_PER_FAILURE = 3
+PATHS_PER_FAILURE = 5
+OUTPUT_PATH = "metaqa_diagnostic.json"
 
 want = {1: SAMPLE_SIZE, 2: SAMPLE_SIZE, 3: SAMPLE_SIZE}
 cnt = {h: 0 for h in want}
@@ -66,6 +67,7 @@ try:
                 "gold_answers": gold,
                 "prediction": pred,
                 "f1": round(f1, 4),
+                "empty": not bool(pred),
                 "route": result.get("route"),
                 "evidence_count": len(evidence),
                 "paths": [
@@ -91,14 +93,29 @@ try:
             for h, s in stats.items()
         },
         "incorrect_examples": {
-            str(h): failures[h]
-            for h in (1, 3)
+            str(h): failures[h] for h in want
         },
         "failure_limit_per_hop": FAILURES_PER_HOP,
         "paths_shown_per_failure": PATHS_PER_FAILURE,
     }
 
-    print(json.dumps(report, indent=2, ensure_ascii=False))
+    Path(OUTPUT_PATH).write_text(
+        json.dumps(report, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    print("MetaQA diagnostic complete")
+    print(f"Detailed report: {OUTPUT_PATH}")
+    print()
+
+    for h in want:
+        s = report["by_hop"][str(h)]
+        print(
+            f"{h}-hop: EM {s['em']}/{s['total']} "
+            f"({s['em_rate']:.1%}), "
+            f"F1 {s['mean_f1']:.4f}, "
+            f"empty {s['empty']}/{s['total']}"
+        )
 
 finally:
     eng.unload_all()

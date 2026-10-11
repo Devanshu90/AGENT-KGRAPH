@@ -373,3 +373,26 @@ def test_shared_movie_query_returns_movie_not_actor():
 
     assert result is not None
     assert result["answer"] == "The Rainmaker"
+
+
+def test_extract_language_before_irrelevant_reverse_edge():
+    evidence = [
+        {
+            "path_id": "language_path",
+            "path": [
+                (None, "David Mandel"),
+                ("directed_by (reverse)", "EuroTrip"),
+                ("in_language", "German"),
+                ("in_language (reverse)", "Operation Crossbow"),
+            ],
+        }
+    ]
+
+    result = KGPathAnswerExtractor().extract(
+        "what are the primary languages in the movies directed by [David Mandel]",
+        evidence,
+    )
+
+    assert result is not None
+    assert result["answer"] == "German"
+    assert result["citations"] == ["language_path"]
