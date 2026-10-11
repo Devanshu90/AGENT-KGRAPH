@@ -1,4 +1,3 @@
-
 import re
 import unicodedata
 
@@ -52,14 +51,14 @@ class KGRetriever:
                         if overlap:
                             score = (
                                 len(overlap),
-                                len(overlap) / max(len(entity_tokens), 1)
+                                len(overlap) / max(len(entity_tokens), 1),
                             )
                             candidates.append((score, entity))
 
                 if candidates:
                     candidates.sort(
                         key=lambda item: item[0],
-                        reverse=True
+                        reverse=True,
                     )
                     best_score = candidates[0][0]
                     best = [
@@ -74,8 +73,6 @@ class KGRetriever:
             if len(seeds) >= self.max_seeds:
                 break
 
-        # Avoid accidental entity matches when an explicit entity
-        # mention is already present in the question.
         if not seeds and not mentions:
             query_normalized = self._normalize_entity(query)
             matches = []
@@ -83,14 +80,14 @@ class KGRetriever:
             for key, entities in self.entity_lookup.items():
                 if len(key) >= 4 and re.search(
                     r"(?<!\w)" + re.escape(key) + r"(?!\w)",
-                    query_normalized
+                    query_normalized,
                 ):
                     for entity in entities:
                         matches.append((len(key), entity))
 
             matches.sort(
                 key=lambda item: item[0],
-                reverse=True
+                reverse=True,
             )
 
             for _, entity in matches:
@@ -120,7 +117,7 @@ class KGRetriever:
         return {
             "seed": seed,
             "path": [source, predicate, target],
-            "score": score
+            "score": score,
         }
 
     def _multi_hop_paths(self, seed):
@@ -134,21 +131,17 @@ class KGRetriever:
 
             edges = []
 
-            for source, target, key, data in (
-                self.kg.graph.out_edges(
-                    node,
-                    keys=True,
-                    data=True
-                )
+            for source, target, key, data in self.kg.graph.out_edges(
+                node,
+                keys=True,
+                data=True,
             ):
                 edges.append((source, target, data, False))
 
-            for source, target, key, data in (
-                self.kg.graph.in_edges(
-                    node,
-                    keys=True,
-                    data=True
-                )
+            for source, target, key, data in self.kg.graph.in_edges(
+                node,
+                keys=True,
+                data=True,
             ):
                 edges.append((source, target, data, True))
 
@@ -158,11 +151,7 @@ class KGRetriever:
                 if next_node in visited:
                     continue
 
-                edge_score = self._edge_score(
-                    source,
-                    target,
-                    data
-                )
+                edge_score = self._edge_score(source, target, data)
                 new_score = score * edge_score
 
                 if new_score < min_score:
@@ -180,7 +169,7 @@ class KGRetriever:
                 results.append({
                     "seed": seed,
                     "path": new_path,
-                    "score": new_score
+                    "score": new_score,
                 })
 
                 dfs(
@@ -188,7 +177,7 @@ class KGRetriever:
                     new_path,
                     new_score,
                     depth + 1,
-                    visited | {next_node}
+                    visited | {next_node},
                 )
 
         dfs(
@@ -196,13 +185,13 @@ class KGRetriever:
             [(None, seed)],
             1.0,
             0,
-            {seed}
+            {seed},
         )
 
         return results
 
     def _relevant_relations(self, query):
-        query_lower = query.lower()
+        query_lower = query.casefold()
 
         mapping = {
             "starred_actors": [
@@ -214,7 +203,7 @@ class KGRetriever:
                 "actor",
                 "actors",
                 "cast",
-                "starred_actors"
+                "starred_actors",
             ],
             "directed_by": [
                 "directed",
@@ -223,30 +212,36 @@ class KGRetriever:
                 "direct",
                 "co-director",
                 "codirector",
-                "co-directors"
+                "co-directors",
             ],
             "written_by": [
                 "written",
                 "writer",
-                "writers"
+                "writers",
+                "screenwriter",
+                "screenwriters",
             ],
             "in_language": [
                 "language",
-                "languages"
+                "languages",
             ],
             "has_genre": [
                 "genre",
-                "genres"
+                "genres",
+                "types",
+                "fall under",
             ],
             "has_tags": [
                 "tag",
-                "tags"
+                "tags",
             ],
             "release_year": [
                 "release year",
+                "release years",
                 "released",
-                "year"
-            ]
+                "release",
+                "year",
+            ],
         }
 
         relevant = set()
@@ -260,76 +255,107 @@ class KGRetriever:
         return relevant
 
     def _target_relations(self, query):
-        query_lower = query.lower()
+        q = query.casefold()
 
-        # Prioritize the requested answer type over intermediate relations.
-        if any(
-            word in query_lower
-            for word in ["language", "languages"]
-        ):
+        if any(word in q for word in [
+            "language",
+            "languages",
+        ]):
             return ["in_language"]
 
-        if any(
-            phrase in query_lower
-            for phrase in [
-                "who starred",
-                "who stars",
-                "who acted",
-                "who appears",
-                "which actors",
-                "what actors"
-            ]
-        ):
-            return ["starred_actors"]
-
-        if any(
-            word in query_lower
-            for word in [
-                "directed",
-                "director",
-                "directors",
-                "co-director",
-                "codirector",
-                "co-directors"
-            ]
-        ):
-            return ["directed_by"]
-
-        if any(
-            word in query_lower
-            for word in ["written", "writer", "writers"]
-        ):
-            return ["written_by"]
-
-        if any(
-            word in query_lower
-            for word in ["genre", "genres"]
-        ):
+        if any(word in q for word in [
+            "genre",
+            "genres",
+            "types",
+            "fall under",
+        ]):
             return ["has_genre"]
 
-        if any(
-            word in query_lower
-            for word in ["tag", "tags"]
-        ):
-            return ["has_tags"]
-
-        if any(
-            word in query_lower
-            for word in ["release year", "released"]
-        ):
+        if any(word in q for word in [
+            "release year",
+            "release years",
+            "released",
+            "when did",
+            "when were",
+            "when was",
+        ]):
             return ["release_year"]
 
-        if any(
-            word in query_lower
-            for word in [
-                "starred",
-                "stars",
-                "actor",
-                "actors",
-                "cast",
-                "appear"
-            ]
-        ):
+        if any(word in q for word in [
+            "tag",
+            "tags",
+        ]):
+            return ["has_tags"]
+
+        if any(word in q for word in [
+            "screenwriter",
+            "screenwriters",
+            "who wrote",
+            "which writer",
+            "what writer",
+        ]):
+            return ["written_by"]
+
+        if any(phrase in q for phrase in [
+            "who starred",
+            "who stars",
+            "who acted",
+            "who appears",
+            "which actors",
+            "what actors",
+            "which actor",
+            "what actor",
+        ]):
+            return ["starred_actors"]
+
+        if any(phrase in q for phrase in [
+            "who directed",
+            "who are the directors",
+            "who are directors",
+            "directors of",
+            "directed by who",
+            "which director",
+            "what director",
+            "co-director",
+            "codirector",
+            "co-directors",
+        ]):
+            return ["directed_by"]
+
+        if any(phrase in q for phrase in [
+            "who are the writers",
+            "who are writers",
+            "writers of",
+            "which writers",
+            "what writers",
+            "who is the writer",
+            "who was the writer",
+        ]):
+            return ["written_by"]
+
+        if any(word in q for word in [
+            "directed",
+            "director",
+            "directors",
+        ]):
+            return ["directed_by"]
+
+        if any(word in q for word in [
+            "written",
+            "writer",
+            "writers",
+        ]):
+            return ["written_by"]
+
+        if any(word in q for word in [
+            "starred",
+            "stars",
+            "actor",
+            "actors",
+            "cast",
+            "appear",
+            "acted",
+        ]):
             return ["starred_actors"]
 
         return []
@@ -344,13 +370,13 @@ class KGRetriever:
             if not isinstance(item, (list, tuple)):
                 continue
 
-            if len(item) != 2:
+            if len(item) != 2 or item[0] is None:
                 continue
 
-            relation = str(item[0]).lower()
+            relation = str(item[0]).casefold()
 
             for target in relevant_relations:
-                if target.lower() in relation:
+                if target.casefold() in relation:
                     score += 3.0
 
         return score
@@ -359,32 +385,23 @@ class KGRetriever:
         if not target_relations or len(path) < 2:
             return 0.0
 
-        final_relation = str(path[-1][0]).lower()
+        final_relation = str(path[-1][0]).casefold()
 
         for relation in target_relations:
-            if relation.lower() in final_relation:
-                return 10.0
+            if relation.casefold() in final_relation:
+                return 100.0
 
         return 0.0
 
-    def _rank_path(
-        self,
-        result,
-        relevant_relations,
-        target_relations
-    ):
+    def _rank_path(self, result, relevant_relations, target_relations):
         path = result["path"]
         query = getattr(self, "_active_query", "").casefold()
 
-        # Prefer direct shared-film paths for co-director questions.
-        if any(
-            word in query
-            for word in [
-                "co-director",
-                "codirector",
-                "co-directors"
-            ]
-        ):
+        if any(word in query for word in [
+            "co-director",
+            "codirector",
+            "co-directors",
+        ]):
             relations = [
                 str(item[0]).casefold()
                 for item in path
@@ -401,16 +418,16 @@ class KGRetriever:
                 and "directed_by" in relations[1]
                 and "reverse" not in relations[1]
             ):
-                return 100.0 + result["score"] * 0.01
+                return 200.0 + result["score"] * 0.01
 
         relation_score = self._path_relation_score(
             path,
-            relevant_relations
+            relevant_relations,
         )
 
         final_relation_score = self._final_relation_score(
             path,
-            target_relations
+            target_relations,
         )
 
         hop_count = max(len(path) - 1, 0)
@@ -433,9 +450,7 @@ class KGRetriever:
         results = []
 
         for seed in seeds:
-            results.extend(
-                self._multi_hop_paths(seed)
-            )
+            results.extend(self._multi_hop_paths(seed))
 
         relevant_relations = self._relevant_relations(query)
         target_relations = self._target_relations(query)
@@ -444,9 +459,9 @@ class KGRetriever:
             key=lambda item: self._rank_path(
                 item,
                 relevant_relations,
-                target_relations
+                target_relations,
             ),
-            reverse=True
+            reverse=True,
         )
 
         unique = []
