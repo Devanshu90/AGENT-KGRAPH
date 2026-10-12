@@ -9,129 +9,41 @@
       "total": 30,
       "em": 13,
       "f1": 21.709788359788362,
+      "set_em": 27,
+      "set_f1": 27.307692307692307,
       "empty": 2,
       "em_rate": 0.4333,
-      "mean_f1": 0.7237
+      "mean_f1": 0.7237,
+      "set_em_rate": 0.9,
+      "mean_set_f1": 0.9103
     },
     "2": {
       "total": 30,
-      "em": 13,
-      "f1": 15.066666666666666,
-      "empty": 11,
-      "em_rate": 0.4333,
-      "mean_f1": 0.5022
+      "em": 14,
+      "f1": 18.45828600643922,
+      "set_em": 13,
+      "set_f1": 20.276660219213408,
+      "empty": 4,
+      "em_rate": 0.4667,
+      "mean_f1": 0.6153,
+      "set_em_rate": 0.4333,
+      "mean_set_f1": 0.6759
     },
     "3": {
       "total": 30,
-      "em": 1,
-      "f1": 5.8373634084058095,
-      "empty": 7,
-      "em_rate": 0.0333,
-      "mean_f1": 0.1946
+      "em": 2,
+      "f1": 8.301439281866845,
+      "set_em": 16,
+      "set_f1": 20.774653674281375,
+      "empty": 2,
+      "em_rate": 0.0667,
+      "mean_f1": 0.2767,
+      "set_em_rate": 0.5333,
+      "mean_set_f1": 0.6925
     }
   },
   "incorrect_examples": {
     "1": [
-      {
-        "question": "[Joe Thomas] appears in which movies",
-        "gold_answers": [
-          "The Inbetweeners Movie",
-          "The Inbetweeners 2"
-        ],
-        "prediction": "The Inbetweeners 2, The Inbetweeners Movie",
-        "f1": 0.6667,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Joe Thomas"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Inbetweeners 2"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Joe Thomas"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Inbetweeners Movie"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Joe Thomas"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Inbetweeners 2"
-              ],
-              [
-                "directed_by",
-                "Iain Morris"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Joe Thomas"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Inbetweeners 2"
-              ],
-              [
-                "directed_by",
-                "Iain Morris"
-              ],
-              [
-                "written_by (reverse)",
-                "The Inbetweeners Movie"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Joe Thomas"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Inbetweeners 2"
-              ],
-              [
-                "written_by",
-                "Iain Morris"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
       {
         "question": "what films did [Michelle Trachtenberg] star in",
         "gold_answers": [
@@ -142,7 +54,11 @@
           "The Scribbler"
         ],
         "prediction": "",
-        "f1": 0.0,
+        "predicted_answers": [],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
         "empty": true,
         "route": "kg",
         "evidence_count": 50,
@@ -248,493 +164,6 @@
         ]
       },
       {
-        "question": "what does [Helen Mack] star in",
-        "gold_answers": [
-          "The Son of Kong",
-          "Kiss and Make-Up",
-          "Divorce"
-        ],
-        "prediction": "Divorce, Kiss and Make-Up, The Son of Kong",
-        "f1": 0.6667,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Helen Mack"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Divorce"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Helen Mack"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Kiss and Make-Up"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Helen Mack"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Son of Kong"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Helen Mack"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Divorce"
-              ],
-              [
-                "starred_actors",
-                "Bruce Cabot"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Helen Mack"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Divorce"
-              ],
-              [
-                "starred_actors",
-                "Bruce Cabot"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Fury"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what films did [Shahid Kapoor] act in",
-        "gold_answers": [
-          "Haider",
-          "Jab We Met",
-          "Chance Pe Dance"
-        ],
-        "prediction": "Chance Pe Dance, Jab We Met, Haider",
-        "f1": 0.4,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Shahid Kapoor"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Chance Pe Dance"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Shahid Kapoor"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Jab We Met"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Shahid Kapoor"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Haider"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Shahid Kapoor"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Chance Pe Dance"
-              ],
-              [
-                "directed_by",
-                "Ken Ghosh"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Shahid Kapoor"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Chance Pe Dance"
-              ],
-              [
-                "written_by",
-                "Ken Ghosh"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "[Brendan Gleeson] appears in which movies",
-        "gold_answers": [
-          "The Raven",
-          "Lake Placid",
-          "Calvary",
-          "The Smurfs 2",
-          "Stonehearst Asylum",
-          "The Grand Seduction",
-          "The General",
-          "Six Shooter",
-          "Harrison's Flowers",
-          "Into the Storm",
-          "The Tiger's Tail"
-        ],
-        "prediction": "Harrison's Flowers, The Grand Seduction, The Smurfs 2, The Raven, The Tiger's Tail, Into the Storm, Six Shooter, The General, Lake Placid, Stonehearst Asylum, Calvary",
-        "f1": 0.1429,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Brendan Gleeson"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Harrison's Flowers"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Brendan Gleeson"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Grand Seduction"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Brendan Gleeson"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Smurfs 2"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Brendan Gleeson"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Raven"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Brendan Gleeson"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Tiger's Tail"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what films does [Paresh Rawal] appear in",
-        "gold_answers": [
-          "Table No. 21",
-          "Cheeni Kum"
-        ],
-        "prediction": "Table No. 21, Cheeni Kum",
-        "f1": 0.5714,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Paresh Rawal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Table No. 21"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Paresh Rawal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Cheeni Kum"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Paresh Rawal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Table No. 21"
-              ],
-              [
-                "directed_by",
-                "Aditya Datt"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Paresh Rawal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Table No. 21"
-              ],
-              [
-                "starred_actors",
-                "Rajeev Khandelwal"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Paresh Rawal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Table No. 21"
-              ],
-              [
-                "starred_actors",
-                "Rajeev Khandelwal"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Aamir"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what films does [Brigitte Nielsen] appear in",
-        "gold_answers": [
-          "Cobra",
-          "Red Sonja"
-        ],
-        "prediction": "Cobra, Red Sonja",
-        "f1": 0.8,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Brigitte Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Cobra"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Brigitte Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Red Sonja"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Brigitte Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Cobra"
-              ],
-              [
-                "directed_by",
-                "George P. Cosmatos"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Brigitte Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Cobra"
-              ],
-              [
-                "directed_by",
-                "George P. Cosmatos"
-              ],
-              [
-                "directed_by (reverse)",
-                "Tombstone"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Brigitte Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Cobra"
-              ],
-              [
-                "directed_by",
-                "George P. Cosmatos"
-              ],
-              [
-                "directed_by (reverse)",
-                "Of Unknown Origin"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
         "question": "what films did [Christina Ricci] act in",
         "gold_answers": [
           "Sleepy Hollow",
@@ -758,7 +187,11 @@
           "Around the Block"
         ],
         "prediction": "",
-        "f1": 0.0,
+        "predicted_answers": [],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
         "empty": true,
         "route": "kg",
         "evidence_count": 50,
@@ -864,16 +297,29 @@
         ]
       },
       {
-        "question": "what films does [William Atherton] appear in",
+        "question": "what movies was [Chris O'Donnell] an actor in",
         "gold_answers": [
-          "Die Hard 2",
-          "The Sugarland Express",
-          "The Day of the Locust",
-          "Buried Alive",
-          "The Citizen"
+          "Scent of a Woman",
+          "Vertical Limit",
+          "Kinsey",
+          "The Three Musketeers",
+          "School Ties",
+          "The Bachelor",
+          "Cookie's Fortune",
+          "The Chamber",
+          "In Love and War",
+          "Mad Love",
+          "Men Don't Leave"
         ],
-        "prediction": "The Citizen, The Sugarland Express, The Day of the Locust, Die Hard 2, Buried Alive",
-        "f1": 0.4,
+        "prediction": "The Bachelor, The Three Musketeers",
+        "predicted_answers": [
+          "The Bachelor",
+          "The Three Musketeers"
+        ],
+        "original_em": 0,
+        "original_f1": 0.75,
+        "set_em": 0,
+        "set_f1": 0.3077,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -883,11 +329,19 @@
             "path": [
               [
                 null,
-                "William Atherton"
+                "Chris O'Donnell"
               ],
               [
                 "starred_actors (reverse)",
-                "The Citizen"
+                "The Bachelor"
+              ],
+              [
+                "starred_actors",
+                "Renée Zellweger"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Case 39"
               ]
             ],
             "score": 1.0
@@ -897,11 +351,19 @@
             "path": [
               [
                 null,
-                "William Atherton"
+                "Chris O'Donnell"
               ],
               [
                 "starred_actors (reverse)",
-                "The Sugarland Express"
+                "The Bachelor"
+              ],
+              [
+                "starred_actors",
+                "Renée Zellweger"
+              ],
+              [
+                "starred_actors (reverse)",
+                "My One and Only"
               ]
             ],
             "score": 1.0
@@ -911,11 +373,19 @@
             "path": [
               [
                 null,
-                "William Atherton"
+                "Chris O'Donnell"
               ],
               [
                 "starred_actors (reverse)",
-                "The Day of the Locust"
+                "The Bachelor"
+              ],
+              [
+                "starred_actors",
+                "Renée Zellweger"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Whole Wide World"
               ]
             ],
             "score": 1.0
@@ -925,11 +395,19 @@
             "path": [
               [
                 null,
-                "William Atherton"
+                "Chris O'Donnell"
               ],
               [
                 "starred_actors (reverse)",
-                "Die Hard 2"
+                "The Bachelor"
+              ],
+              [
+                "starred_actors",
+                "Renée Zellweger"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Chicago"
               ]
             ],
             "score": 1.0
@@ -939,108 +417,19 @@
             "path": [
               [
                 null,
-                "William Atherton"
+                "Chris O'Donnell"
               ],
               [
                 "starred_actors (reverse)",
-                "Buried Alive"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what does [Jeremy Piven] act in",
-        "gold_answers": [
-          "So Undercover",
-          "Keeping Up with the Steins",
-          "Just Write"
-        ],
-        "prediction": "Keeping Up with the Steins, Just Write, So Undercover",
-        "f1": 0.5714,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
+                "The Bachelor"
+              ],
               [
-                null,
-                "Jeremy Piven"
+                "starred_actors",
+                "Renée Zellweger"
               ],
               [
                 "starred_actors (reverse)",
-                "Keeping Up with the Steins"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Jeremy Piven"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Just Write"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Jeremy Piven"
-              ],
-              [
-                "starred_actors (reverse)",
-                "So Undercover"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Jeremy Piven"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Keeping Up with the Steins"
-              ],
-              [
-                "directed_by",
-                "Scott Marshall"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Jeremy Piven"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Keeping Up with the Steins"
-              ],
-              [
-                "directed_by",
-                "Scott Marshall"
-              ],
-              [
-                "directed_by (reverse)",
-                "All's Faire in Love"
+                "Love and a .45"
               ]
             ],
             "score": 1.0
@@ -1058,8 +447,20 @@
           "Ken Kwapis",
           "Luke Greenfield"
         ],
-        "prediction": "George Clooney, Sam Mendes, Ken Kwapis, Luke Greenfield, Nancy Meyers",
-        "f1": 0.3333,
+        "prediction": "George Clooney, Sam Mendes, Ken Kwapis, Luke Greenfield, Nancy Meyers, Gus Van Sant, Michael Hoffman",
+        "predicted_answers": [
+          "George Clooney",
+          "Sam Mendes",
+          "Ken Kwapis",
+          "Luke Greenfield",
+          "Nancy Meyers",
+          "Gus Van Sant",
+          "Michael Hoffman"
+        ],
+        "original_em": 0,
+        "original_f1": 0.1176,
+        "set_em": 0,
+        "set_f1": 0.8333,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -1177,122 +578,19 @@
         ]
       },
       {
-        "question": "who are movie co-directors of [Delbert Mann]",
-        "gold_answers": [
-          "Franco Zeffirelli",
-          "Cary Fukunaga",
-          "Lewis Milestone",
-          "Robert Stevenson"
-        ],
-        "prediction": "Robert Stevenson, Cary Fukunaga, Franco Zeffirelli, Lewis Milestone",
-        "f1": 0.4,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Delbert Mann"
-              ],
-              [
-                "directed_by (reverse)",
-                "Jane Eyre"
-              ],
-              [
-                "directed_by",
-                "Robert Stevenson"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Delbert Mann"
-              ],
-              [
-                "directed_by (reverse)",
-                "Jane Eyre"
-              ],
-              [
-                "directed_by",
-                "Cary Fukunaga"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Delbert Mann"
-              ],
-              [
-                "directed_by (reverse)",
-                "Jane Eyre"
-              ],
-              [
-                "directed_by",
-                "Franco Zeffirelli"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Delbert Mann"
-              ],
-              [
-                "directed_by (reverse)",
-                "All Quiet on the Western Front"
-              ],
-              [
-                "directed_by",
-                "Lewis Milestone"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Delbert Mann"
-              ],
-              [
-                "directed_by (reverse)",
-                "Jane Eyre"
-              ],
-              [
-                "directed_by",
-                "Robert Stevenson"
-              ],
-              [
-                "directed_by (reverse)",
-                "That Darn Cat!"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
         "question": "the screenwriter [Mimsy Farmer] co-wrote movies with who",
         "gold_answers": [
           "Barbet Schroeder"
         ],
         "prediction": "Barbet Schroeder, Ernest Thompson",
-        "f1": 0.3333,
+        "predicted_answers": [
+          "Barbet Schroeder",
+          "Ernest Thompson"
+        ],
+        "original_em": 0,
+        "original_f1": 0.3333,
+        "set_em": 0,
+        "set_f1": 0.6667,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -1406,138 +704,19 @@
         ]
       },
       {
-        "question": "who appeared in the same movie with [Angie Everhart]",
+        "question": "the films acted by [Shaun White] were in which genres",
         "gold_answers": [
-          "Erika Eleniak",
-          "Dennis Miller"
+          "Sport",
+          "Documentary"
         ],
-        "prediction": "",
-        "f1": 0.0,
-        "empty": true,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Angie Everhart"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Bordello of Blood"
-              ],
-              [
-                "starred_actors",
-                "Dennis Miller"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Murder at 1600"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Angie Everhart"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Bordello of Blood"
-              ],
-              [
-                "starred_actors",
-                "Dennis Miller"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Joe Dirt"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Angie Everhart"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Bordello of Blood"
-              ],
-              [
-                "starred_actors",
-                "Dennis Miller"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Net"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Angie Everhart"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Bordello of Blood"
-              ],
-              [
-                "starred_actors",
-                "Erika Eleniak"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Girl in the Cadillac"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Angie Everhart"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Bordello of Blood"
-              ],
-              [
-                "starred_actors",
-                "Erika Eleniak"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Chasers"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "who are the actors in the films written by [John Travis]",
-        "gold_answers": [
-          "Haley Bennett",
-          "Chace Crawford",
-          "Jake Weber"
+        "prediction": "Sport",
+        "predicted_answers": [
+          "Sport"
         ],
-        "prediction": "Jake Weber, Chace Crawford, Haley Bennett",
-        "f1": 0.5,
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.6667,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -1547,19 +726,19 @@
             "path": [
               [
                 null,
-                "John Travis"
+                "Shaun White"
               ],
               [
-                "written_by (reverse)",
-                "The Haunting of Molly Hartley"
+                "starred_actors (reverse)",
+                "The Crash Reel"
               ],
               [
-                "written_by",
-                "Rebecca Sonnenshine"
+                "has_genre",
+                "Sport"
               ],
               [
-                "written_by (reverse)",
-                "American Zombie"
+                "has_genre (reverse)",
+                "Generation Iron"
               ]
             ],
             "score": 1.0
@@ -1569,15 +748,19 @@
             "path": [
               [
                 null,
-                "John Travis"
+                "Shaun White"
               ],
               [
-                "written_by (reverse)",
-                "The Haunting of Molly Hartley"
+                "starred_actors (reverse)",
+                "The Crash Reel"
               ],
               [
-                "written_by",
-                "Rebecca Sonnenshine"
+                "has_genre",
+                "Sport"
+              ],
+              [
+                "has_genre (reverse)",
+                "Invincible"
               ]
             ],
             "score": 1.0
@@ -1587,11 +770,19 @@
             "path": [
               [
                 null,
-                "John Travis"
+                "Shaun White"
               ],
               [
-                "written_by (reverse)",
-                "The Haunting of Molly Hartley"
+                "starred_actors (reverse)",
+                "The Crash Reel"
+              ],
+              [
+                "has_genre",
+                "Sport"
+              ],
+              [
+                "has_genre (reverse)",
+                "Dogtown and Z-Boys"
               ]
             ],
             "score": 1.0
@@ -1601,19 +792,19 @@
             "path": [
               [
                 null,
-                "John Travis"
-              ],
-              [
-                "written_by (reverse)",
-                "The Haunting of Molly Hartley"
-              ],
-              [
-                "starred_actors",
-                "Jake Weber"
+                "Shaun White"
               ],
               [
                 "starred_actors (reverse)",
-                "Wendigo"
+                "The Crash Reel"
+              ],
+              [
+                "has_genre",
+                "Sport"
+              ],
+              [
+                "has_genre (reverse)",
+                "Will"
               ]
             ],
             "score": 1.0
@@ -1623,19 +814,19 @@
             "path": [
               [
                 null,
-                "John Travis"
-              ],
-              [
-                "written_by (reverse)",
-                "The Haunting of Molly Hartley"
-              ],
-              [
-                "starred_actors",
-                "Jake Weber"
+                "Shaun White"
               ],
               [
                 "starred_actors (reverse)",
-                "Dawn of the Dead"
+                "The Crash Reel"
+              ],
+              [
+                "has_genre",
+                "Sport"
+              ],
+              [
+                "has_genre (reverse)",
+                "42"
               ]
             ],
             "score": 1.0
@@ -1643,14 +834,20 @@
         ]
       },
       {
-        "question": "the movies starred by [Clifford Rose] were written by who",
+        "question": "what are the genres of the films directed by [Jerry Lewis]",
         "gold_answers": [
-          "Adrian Mitchell",
-          "Geoffrey Skelton",
-          "Peter Weiss"
+          "Drama",
+          "Comedy",
+          "War"
         ],
-        "prediction": "Peter Weiss, Adrian Mitchell, Geoffrey Skelton",
-        "f1": 0.5,
+        "prediction": "Comedy",
+        "predicted_answers": [
+          "Comedy"
+        ],
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.5,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -1660,15 +857,19 @@
             "path": [
               [
                 null,
-                "Clifford Rose"
+                "Jerry Lewis"
               ],
               [
-                "starred_actors (reverse)",
-                "Marat/Sade"
+                "directed_by (reverse)",
+                "The Family Jewels"
               ],
               [
-                "written_by",
-                "Peter Weiss"
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "The Dark Horse"
               ]
             ],
             "score": 1.0
@@ -1678,15 +879,19 @@
             "path": [
               [
                 null,
-                "Clifford Rose"
+                "Jerry Lewis"
               ],
               [
-                "starred_actors (reverse)",
-                "Marat/Sade"
+                "directed_by (reverse)",
+                "The Family Jewels"
               ],
               [
-                "written_by",
-                "Adrian Mitchell"
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Funny About Love"
               ]
             ],
             "score": 1.0
@@ -1696,15 +901,19 @@
             "path": [
               [
                 null,
-                "Clifford Rose"
+                "Jerry Lewis"
               ],
               [
-                "starred_actors (reverse)",
-                "Marat/Sade"
+                "directed_by (reverse)",
+                "The Family Jewels"
               ],
               [
-                "written_by",
-                "Geoffrey Skelton"
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Snow Dogs"
               ]
             ],
             "score": 1.0
@@ -1714,19 +923,19 @@
             "path": [
               [
                 null,
-                "Clifford Rose"
+                "Jerry Lewis"
               ],
               [
-                "starred_actors (reverse)",
-                "Marat/Sade"
+                "directed_by (reverse)",
+                "The Family Jewels"
               ],
               [
-                "starred_actors",
-                "Patrick Magee"
+                "has_genre",
+                "Comedy"
               ],
               [
-                "starred_actors (reverse)",
-                "Barry Lyndon"
+                "has_genre (reverse)",
+                "House"
               ]
             ],
             "score": 1.0
@@ -1736,19 +945,19 @@
             "path": [
               [
                 null,
-                "Clifford Rose"
+                "Jerry Lewis"
               ],
               [
-                "starred_actors (reverse)",
-                "Marat/Sade"
+                "directed_by (reverse)",
+                "The Family Jewels"
               ],
               [
-                "starred_actors",
-                "Ian Richardson"
+                "has_genre",
+                "Comedy"
               ],
               [
-                "starred_actors (reverse)",
-                "M. Butterfly"
+                "has_genre (reverse)",
+                "1941"
               ]
             ],
             "score": 1.0
@@ -1756,30 +965,23 @@
         ]
       },
       {
-        "question": "the director of [JFK] also directed which movies",
+        "question": "what are the genres of the films directed by [Mike Nichols]",
         "gold_answers": [
-          "U Turn",
-          "Savages",
-          "Wall Street",
-          "Natural Born Killers",
-          "Platoon",
-          "Salvador",
-          "The Doors",
-          "Comandante",
-          "W.",
-          "The Hand",
-          "Born on the Fourth of July",
-          "World Trade Center",
-          "South of the Border",
-          "Seizure",
-          "Any Given Sunday",
-          "Talk Radio",
-          "Nixon",
-          "Alexander"
+          "Drama",
+          "Horror",
+          "Comedy",
+          "War",
+          "Thriller"
         ],
-        "prediction": "",
-        "f1": 0.0,
-        "empty": true,
+        "prediction": "Drama",
+        "predicted_answers": [
+          "Drama"
+        ],
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.3333,
+        "empty": false,
         "route": "kg",
         "evidence_count": 50,
         "paths": [
@@ -1788,19 +990,19 @@
             "path": [
               [
                 null,
-                "JFK"
-              ],
-              [
-                "directed_by",
-                "Oliver Stone"
+                "Mike Nichols"
               ],
               [
                 "directed_by (reverse)",
-                "Savages"
+                "Regarding Henry"
               ],
               [
-                "directed_by",
-                "James Ivory"
+                "has_genre",
+                "Drama"
+              ],
+              [
+                "has_genre (reverse)",
+                "Dirty Filthy Love"
               ]
             ],
             "score": 1.0
@@ -1810,19 +1012,19 @@
             "path": [
               [
                 null,
-                "JFK"
+                "Mike Nichols"
               ],
               [
-                "directed_by",
-                "Oliver Stone"
+                "directed_by (reverse)",
+                "Regarding Henry"
               ],
               [
-                "written_by (reverse)",
-                "Scarface"
+                "has_genre",
+                "Drama"
               ],
               [
-                "directed_by",
-                "Howard Hawks"
+                "has_genre (reverse)",
+                "Mrs. Parkington"
               ]
             ],
             "score": 1.0
@@ -1832,19 +1034,19 @@
             "path": [
               [
                 null,
-                "JFK"
+                "Mike Nichols"
               ],
               [
-                "directed_by",
-                "Oliver Stone"
+                "directed_by (reverse)",
+                "Regarding Henry"
               ],
               [
-                "written_by (reverse)",
-                "Scarface"
+                "has_genre",
+                "Drama"
               ],
               [
-                "directed_by",
-                "Richard Rosson"
+                "has_genre (reverse)",
+                "The Wolf Man"
               ]
             ],
             "score": 1.0
@@ -1854,19 +1056,19 @@
             "path": [
               [
                 null,
-                "JFK"
+                "Mike Nichols"
               ],
               [
-                "directed_by",
-                "Oliver Stone"
+                "directed_by (reverse)",
+                "Regarding Henry"
               ],
               [
-                "written_by (reverse)",
-                "Scarface"
+                "has_genre",
+                "Drama"
               ],
               [
-                "directed_by",
-                "Brian De Palma"
+                "has_genre (reverse)",
+                "A Cruel Romance"
               ]
             ],
             "score": 1.0
@@ -1876,15 +1078,149 @@
             "path": [
               [
                 null,
-                "JFK"
-              ],
-              [
-                "directed_by",
-                "Oliver Stone"
+                "Mike Nichols"
               ],
               [
                 "directed_by (reverse)",
-                "World Trade Center"
+                "Regarding Henry"
+              ],
+              [
+                "has_genre",
+                "Drama"
+              ],
+              [
+                "has_genre (reverse)",
+                "Romance"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "what genres do the films starred by [Al St. John] fall under",
+        "gold_answers": [
+          "Comedy",
+          "Short"
+        ],
+        "prediction": "Comedy",
+        "predicted_answers": [
+          "Comedy"
+        ],
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.6667,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "Al St. John"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fatty and Mabel Adrift"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "The Dark Horse"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "Al St. John"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fatty and Mabel Adrift"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Funny About Love"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "Al St. John"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fatty and Mabel Adrift"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Snow Dogs"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "Al St. John"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fatty and Mabel Adrift"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "House"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "Al St. John"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fatty and Mabel Adrift"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "1941"
               ]
             ],
             "score": 1.0
@@ -1903,9 +1239,17 @@
           "Douglas Sirk",
           "Charles Marquis Warren"
         ],
-        "prediction": "",
-        "f1": 0.0,
-        "empty": true,
+        "prediction": "Raoul Walsh, Robert Aldrich, Rob Cohen",
+        "predicted_answers": [
+          "Raoul Walsh",
+          "Robert Aldrich",
+          "Rob Cohen"
+        ],
+        "original_em": 0,
+        "original_f1": 0.5,
+        "set_em": 0,
+        "set_f1": 0.5455,
+        "empty": false,
         "route": "kg",
         "evidence_count": 50,
         "paths": [
@@ -2022,13 +1366,20 @@
         ]
       },
       {
-        "question": "the director of [The Brown Bunny] also directed which movies",
+        "question": "what were the release years the films starred by [Jean Rochefort]",
         "gold_answers": [
-          "Buffalo '66"
+          "1990",
+          "1972"
         ],
-        "prediction": "",
-        "f1": 0.0,
-        "empty": true,
+        "prediction": "1972",
+        "predicted_answers": [
+          "1972"
+        ],
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.6667,
+        "empty": false,
         "route": "kg",
         "evidence_count": 50,
         "paths": [
@@ -2037,15 +1388,19 @@
             "path": [
               [
                 null,
-                "The Brown Bunny"
+                "Jean Rochefort"
               ],
               [
-                "directed_by",
-                "Vincent Gallo"
+                "starred_actors (reverse)",
+                "The Tall Blond Man with One Black Shoe"
               ],
               [
-                "directed_by (reverse)",
-                "Buffalo '66"
+                "release_year",
+                "1972"
+              ],
+              [
+                "release_year (reverse)",
+                "The Goalie's Anxiety at the Penalty Kick"
               ]
             ],
             "score": 1.0
@@ -2055,19 +1410,19 @@
             "path": [
               [
                 null,
-                "The Brown Bunny"
-              ],
-              [
-                "directed_by",
-                "Vincent Gallo"
+                "Jean Rochefort"
               ],
               [
                 "starred_actors (reverse)",
-                "Truth or Consequences, N.M."
+                "The Tall Blond Man with One Black Shoe"
               ],
               [
-                "directed_by",
-                "Kiefer Sutherland"
+                "release_year",
+                "1972"
+              ],
+              [
+                "release_year (reverse)",
+                "Junior Bonner"
               ]
             ],
             "score": 1.0
@@ -2077,19 +1432,19 @@
             "path": [
               [
                 null,
-                "The Brown Bunny"
-              ],
-              [
-                "directed_by",
-                "Vincent Gallo"
+                "Jean Rochefort"
               ],
               [
                 "starred_actors (reverse)",
-                "Loosies"
+                "The Tall Blond Man with One Black Shoe"
               ],
               [
-                "directed_by",
-                "Michael Corrente"
+                "release_year",
+                "1972"
+              ],
+              [
+                "release_year (reverse)",
+                "Solaris"
               ]
             ],
             "score": 1.0
@@ -2099,19 +1454,19 @@
             "path": [
               [
                 null,
-                "The Brown Bunny"
-              ],
-              [
-                "directed_by",
-                "Vincent Gallo"
+                "Jean Rochefort"
               ],
               [
                 "starred_actors (reverse)",
-                "Palookaville"
+                "The Tall Blond Man with One Black Shoe"
               ],
               [
-                "directed_by",
-                "Alan Taylor"
+                "release_year",
+                "1972"
+              ],
+              [
+                "release_year (reverse)",
+                "The Hot Rock"
               ]
             ],
             "score": 1.0
@@ -2121,19 +1476,149 @@
             "path": [
               [
                 null,
-                "The Brown Bunny"
-              ],
-              [
-                "directed_by",
-                "Vincent Gallo"
+                "Jean Rochefort"
               ],
               [
                 "starred_actors (reverse)",
-                "Essential Killing"
+                "The Tall Blond Man with One Black Shoe"
               ],
               [
-                "directed_by",
-                "Jerzy Skolimowski"
+                "release_year",
+                "1972"
+              ],
+              [
+                "release_year (reverse)",
+                "The Big Bird Cage"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "what genres are the movies written by [Gene Wilder] in",
+        "gold_answers": [
+          "Comedy",
+          "Musical"
+        ],
+        "prediction": "Comedy",
+        "predicted_answers": [
+          "Comedy"
+        ],
+        "original_em": 1,
+        "original_f1": 1.0,
+        "set_em": 0,
+        "set_f1": 0.6667,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "Gene Wilder"
+              ],
+              [
+                "written_by (reverse)",
+                "Haunted Honeymoon"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "The Dark Horse"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "Gene Wilder"
+              ],
+              [
+                "written_by (reverse)",
+                "Haunted Honeymoon"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Funny About Love"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "Gene Wilder"
+              ],
+              [
+                "written_by (reverse)",
+                "Haunted Honeymoon"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "Snow Dogs"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "Gene Wilder"
+              ],
+              [
+                "written_by (reverse)",
+                "Haunted Honeymoon"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "House"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "Gene Wilder"
+              ],
+              [
+                "written_by (reverse)",
+                "Haunted Honeymoon"
+              ],
+              [
+                "has_genre",
+                "Comedy"
+              ],
+              [
+                "has_genre (reverse)",
+                "1941"
               ]
             ],
             "score": 1.0
@@ -2147,7 +1632,11 @@
           "Elina Löwensohn"
         ],
         "prediction": "",
-        "f1": 0.0,
+        "predicted_answers": [],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
         "empty": true,
         "route": "kg",
         "evidence_count": 50,
@@ -2259,530 +1748,6 @@
     ],
     "3": [
       {
-        "question": "the films that share directors with the film [Catch Me If You Can] were in which languages",
-        "gold_answers": [
-          "German",
-          "Polish",
-          "Mende",
-          "Japanese"
-        ],
-        "prediction": "Japanese, German, Polish, Mende",
-        "f1": 0.4,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Catch Me If You Can"
-              ],
-              [
-                "directed_by",
-                "Steven Spielberg"
-              ],
-              [
-                "directed_by (reverse)",
-                "1941"
-              ],
-              [
-                "in_language",
-                "Japanese"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Catch Me If You Can"
-              ],
-              [
-                "directed_by",
-                "Steven Spielberg"
-              ],
-              [
-                "directed_by (reverse)",
-                "Empire of the Sun"
-              ],
-              [
-                "in_language",
-                "Japanese"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Catch Me If You Can"
-              ],
-              [
-                "directed_by",
-                "Steven Spielberg"
-              ],
-              [
-                "directed_by (reverse)",
-                "Schindler's List"
-              ],
-              [
-                "in_language",
-                "German"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Catch Me If You Can"
-              ],
-              [
-                "directed_by",
-                "Steven Spielberg"
-              ],
-              [
-                "directed_by (reverse)",
-                "Schindler's List"
-              ],
-              [
-                "in_language",
-                "Polish"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Catch Me If You Can"
-              ],
-              [
-                "directed_by",
-                "Steven Spielberg"
-              ],
-              [
-                "directed_by (reverse)",
-                "Amistad"
-              ],
-              [
-                "in_language",
-                "Mende"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "who starred movies for the director of [Written on the Wind]",
-        "gold_answers": [
-          "Sandra Dee",
-          "Charles Coburn",
-          "Cornel Wilde",
-          "John Gavin",
-          "Warren William",
-          "Susan Kohner",
-          "Joan Bennett",
-          "Fred MacMurray",
-          "Barbara Stanwyck",
-          "Don Ameche",
-          "Jane Wyman",
-          "Rochelle Hudson",
-          "Boris Karloff",
-          "Patricia Knight",
-          "Robert Cummings",
-          "Rock Hudson",
-          "Lucille Ball",
-          "Claudette Colbert",
-          "Lana Turner",
-          "George Sanders"
-        ],
-        "prediction": "Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson, Lana Turner, Sandra Dee, Susan Kohner, George Sanders, Boris Karloff, Charles Coburn, Lucille Ball, Cornel Wilde, Patricia Knight, Fred MacMurray, Barbara Stanwyck, Joan Bennett, Rock Hudson, Jane Wyman",
-        "f1": 0.0952,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Written on the Wind"
-              ],
-              [
-                "directed_by",
-                "Douglas Sirk"
-              ],
-              [
-                "directed_by (reverse)",
-                "Sleep, My Love"
-              ],
-              [
-                "starred_actors",
-                "Robert Cummings"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Written on the Wind"
-              ],
-              [
-                "directed_by",
-                "Douglas Sirk"
-              ],
-              [
-                "directed_by (reverse)",
-                "Sleep, My Love"
-              ],
-              [
-                "starred_actors",
-                "Don Ameche"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Written on the Wind"
-              ],
-              [
-                "directed_by",
-                "Douglas Sirk"
-              ],
-              [
-                "directed_by (reverse)",
-                "Sleep, My Love"
-              ],
-              [
-                "starred_actors",
-                "Claudette Colbert"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Written on the Wind"
-              ],
-              [
-                "directed_by",
-                "Douglas Sirk"
-              ],
-              [
-                "directed_by (reverse)",
-                "A Time to Love and a Time to Die"
-              ],
-              [
-                "starred_actors",
-                "John Gavin"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Written on the Wind"
-              ],
-              [
-                "directed_by",
-                "Douglas Sirk"
-              ],
-              [
-                "directed_by (reverse)",
-                "Imitation of Life"
-              ],
-              [
-                "starred_actors",
-                "Claudette Colbert"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "the films that share actors with the film [Creepshow] were in which languages",
-        "gold_answers": [
-          "Polish",
-          "English"
-        ],
-        "prediction": "English, Polish",
-        "f1": 0.6667,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Creepshow"
-              ],
-              [
-                "starred_actors",
-                "Leslie Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Mr. Magoo"
-              ],
-              [
-                "in_language",
-                "English"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Creepshow"
-              ],
-              [
-                "starred_actors",
-                "Leslie Nielsen"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Camouflage"
-              ],
-              [
-                "in_language",
-                "Polish"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Creepshow"
-              ],
-              [
-                "starred_actors",
-                "Hal Holbrook"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Star Chamber"
-              ],
-              [
-                "in_language",
-                "English"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Creepshow"
-              ],
-              [
-                "release_year",
-                "1982"
-              ],
-              [
-                "release_year (reverse)",
-                "The Worthless"
-              ],
-              [
-                "in_language",
-                "Finnish"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Creepshow"
-              ],
-              [
-                "release_year",
-                "1982"
-              ],
-              [
-                "release_year (reverse)",
-                "A Question of Silence"
-              ],
-              [
-                "in_language",
-                "Dutch"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what were the release years of the films that share writers with the film [Grown Ups 2]",
-        "gold_answers": [
-          "1995",
-          "1996",
-          "1999",
-          "1998",
-          "1989",
-          "2002",
-          "2000",
-          "2008",
-          "2011",
-          "2010"
-        ],
-        "prediction": "1995, 2002, 2010, 1989, 1998, 2011, 2008, 2000, 1999, 1996",
-        "f1": 0.1818,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Grown Ups 2"
-              ],
-              [
-                "written_by",
-                "Adam Sandler"
-              ],
-              [
-                "written_by (reverse)",
-                "Billy Madison"
-              ],
-              [
-                "release_year",
-                "1995"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Grown Ups 2"
-              ],
-              [
-                "written_by",
-                "Adam Sandler"
-              ],
-              [
-                "written_by (reverse)",
-                "Eight Crazy Nights"
-              ],
-              [
-                "release_year",
-                "2002"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Grown Ups 2"
-              ],
-              [
-                "written_by",
-                "Adam Sandler"
-              ],
-              [
-                "written_by (reverse)",
-                "Grown Ups"
-              ],
-              [
-                "release_year",
-                "2010"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Grown Ups 2"
-              ],
-              [
-                "written_by",
-                "Adam Sandler"
-              ],
-              [
-                "written_by (reverse)",
-                "Going Overboard"
-              ],
-              [
-                "release_year",
-                "1989"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Grown Ups 2"
-              ],
-              [
-                "written_by",
-                "Adam Sandler"
-              ],
-              [
-                "written_by (reverse)",
-                "The Waterboy"
-              ],
-              [
-                "release_year",
-                "1998"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
         "question": "who is listed as director of the films starred by [The Inner Circle] actors",
         "gold_answers": [
           "John Landis",
@@ -2816,9 +1781,63 @@
           "Abel Ferrara",
           "Robert M. Young"
         ],
-        "prediction": "",
-        "f1": 0.0,
-        "empty": true,
+        "prediction": "Jack Clayton, Markus Schleinzer, Nora Ephron, Ellen Perry, Mike Hodges, Christopher Hampton, Peter Yates, Orson Welles, Louis Leterrier, Wolfgang Petersen, Stephen Hopkins, Charles McDougall, Jude Law, Ewan McGregor, Guy Jenkin, Atom Egoyan, Stephen Frears, Alan Alda, John Byrum, Robert Zemeckis, Richard Benjamin, Annabel Jankel, Rocky Morton, Neil Jordan, Steven Spielberg, Allen Coulter, Abel Ferrara, Wayne Wang, Robert M. Young, John Landis, Jean Delannoy, William Dieterle, Gary Trousdale, Kirk Wise, Julie Dash, Mike Nichols, David Mamet, Peter Faiman, Mary Lambert, Joe Johnston, Pedro Almodóvar, Barry Levinson, Frank Oz, Arthur Hiller, Tristram Powell, Vincente Minnelli, Claude Chabrol, Mika Kaurismäki, Martin Campbell",
+        "predicted_answers": [
+          "Jack Clayton",
+          "Markus Schleinzer",
+          "Nora Ephron",
+          "Ellen Perry",
+          "Mike Hodges",
+          "Christopher Hampton",
+          "Peter Yates",
+          "Orson Welles",
+          "Louis Leterrier",
+          "Wolfgang Petersen",
+          "Stephen Hopkins",
+          "Charles McDougall",
+          "Jude Law",
+          "Ewan McGregor",
+          "Guy Jenkin",
+          "Atom Egoyan",
+          "Stephen Frears",
+          "Alan Alda",
+          "John Byrum",
+          "Robert Zemeckis",
+          "Richard Benjamin",
+          "Annabel Jankel",
+          "Rocky Morton",
+          "Neil Jordan",
+          "Steven Spielberg",
+          "Allen Coulter",
+          "Abel Ferrara",
+          "Wayne Wang",
+          "Robert M. Young",
+          "John Landis",
+          "Jean Delannoy",
+          "William Dieterle",
+          "Gary Trousdale",
+          "Kirk Wise",
+          "Julie Dash",
+          "Mike Nichols",
+          "David Mamet",
+          "Peter Faiman",
+          "Mary Lambert",
+          "Joe Johnston",
+          "Pedro Almodóvar",
+          "Barry Levinson",
+          "Frank Oz",
+          "Arthur Hiller",
+          "Tristram Powell",
+          "Vincente Minnelli",
+          "Claude Chabrol",
+          "Mika Kaurismäki",
+          "Martin Campbell"
+        ],
+        "original_em": 0,
+        "original_f1": 0.0392,
+        "set_em": 0,
+        "set_f1": 0.7595,
+        "empty": false,
         "route": "kg",
         "evidence_count": 50,
         "paths": [
@@ -2935,391 +1954,19 @@
         ]
       },
       {
-        "question": "the films that share directors with the film [The Dance of Reality] were in which genres",
-        "gold_answers": [
-          "Drama",
-          "Western"
-        ],
-        "prediction": "Drama, Western",
-        "f1": 0.6667,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "The Dance of Reality"
-              ],
-              [
-                "directed_by",
-                "Alejandro Jodorowsky"
-              ],
-              [
-                "directed_by (reverse)",
-                "The Holy Mountain"
-              ],
-              [
-                "has_genre",
-                "Drama"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "The Dance of Reality"
-              ],
-              [
-                "directed_by",
-                "Alejandro Jodorowsky"
-              ],
-              [
-                "directed_by (reverse)",
-                "El Topo"
-              ],
-              [
-                "has_genre",
-                "Western"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "The Dance of Reality"
-              ],
-              [
-                "directed_by",
-                "Alejandro Jodorowsky"
-              ],
-              [
-                "written_by (reverse)",
-                "The Holy Mountain"
-              ],
-              [
-                "has_genre",
-                "Drama"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "The Dance of Reality"
-              ],
-              [
-                "directed_by",
-                "Alejandro Jodorowsky"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Holy Mountain"
-              ],
-              [
-                "has_genre",
-                "Drama"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "The Dance of Reality"
-              ],
-              [
-                "directed_by",
-                "Alejandro Jodorowsky"
-              ],
-              [
-                "written_by (reverse)",
-                "El Topo"
-              ],
-              [
-                "has_genre",
-                "Western"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "what genres do the films that share directors with [Scarlet Street] fall under",
-        "gold_answers": [
-          "Crime",
-          "Drama",
-          "Fantasy",
-          "Animation",
-          "Western",
-          "War",
-          "Thriller"
-        ],
-        "prediction": "Western, Drama, Crime, War, Fantasy, Animation, Thriller",
-        "f1": 0.25,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Scarlet Street"
-              ],
-              [
-                "directed_by",
-                "Fritz Lang"
-              ],
-              [
-                "directed_by (reverse)",
-                "The Return of Frank James"
-              ],
-              [
-                "has_genre",
-                "Western"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Scarlet Street"
-              ],
-              [
-                "directed_by",
-                "Fritz Lang"
-              ],
-              [
-                "directed_by (reverse)",
-                "Moontide"
-              ],
-              [
-                "has_genre",
-                "Drama"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Scarlet Street"
-              ],
-              [
-                "directed_by",
-                "Fritz Lang"
-              ],
-              [
-                "directed_by (reverse)",
-                "The Big Heat"
-              ],
-              [
-                "has_genre",
-                "Crime"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Scarlet Street"
-              ],
-              [
-                "directed_by",
-                "Fritz Lang"
-              ],
-              [
-                "directed_by (reverse)",
-                "Fury"
-              ],
-              [
-                "has_genre",
-                "Drama"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Scarlet Street"
-              ],
-              [
-                "directed_by",
-                "Fritz Lang"
-              ],
-              [
-                "directed_by (reverse)",
-                "Fury"
-              ],
-              [
-                "has_genre",
-                "War"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
-        "question": "the movies that share actors with the movie [Waxworks] were in which languages",
-        "gold_answers": [
-          "Swedish",
-          "German",
-          "French",
-          "English"
-        ],
-        "prediction": "French, Swedish, German, English",
-        "f1": 0.4,
-        "empty": false,
-        "route": "kg",
-        "evidence_count": 50,
-        "paths": [
-          {
-            "path_id": "kg_path_0001",
-            "path": [
-              [
-                null,
-                "Waxworks"
-              ],
-              [
-                "starred_actors",
-                "Conrad Veidt"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Man Who Laughs"
-              ],
-              [
-                "in_language",
-                "French"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0002",
-            "path": [
-              [
-                null,
-                "Waxworks"
-              ],
-              [
-                "starred_actors",
-                "Conrad Veidt"
-              ],
-              [
-                "starred_actors (reverse)",
-                "A Woman's Face"
-              ],
-              [
-                "in_language",
-                "Swedish"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0003",
-            "path": [
-              [
-                null,
-                "Waxworks"
-              ],
-              [
-                "starred_actors",
-                "Emil Jannings"
-              ],
-              [
-                "starred_actors (reverse)",
-                "Faust"
-              ],
-              [
-                "in_language",
-                "German"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0004",
-            "path": [
-              [
-                null,
-                "Waxworks"
-              ],
-              [
-                "starred_actors",
-                "Emil Jannings"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Loves of Pharaoh"
-              ],
-              [
-                "in_language",
-                "German"
-              ]
-            ],
-            "score": 1.0
-          },
-          {
-            "path_id": "kg_path_0005",
-            "path": [
-              [
-                null,
-                "Waxworks"
-              ],
-              [
-                "starred_actors",
-                "Emil Jannings"
-              ],
-              [
-                "starred_actors (reverse)",
-                "The Blue Angel"
-              ],
-              [
-                "in_language",
-                "English"
-              ]
-            ],
-            "score": 1.0
-          }
-        ]
-      },
-      {
         "question": "who directed movies for the writer of [The Broken Circle Breakdown]",
         "gold_answers": [
           "Felix van Groeningen"
         ],
-        "prediction": "Roland Emmerich, Roger Michell, Christopher Kenneally, Deepa Mehta, Régis Roinsard, McG, Detlev Buck, Lisa Azuelos, Joe Swanberg, Rory Kennedy, William Kaufman, Brenda Chapman, Mark Andrews, Steve Purcell, Anders Anderson, Lee Kirk, Patrice Leconte, Ruba Nadda, Marc Rothemund, Phil Flores, Mitchell Altieri, Cristian Mungiu, Tom Hooper, Raymond Bernard, Richard Boleslawski, Bille August",
-        "f1": 0.0,
+        "prediction": "Felix van Groeningen, Roland Emmerich",
+        "predicted_answers": [
+          "Felix van Groeningen",
+          "Roland Emmerich"
+        ],
+        "original_em": 0,
+        "original_f1": 0.5,
+        "set_em": 0,
+        "set_f1": 0.6667,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -3429,19 +2076,38 @@
         ]
       },
       {
-        "question": "when did the movies starred by [Jupiter Ascending] actors release",
+        "question": "when did the films written by [Send Me No Flowers] writers release",
         "gold_answers": [
-          "2007",
-          "2014",
-          "2008",
-          "2009",
-          "2011",
-          "2010",
-          "2013",
-          "2012"
+          "1983",
+          "1932",
+          "1966",
+          "1941",
+          "1972",
+          "1944",
+          "1961",
+          "1954",
+          "1938",
+          "1958"
         ],
-        "prediction": "2010, 2011, 2008, 2007, 2012, 2009, 2014, 2013",
-        "f1": 0.2222,
+        "prediction": "1958, 1944, 1966, 1954, 1972, 1961, 1932, 1983, 1941, 1938, 1964, 1973",
+        "predicted_answers": [
+          "1958",
+          "1944",
+          "1966",
+          "1954",
+          "1972",
+          "1961",
+          "1932",
+          "1983",
+          "1941",
+          "1938",
+          "1964",
+          "1973"
+        ],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.9091,
         "empty": false,
         "route": "kg",
         "evidence_count": 50,
@@ -3451,19 +2117,19 @@
             "path": [
               [
                 null,
-                "Jupiter Ascending"
+                "Send Me No Flowers"
               ],
               [
-                "starred_actors",
-                "Mila Kunis"
+                "written_by",
+                "Julius J. Epstein"
               ],
               [
-                "starred_actors (reverse)",
-                "Black Swan"
+                "written_by (reverse)",
+                "The Brothers Karamazov"
               ],
               [
                 "release_year",
-                "2010"
+                "1958"
               ]
             ],
             "score": 1.0
@@ -3473,19 +2139,19 @@
             "path": [
               [
                 null,
-                "Jupiter Ascending"
+                "Send Me No Flowers"
               ],
               [
-                "starred_actors",
-                "Mila Kunis"
+                "written_by",
+                "Julius J. Epstein"
               ],
               [
-                "starred_actors (reverse)",
-                "Friends with Benefits"
+                "written_by (reverse)",
+                "Arsenic and Old Lace"
               ],
               [
                 "release_year",
-                "2011"
+                "1944"
               ]
             ],
             "score": 1.0
@@ -3495,19 +2161,19 @@
             "path": [
               [
                 null,
-                "Jupiter Ascending"
+                "Send Me No Flowers"
               ],
               [
-                "starred_actors",
-                "Mila Kunis"
+                "written_by",
+                "Julius J. Epstein"
               ],
               [
-                "starred_actors (reverse)",
-                "Boot Camp"
+                "written_by (reverse)",
+                "Any Wednesday"
               ],
               [
                 "release_year",
-                "2008"
+                "1966"
               ]
             ],
             "score": 1.0
@@ -3517,19 +2183,19 @@
             "path": [
               [
                 null,
-                "Jupiter Ascending"
+                "Send Me No Flowers"
               ],
               [
-                "starred_actors",
-                "Mila Kunis"
+                "written_by",
+                "Julius J. Epstein"
               ],
               [
-                "starred_actors (reverse)",
-                "Moving McAllister"
+                "written_by (reverse)",
+                "The Last Time I Saw Paris"
               ],
               [
                 "release_year",
-                "2007"
+                "1954"
               ]
             ],
             "score": 1.0
@@ -3539,19 +2205,1138 @@
             "path": [
               [
                 null,
-                "Jupiter Ascending"
+                "Send Me No Flowers"
               ],
               [
-                "starred_actors",
-                "Mila Kunis"
+                "written_by",
+                "Julius J. Epstein"
               ],
               [
-                "starred_actors (reverse)",
-                "Ted"
+                "written_by (reverse)",
+                "Pete 'n' Tillie"
               ],
               [
                 "release_year",
-                "2012"
+                "1972"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "who are the writers that the actors in their films also appear in the film [The Creature Wasn't Nice]",
+        "gold_answers": [
+          "Stephen King",
+          "Krzysztof Zanussi",
+          "Bruce Kimmel",
+          "Craig Mazin",
+          "Robert Zemeckis",
+          "Joseph Dougherty",
+          "Don Mancini",
+          "Aaron Seltzer",
+          "Pat Proft",
+          "Bob Gale",
+          "Bob Logan",
+          "Cyril Hume",
+          "Jason Friedberg",
+          "Mary Chase",
+          "Cid Ricketts Sumner"
+        ],
+        "prediction": "The First Nudie Musical",
+        "predicted_answers": [
+          "The First Nudie Musical"
+        ],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "The Creature Wasn't Nice"
+              ],
+              [
+                "directed_by",
+                "Bruce Kimmel"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "The Creature Wasn't Nice"
+              ],
+              [
+                "directed_by",
+                "Bruce Kimmel"
+              ],
+              [
+                "directed_by (reverse)",
+                "The First Nudie Musical"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "The Creature Wasn't Nice"
+              ],
+              [
+                "directed_by",
+                "Bruce Kimmel"
+              ],
+              [
+                "directed_by (reverse)",
+                "The First Nudie Musical"
+              ],
+              [
+                "directed_by",
+                "Mark Haggard"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "The Creature Wasn't Nice"
+              ],
+              [
+                "directed_by",
+                "Bruce Kimmel"
+              ],
+              [
+                "directed_by (reverse)",
+                "The First Nudie Musical"
+              ],
+              [
+                "release_year",
+                "1976"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "The Creature Wasn't Nice"
+              ],
+              [
+                "directed_by",
+                "Bruce Kimmel"
+              ],
+              [
+                "directed_by (reverse)",
+                "The First Nudie Musical"
+              ],
+              [
+                "has_genre",
+                "Musical"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "when did the movies starred by [Spencer's Mountain] actors release",
+        "gold_answers": [
+          "1953",
+          "1960",
+          "1961",
+          "1944",
+          "1945",
+          "1948",
+          "1949",
+          "1968",
+          "1963",
+          "1981",
+          "1942",
+          "1943",
+          "1966",
+          "1941",
+          "1946",
+          "1947",
+          "1962",
+          "1989",
+          "1999",
+          "1955",
+          "1957",
+          "1956",
+          "1937",
+          "1950",
+          "1935",
+          "1952",
+          "1939",
+          "1938",
+          "1959",
+          "1998",
+          "1991",
+          "1993",
+          "1994",
+          "1996",
+          "1977",
+          "1976",
+          "1970",
+          "1964",
+          "1965",
+          "1940"
+        ],
+        "prediction": "1940, 1968, 1948, 1956, 1993, 1962, 1977, 1938, 1999, 1964, 1942, 1970, 1935, 1943, 1941, 1989, 1959, 1947, 1966, 1939, 1965, 1981, 1937, 1955, 1946, 1957, 1976, 1961",
+        "predicted_answers": [
+          "1940",
+          "1968",
+          "1948",
+          "1956",
+          "1993",
+          "1962",
+          "1977",
+          "1938",
+          "1999",
+          "1964",
+          "1942",
+          "1970",
+          "1935",
+          "1943",
+          "1941",
+          "1989",
+          "1959",
+          "1947",
+          "1966",
+          "1939",
+          "1965",
+          "1981",
+          "1937",
+          "1955",
+          "1946",
+          "1957",
+          "1976",
+          "1961"
+        ],
+        "original_em": 0,
+        "original_f1": 0.069,
+        "set_em": 0,
+        "set_f1": 0.8235,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "Spencer's Mountain"
+              ],
+              [
+                "starred_actors",
+                "Henry Fonda"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Return of Frank James"
+              ],
+              [
+                "release_year",
+                "1940"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "Spencer's Mountain"
+              ],
+              [
+                "starred_actors",
+                "Henry Fonda"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Firecreek"
+              ],
+              [
+                "release_year",
+                "1968"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "Spencer's Mountain"
+              ],
+              [
+                "starred_actors",
+                "Henry Fonda"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Fort Apache"
+              ],
+              [
+                "release_year",
+                "1948"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "Spencer's Mountain"
+              ],
+              [
+                "starred_actors",
+                "Henry Fonda"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Wrong Man"
+              ],
+              [
+                "release_year",
+                "1956"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "Spencer's Mountain"
+              ],
+              [
+                "starred_actors",
+                "Henry Fonda"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Wrong Man"
+              ],
+              [
+                "release_year",
+                "1993"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "who are the screenwriters that the directors of their movies also directed [The End of the Affair]",
+        "gold_answers": [
+          "Catherine Breillat",
+          "Duilio Coletti",
+          "Robert Vincent O'Neill",
+          "Harold Robbins",
+          "John Michael Hayes",
+          "Angela Carter",
+          "Richard Brooks",
+          "Peter Stone",
+          "Robert Alan Aurthur",
+          "Edward Anhalt",
+          "Harry Brown",
+          "Melchior Lengyel",
+          "Charles Perrault",
+          "John Paxton",
+          "Elizabeth Taylor",
+          "Alfred Hayes",
+          "Raymond Chandler",
+          "Joseph Michael Cala",
+          "Neil Jordan",
+          "John Fante",
+          "Ranald MacDougall",
+          "Guy Bolton",
+          "Samson Raphaelson",
+          "Albert Husson",
+          "Howard Fast",
+          "David Twohy",
+          "Joseph Petracca",
+          "Ernest K. Gann",
+          "Dalton Trumbo",
+          "Irwin Shaw",
+          "Oakley Hall",
+          "Nelson Algren",
+          "David Leland",
+          "Herman Wouk",
+          "Louis L'Amour",
+          "Edward Dmytryk"
+        ],
+        "prediction": "Angel, Neil Jordan, The Company of Wolves, We're No Angels, Mona Lisa, The Caine Mutiny, The Young Lions, The Reluctant Saint, Mirage",
+        "predicted_answers": [
+          "Angel",
+          "Neil Jordan",
+          "The Company of Wolves",
+          "We're No Angels",
+          "Mona Lisa",
+          "The Caine Mutiny",
+          "The Young Lions",
+          "The Reluctant Saint",
+          "Mirage"
+        ],
+        "original_em": 0,
+        "original_f1": 0.0833,
+        "set_em": 0,
+        "set_f1": 0.0444,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "The End of the Affair"
+              ],
+              [
+                "directed_by",
+                "Neil Jordan"
+              ],
+              [
+                "directed_by (reverse)",
+                "Angel"
+              ],
+              [
+                "written_by",
+                "Samson Raphaelson"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "The End of the Affair"
+              ],
+              [
+                "directed_by",
+                "Neil Jordan"
+              ],
+              [
+                "directed_by (reverse)",
+                "Angel"
+              ],
+              [
+                "written_by",
+                "Melchior Lengyel"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "The End of the Affair"
+              ],
+              [
+                "directed_by",
+                "Neil Jordan"
+              ],
+              [
+                "directed_by (reverse)",
+                "Angel"
+              ],
+              [
+                "written_by",
+                "Guy Bolton"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "The End of the Affair"
+              ],
+              [
+                "directed_by",
+                "Neil Jordan"
+              ],
+              [
+                "directed_by (reverse)",
+                "Angel"
+              ],
+              [
+                "written_by",
+                "Elizabeth Taylor"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "The End of the Affair"
+              ],
+              [
+                "directed_by",
+                "Neil Jordan"
+              ],
+              [
+                "directed_by (reverse)",
+                "Angel"
+              ],
+              [
+                "written_by",
+                "Robert Vincent O'Neill"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "what are the languages spoken in the movies whose actors also appear in [Hard Rain]",
+        "gold_answers": [
+          "Mende",
+          "French",
+          "English"
+        ],
+        "prediction": "",
+        "predicted_answers": [],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
+        "empty": true,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "Hard Rain"
+              ],
+              [
+                "directed_by",
+                "Mikael Salomon"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "Hard Rain"
+              ],
+              [
+                "directed_by",
+                "Mikael Salomon"
+              ],
+              [
+                "directed_by (reverse)",
+                "Freezer"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "Hard Rain"
+              ],
+              [
+                "directed_by",
+                "Mikael Salomon"
+              ],
+              [
+                "directed_by (reverse)",
+                "Freezer"
+              ],
+              [
+                "starred_actors",
+                "Dylan McDermott"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "Hard Rain"
+              ],
+              [
+                "directed_by",
+                "Mikael Salomon"
+              ],
+              [
+                "directed_by (reverse)",
+                "Freezer"
+              ],
+              [
+                "starred_actors",
+                "Peter Facinelli"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "Hard Rain"
+              ],
+              [
+                "directed_by",
+                "Mikael Salomon"
+              ],
+              [
+                "directed_by (reverse)",
+                "Freezer"
+              ],
+              [
+                "release_year",
+                "2014"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "what are the genres of the movies whose actors also appear in [Scarface]",
+        "gold_answers": [
+          "Romance",
+          "Comedy",
+          "Biography",
+          "Family",
+          "Horror",
+          "Crime",
+          "Drama",
+          "Fantasy",
+          "Animation",
+          "War",
+          "Western",
+          "Music",
+          "Sport",
+          "Documentary",
+          "Musical",
+          "Thriller",
+          "Adventure"
+        ],
+        "prediction": "",
+        "predicted_answers": [],
+        "original_em": 0,
+        "original_f1": 0.0,
+        "set_em": 0,
+        "set_f1": 0.0,
+        "empty": true,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "Scarface"
+              ],
+              [
+                "directed_by",
+                "Howard Hawks"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "Scarface"
+              ],
+              [
+                "directed_by",
+                "Howard Hawks"
+              ],
+              [
+                "directed_by (reverse)",
+                "The Big Sleep"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "Scarface"
+              ],
+              [
+                "directed_by",
+                "Howard Hawks"
+              ],
+              [
+                "directed_by (reverse)",
+                "The Big Sleep"
+              ],
+              [
+                "written_by",
+                "Leigh Brackett"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "Scarface"
+              ],
+              [
+                "directed_by",
+                "Howard Hawks"
+              ],
+              [
+                "directed_by (reverse)",
+                "The Big Sleep"
+              ],
+              [
+                "written_by",
+                "Raymond Chandler"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "Scarface"
+              ],
+              [
+                "directed_by",
+                "Howard Hawks"
+              ],
+              [
+                "directed_by (reverse)",
+                "The Big Sleep"
+              ],
+              [
+                "written_by",
+                "Jules Furthman"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "which person wrote the films acted by the actors in [The Slingshot]",
+        "gold_answers": [
+          "Matt Damon",
+          "Ben Affleck",
+          "J.D. Zeik",
+          "Dashiell Hammett",
+          "Eric Lomax",
+          "Ronald Harwood",
+          "David Mamet",
+          "Hans Petter Moland",
+          "Aimee Lagos",
+          "Catherine Johnson",
+          "Steve Barancik",
+          "Hans Alfredson",
+          "Wesley Strick",
+          "Zafar Hai",
+          "Kjell Grede"
+        ],
+        "prediction": "Stellan Skarsgård, Hideo Sakaki, Ethan Hawke, Josh Hamilton, Vincent Spano, Catherine Deneuve, Daniel Auteuil, Marthe Villalonga, Ernie Reyes Jr., Nicolas Cowan, Frank Ramírez",
+        "predicted_answers": [
+          "Stellan Skarsgård",
+          "Hideo Sakaki",
+          "Ethan Hawke",
+          "Josh Hamilton",
+          "Vincent Spano",
+          "Catherine Deneuve",
+          "Daniel Auteuil",
+          "Marthe Villalonga",
+          "Ernie Reyes Jr.",
+          "Nicolas Cowan",
+          "Frank Ramírez"
+        ],
+        "original_em": 0,
+        "original_f1": 0.08,
+        "set_em": 0,
+        "set_f1": 0.0,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "The Slingshot"
+              ],
+              [
+                "starred_actors",
+                "Stellan Skarsgård"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Mamma Mia!"
+              ],
+              [
+                "starred_actors",
+                "Pierce Brosnan"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "The Slingshot"
+              ],
+              [
+                "starred_actors",
+                "Stellan Skarsgård"
+              ],
+              [
+                "starred_actors (reverse)",
+                "Mamma Mia!"
+              ],
+              [
+                "starred_actors",
+                "Amanda Seyfried"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "The Slingshot"
+              ],
+              [
+                "starred_actors",
+                "Stellan Skarsgård"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Railway Man"
+              ],
+              [
+                "starred_actors",
+                "Colin Firth"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "The Slingshot"
+              ],
+              [
+                "starred_actors",
+                "Stellan Skarsgård"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Railway Man"
+              ],
+              [
+                "starred_actors",
+                "Jeremy Irvine"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "The Slingshot"
+              ],
+              [
+                "starred_actors",
+                "Stellan Skarsgård"
+              ],
+              [
+                "starred_actors (reverse)",
+                "The Perfect Murder"
+              ],
+              [
+                "starred_actors",
+                "Naseeruddin Shah"
+              ]
+            ],
+            "score": 1.0
+          }
+        ]
+      },
+      {
+        "question": "who are the directors that the actors in their films also appear in the film [The Birdcage]",
+        "gold_answers": [
+          "Tim Burton",
+          "Peter Kassovitz",
+          "Frederick De Cordova",
+          "Joseph L. Mankiewicz",
+          "Lawrence Kasdan",
+          "Woody Allen",
+          "Peter Hyams",
+          "Ronald Neame",
+          "Roger Spottiswoode",
+          "Barry Levinson",
+          "Fielder Cook",
+          "Shinji Aoyama",
+          "Paul Mazursky",
+          "Don Bluth",
+          "John Moore",
+          "Peter Masterson",
+          "Sydney Pollack",
+          "Bobcat Goldthwait",
+          "Arthur Penn",
+          "Kelly Reichardt",
+          "Les Mayfield",
+          "Danny DeVito",
+          "Bob Clark",
+          "Wes Anderson",
+          "Gilbert Cates",
+          "Chris Columbus",
+          "Peter Weir",
+          "Richard Brooks",
+          "Catherine Hardwicke",
+          "Robert Benton",
+          "Roger Christian",
+          "Gus Van Sant",
+          "Basil Dearden",
+          "John Cameron Mitchell",
+          "Susan Stroman",
+          "George Roy Hill",
+          "Donald Petrie",
+          "Bill Forsyth",
+          "Mark Mylod",
+          "George Schaefer",
+          "Ron Clements",
+          "Garry Marshall",
+          "Robert Altman",
+          "Tom Shadyac",
+          "Don Medford",
+          "Sam Raimi",
+          "Mel Brooks",
+          "Ron Howard",
+          "Arie Posin",
+          "Ted Kotcheff",
+          "Robert Day",
+          "John Frankenheimer",
+          "Nicolas Roeg",
+          "Joe Johnston",
+          "Michael Ritchie",
+          "William Friedkin",
+          "Penny Marshall",
+          "David Duchovny",
+          "Peter Markle",
+          "Walt Becker",
+          "Stephen Hopkins",
+          "Simon Moore",
+          "Michael Apted",
+          "David Anspaugh",
+          "Griffin Dunne",
+          "Jessie Nelson",
+          "Harold Ramis",
+          "Ken Kwapis",
+          "Penny Panayotopoulou",
+          "James Foley",
+          "Andrew Bergman",
+          "Dick Richards",
+          "Bud Yorkin",
+          "Omar Naim",
+          "Steven Spielberg",
+          "Vincent Ward",
+          "Tony Scott",
+          "Richard Donner",
+          "Irwin Allen",
+          "Francis Ford Coppola",
+          "Tarsem Singh",
+          "Dirk Shafer",
+          "Barry Sonnenfeld",
+          "Jesse V. Johnson",
+          "Richard Lester",
+          "Gary Fleder",
+          "Stanley Donen",
+          "Andrew Davis",
+          "Alan Parker",
+          "Clint Eastwood",
+          "Gary Goldman",
+          "Ivan Reitman",
+          "Howard Deutch",
+          "Phil Alden Robinson",
+          "David Mamet",
+          "Nicholas Meyer",
+          "Mark Romanek",
+          "Roger Donaldson",
+          "John Musker"
+        ],
+        "prediction": "Regarding Henry, Working Girl, The Day of the Dolphin, The Fortune, Primary Colors, Wit",
+        "predicted_answers": [
+          "Regarding Henry",
+          "Working Girl",
+          "The Day of the Dolphin",
+          "The Fortune",
+          "Primary Colors",
+          "Wit"
+        ],
+        "original_em": 0,
+        "original_f1": 0.125,
+        "set_em": 0,
+        "set_f1": 0.0,
+        "empty": false,
+        "route": "kg",
+        "evidence_count": 50,
+        "paths": [
+          {
+            "path_id": "kg_path_0001",
+            "path": [
+              [
+                null,
+                "The Birdcage"
+              ],
+              [
+                "directed_by",
+                "Mike Nichols"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0002",
+            "path": [
+              [
+                null,
+                "The Birdcage"
+              ],
+              [
+                "directed_by",
+                "Mike Nichols"
+              ],
+              [
+                "directed_by (reverse)",
+                "Regarding Henry"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0003",
+            "path": [
+              [
+                null,
+                "The Birdcage"
+              ],
+              [
+                "directed_by",
+                "Mike Nichols"
+              ],
+              [
+                "directed_by (reverse)",
+                "Regarding Henry"
+              ],
+              [
+                "starred_actors",
+                "Harrison Ford"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0004",
+            "path": [
+              [
+                null,
+                "The Birdcage"
+              ],
+              [
+                "directed_by",
+                "Mike Nichols"
+              ],
+              [
+                "directed_by (reverse)",
+                "Regarding Henry"
+              ],
+              [
+                "starred_actors",
+                "Annette Bening"
+              ]
+            ],
+            "score": 1.0
+          },
+          {
+            "path_id": "kg_path_0005",
+            "path": [
+              [
+                null,
+                "The Birdcage"
+              ],
+              [
+                "directed_by",
+                "Mike Nichols"
+              ],
+              [
+                "directed_by (reverse)",
+                "Regarding Henry"
+              ],
+              [
+                "release_year",
+                "1991"
               ]
             ],
             "score": 1.0
@@ -3561,5 +3346,11 @@
     ]
   },
   "failure_limit_per_hop": 10,
-  "paths_shown_per_failure": 5
+  "paths_shown_per_failure": 5,
+  "evaluation_notes": [
+    "Original EM and F1 retain existing metric semantics.",
+    "Set EM and set F1 compare individual predicted entities against the gold answer set.",
+    "Individual predictions are extracted per evidence path; the combined answer string is not split on commas.",
+    "Set F1 is entity-level set precision/recall F1, not token F1."
+  ]
 }

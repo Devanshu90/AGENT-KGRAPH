@@ -11,8 +11,34 @@ class KGPathAnswerExtractor:
             "release_year": ["release year", "released", "when"],
         }
 
+    def _shared_kind(self, query):
+        q = query.casefold()
+
+        if any(x in q for x in [
+            "share actor", "share actors", "shared actor", "shared actors",
+            "common actor", "common actors", "same movie with", "same film with",
+            "appeared in the same movie", "appeared in the same film",
+            "acted in the same movie", "acted in the same film",
+        ]):
+            return "starred_actors"
+
+        if any(x in q for x in [
+            "share director", "share directors", "shared director",
+            "shared directors", "common director", "common directors",
+        ]):
+            return "directed_by"
+
+        if any(x in q for x in [
+            "share writer", "share writers", "shared writer",
+            "shared writers", "common writer", "common writers",
+        ]):
+            return "written_by"
+
+        return None
+
     def _target_relation(self, query):
         q = query.casefold()
+        shared = self._shared_kind(query)
 
         if any(x in q for x in [
             "which languages", "what languages", "in which languages",
@@ -36,46 +62,65 @@ class KGPathAnswerExtractor:
         if "tag" in q:
             return "has_tags"
 
+        if shared:
+            if any(x in q for x in [
+                "director of", "directors of", "director for",
+                "directors for", "who directed", "which director",
+                "what director", "who is listed as director",
+                "which directors", "who was the director",
+                "are directed by", "were directed by",
+                "was directed by",
+            ]):
+                return "directed_by"
+
+            if any(x in q for x in [
+                "who wrote", "which writer", "what writer",
+                "written by", "screenwriter",
+            ]):
+                return "written_by"
+
+            return "shared_movies"
+
         if any(x in q for x in [
             "who starred", "who stars", "who acted",
             "who appears", "which actors", "what actors",
             "who are the actors", "which actor",
+            "who appeared in the same movie", "who appeared in the same film",
+            "who acted in the same movie", "who acted in the same film",
         ]):
             return "starred_actors"
 
         if any(x in q for x in [
-            "who directed", "which director", "what director",
-            "who is listed as director", "directors of",
-            "directors for", "which directors", "who was the director",
+            "films did", "what films", "which movies", "which films",
+            "movies did", "movies was", "appear in",
+            "what does", "appears in which movies",
+            "starred in which movies", "what movies",
+            "also directed which movies", "also directed what movies",
+        ]):
+            if "director" in q or "directed" in q:
+                return "filmography_director"
+            if "writer" in q or "written" in q:
+                return "filmography_writer"
+            return "filmography"
+
+        if any(x in q for x in [
+            "director of", "directors of", "director for",
+            "directors for", "who directed", "which director",
+            "what director", "who is listed as director",
+            "which directors", "who was the director",
             "co-director", "codirector",
         ]):
+            if "writer of" in q and (
+                "movies for" in q or "films for" in q
+            ):
+                return "written_by"
             return "directed_by"
 
         if any(x in q for x in [
             "who wrote", "which writer", "what writer",
-            "written by", "screenwriter",
+            "written by", "screenwriter", "writer of",
         ]):
             return "written_by"
-
-        shared_terms = [
-            "share actor", "share actors", "shared actor", "shared actors",
-            "common actor", "common actors",
-            "share director", "share directors", "shared director",
-            "shared directors", "common director", "common directors",
-            "share writer", "share writers", "shared writer",
-            "shared writers", "common writer", "common writers",
-        ]
-
-        if any(x in q for x in shared_terms):
-            return "shared_movies"
-
-        if any(x in q for x in [
-            "films did", "what films", "which movies",
-            "movies did", "movies was", "appear in",
-            "what does", "appears in which movies",
-            "starred in which movies", "what movies",
-        ]):
-            return "filmography"
 
         if "language" in q:
             return "in_language"
@@ -89,24 +134,6 @@ class KGPathAnswerExtractor:
             return "starred_actors"
 
         return None
-
-    def _relations(self, path):
-        return [
-            str(item[0]).casefold()
-            for item in path
-            if isinstance(item, (list, tuple))
-            and len(item) == 2
-            and item[0] is not None
-        ]
-
-    def _is_relation(self, relation, target, reverse=None):
-        relation = str(relation).casefold()
-
-        if target not in relation:
-            return False
-
-        is_reverse = "reverse" in relation
-        return reverse is None or is_reverse == reverse
 
     def _edges(self, path):
         edges = []
@@ -129,6 +156,15 @@ class KGPathAnswerExtractor:
 
         return edges
 
+    def _is_relation(self, relation, target, reverse=None):
+        relation = str(relation).casefold()
+
+        if target not in relation:
+            return False
+
+        is_reverse = "reverse" in relation
+        return reverse is None or is_reverse == reverse
+
     def _matches_prefix(self, edges, relations):
         if len(edges) < len(relations):
             return False
@@ -138,6 +174,12 @@ class KGPathAnswerExtractor:
             for (_, actual, _), expected in zip(edges, relations)
         )
 
+    def _shared_prefixes(self, kind):
+        return [
+            [kind, kind + " (reverse)"],
+            [kind + " (reverse)", kind],
+        ]
+
     def _edge_candidates(self, query, path, target):
         q = query.casefold()
         edges = self._edges(path)
@@ -145,119 +187,111 @@ class KGPathAnswerExtractor:
         if not edges:
             return []
 
-        shared_actors = any(x in q for x in [
-            "share actor", "share actors", "shared actor",
-            "shared actors", "common actor", "common actors",
-        ])
+        shared = self._shared_kind(query)
 
-        shared_directors = any(x in q for x in [
-            "share director", "share directors", "shared director",
-            "shared directors", "common director", "common directors",
-        ])
+        if target in {"in_language", "has_genre", "release_year", "has_tags"}:
+            if shared:
+                for prefix in self._shared_prefixes(shared):
+                    if len(edges) >= 3 and self._matches_prefix(edges, prefix):
+                        final = edges[2]
+                        if self._is_relation(final[1], target, reverse=False):
+                            return [(final[0], final[2])]
+                return []
 
-        shared_writers = any(x in q for x in [
-            "share writer", "share writers", "shared writer",
-            "shared writers", "common writer", "common writers",
-        ])
+            for idx, rel, value in edges:
+                if self._is_relation(rel, target, reverse=False):
+                    return [(idx, value)]
+
+            return []
 
         if target == "filmography":
             idx, rel, value = edges[0]
-
             if self._is_relation(rel, "starred_actors", reverse=True):
                 return [(idx, value)]
+            return []
 
+        if target == "filmography_director":
+            if self._matches_prefix(
+                edges, ["directed_by", "directed_by (reverse)"]
+            ):
+                return [(edges[1][0], edges[1][2])]
+            return []
+
+        if target == "filmography_writer":
+            if self._matches_prefix(
+                edges, ["written_by", "written_by (reverse)"]
+            ):
+                return [(edges[1][0], edges[1][2])]
             return []
 
         if target == "shared_movies":
-            if shared_actors:
-                pattern = ["starred_actors", "starred_actors (reverse)"]
-            elif shared_directors:
-                pattern = ["directed_by", "directed_by (reverse)"]
-            elif shared_writers:
-                pattern = ["written_by", "written_by (reverse)"]
-            else:
+            if shared is None or len(edges) < 2:
                 return []
 
-            if len(edges) == len(pattern) and self._matches_prefix(edges, pattern):
-                return [(edges[-1][0], edges[-1][2])]
+            for prefix in self._shared_prefixes(shared):
+                if self._matches_prefix(edges, prefix):
+                    return [(edges[1][0], edges[1][2])]
 
             return []
 
-        if target in {
-            "in_language", "has_genre", "release_year", "has_tags",
-        }:
-            if shared_actors:
-                prefix = ["starred_actors", "starred_actors (reverse)"]
-            elif shared_directors:
-                prefix = ["directed_by", "directed_by (reverse)"]
-            elif shared_writers:
-                prefix = ["written_by", "written_by (reverse)"]
-            else:
-                prefix = []
-
-            if prefix:
-                if len(edges) != len(prefix) + 1:
-                    return []
-
-                if not self._matches_prefix(edges, prefix):
-                    return []
-
-                final = edges[-1]
-
-                if self._is_relation(final[1], target, reverse=False):
-                    return [(final[0], final[2])]
-
-                return []
-
-            # Search for the requested forward relation anywhere in the path.
-            # A later unrelated reverse edge must not hide a valid answer.
-            return [
-                (idx, value)
-                for idx, rel, value in edges
-                if self._is_relation(rel, target, reverse=False)
-            ]
-
         if target == "directed_by":
-            if any(x in q for x in [
-                "movies written by the writer",
-                "movies written by writer",
-                "directors of the movies written",
-                "directors of movies written",
-                "directors of the films written",
-                "directors of films written",
-            ]):
+            if "writer of" in q and (
+                "movies written by" in q or "films written by" in q
+            ):
                 pattern = [
                     "written_by",
                     "written_by (reverse)",
                     "directed_by",
                 ]
-
-                if len(edges) == 3 and self._matches_prefix(edges, pattern):
+                if len(edges) >= 3 and self._matches_prefix(edges, pattern):
                     return [(edges[2][0], edges[2][2])]
+                return []
+
+            if shared == "written_by":
+                pattern = [
+                    "written_by",
+                    "written_by (reverse)",
+                    "directed_by",
+                ]
+                if len(edges) >= 3 and self._matches_prefix(edges, pattern):
+                    return [(edges[2][0], edges[2][2])]
+                return []
+
+            if shared == "starred_actors":
+                patterns = [
+                    [
+                        "starred_actors",
+                        "starred_actors (reverse)",
+                        "directed_by",
+                    ],
+                    [
+                        "starred_actors (reverse)",
+                        "starred_actors",
+                        "directed_by",
+                    ],
+                ]
+
+                for pattern in patterns:
+                    if len(edges) >= 3 and self._matches_prefix(edges, pattern):
+                        return [(edges[2][0], edges[2][2])]
 
                 return []
 
-            if "starred" in q or "actors" in q:
-                pattern = ["starred_actors (reverse)", "directed_by"]
+            if self._matches_prefix(
+                edges, ["directed_by", "directed_by (reverse)"]
+            ):
+                return [(edges[1][0], edges[1][2])]
 
-                if len(edges) == 2 and self._matches_prefix(edges, pattern):
-                    return [(edges[1][0], edges[1][2])]
-
-                return []
-
-            final = edges[-1]
-
-            if self._is_relation(final[1], target, reverse=False):
-                return [(final[0], final[2])]
+            for idx, rel, value in edges:
+                if self._is_relation(rel, "directed_by", reverse=False):
+                    return [(idx, value)]
 
             return []
 
         if target == "written_by":
-            final = edges[-1]
-
-            if self._is_relation(final[1], target, reverse=False):
-                return [(final[0], final[2])]
-
+            for idx, rel, value in edges:
+                if self._is_relation(rel, "written_by", reverse=False):
+                    return [(idx, value)]
             return []
 
         if target == "starred_actors":
@@ -267,16 +301,13 @@ class KGPathAnswerExtractor:
                     "directed_by (reverse)",
                     "starred_actors",
                 ]
-
-                if len(edges) == 3 and self._matches_prefix(edges, pattern):
+                if len(edges) >= 3 and self._matches_prefix(edges, pattern):
                     return [(edges[2][0], edges[2][2])]
-
                 return []
 
-            final = edges[-1]
-
-            if self._is_relation(final[1], target, reverse=False):
-                return [(final[0], final[2])]
+            for idx, rel, value in edges:
+                if self._is_relation(rel, "starred_actors", reverse=False):
+                    return [(idx, value)]
 
         return []
 
@@ -299,31 +330,17 @@ class KGPathAnswerExtractor:
                 continue
 
             path = item.get("path", [])
-
             if not isinstance(path, (list, tuple)) or len(path) < 2:
                 continue
 
             if is_co_director:
-                if len(path) != 3:
-                    continue
+                edges = self._edges(path)
+                candidates = []
 
-                first, second = path[1], path[2]
-
-                if (
-                    not isinstance(first, (list, tuple))
-                    or len(first) != 2
-                    or not isinstance(second, (list, tuple))
-                    or len(second) != 2
+                if len(edges) >= 2 and self._matches_prefix(
+                    edges, ["directed_by (reverse)", "directed_by"]
                 ):
-                    continue
-
-                if (
-                    str(first[0]).casefold() != "directed_by (reverse)"
-                    or str(second[0]).casefold() != "directed_by"
-                ):
-                    continue
-
-                candidates = [(2, str(second[1]).strip())]
+                    candidates = [(edges[1][0], edges[1][2])]
             else:
                 candidates = self._edge_candidates(query, path, target)
 
@@ -348,7 +365,6 @@ class KGPathAnswerExtractor:
 
             if item_answers:
                 source = item.get("path_id")
-
                 if source and source not in sources:
                     sources.append(source)
 

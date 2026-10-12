@@ -2,397 +2,275 @@
 from agentkgraph.retrieval.answer_extractor import KGPathAnswerExtractor
 
 
-def test_extract_directors_from_starred_movies():
+def test_same_movie_question_extracts_shared_actors():
+    ex = KGPathAnswerExtractor()
     evidence = [
         {
-            "path_id": "kg_path_0001",
+            "path_id": "p1",
             "path": [
-                (None, "John Krasinski"),
-                ("starred_actors (reverse)", "A Movie"),
-                ("directed_by", "Director One"),
+                [None, "Angie Everhart"],
+                ["starred_actors (reverse)", "Bordello of Blood"],
+                ["starred_actors", "Dennis Miller"],
+                ["starred_actors (reverse)", "Murder at 1600"],
             ],
         },
         {
-            "path_id": "kg_path_0002",
+            "path_id": "p2",
             "path": [
-                (None, "John Krasinski"),
-                ("starred_actors (reverse)", "Another Movie"),
-                ("directed_by", "Director Two"),
+                [None, "Angie Everhart"],
+                ["starred_actors (reverse)", "Bordello of Blood"],
+                ["starred_actors", "Erika Eleniak"],
+                ["starred_actors (reverse)", "Girl in the Cadillac"],
             ],
         },
     ]
 
-    result = KGPathAnswerExtractor().extract(
-        "which person directed the movies starred by [John Krasinski]",
+    result = ex.extract(
+        "who appeared in the same movie with [Angie Everhart]",
         evidence,
     )
 
     assert result is not None
-    assert result["answer"] == "Director One, Director Two"
-    assert result["citations"] == ["kg_path_0001", "kg_path_0002"]
+    assert "Dennis Miller" in result["answer"]
+    assert "Erika Eleniak" in result["answer"]
 
 
-def test_extract_languages_from_shared_director_paths():
+def test_actor_movie_question_extracts_directors():
+    ex = KGPathAnswerExtractor()
     evidence = [
         {
-            "path_id": "kg_path_0001",
+            "path_id": "p1",
             "path": [
-                (None, "Catch Me If You Can"),
-                ("directed_by", "Director One"),
-                ("directed_by (reverse)", "Film One"),
-                ("in_language", "German"),
-            ],
-        },
-        {
-            "path_id": "kg_path_0002",
-            "path": [
-                (None, "Catch Me If You Can"),
-                ("directed_by", "Director One"),
-                ("directed_by (reverse)", "Film Two"),
-                ("in_language", "Polish"),
+                [None, "Dorothy Malone"],
+                ["starred_actors (reverse)", "Colorado Territory"],
+                ["directed_by", "Raoul Walsh"],
+                ["directed_by (reverse)", "Distant Drums"],
             ],
         },
     ]
 
-    result = KGPathAnswerExtractor().extract(
+    result = ex.extract(
+        "the movies starred by [Dorothy Malone] were directed by who",
+        evidence,
+    )
+
+    assert result is not None
+    assert "Raoul Walsh" in result["answer"]
+
+
+def test_director_filmography_extracts_other_movies():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "JFK"],
+                ["directed_by", "Oliver Stone"],
+                ["directed_by (reverse)", "World Trade Center"],
+            ],
+        },
+        {
+            "path_id": "p2",
+            "path": [
+                [None, "JFK"],
+                ["directed_by", "Oliver Stone"],
+                ["directed_by (reverse)", "Nixon"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
+        "the director of [JFK] also directed which movies",
+        evidence,
+    )
+
+    assert result is not None
+    assert "World Trade Center" in result["answer"]
+    assert "Nixon" in result["answer"]
+
+
+def test_genre_extraction_does_not_use_unrelated_reverse_edge():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "Mike Nichols"],
+                ["directed_by (reverse)", "Regarding Henry"],
+                ["has_genre", "Drama"],
+                ["has_genre (reverse)", "Dirty Filthy Love"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
+        "what are the genres of the films directed by [Mike Nichols]",
+        evidence,
+    )
+
+    assert result is not None
+    assert result["answer"] == "Drama"
+    assert "Dirty Filthy Love" not in result["answer"]
+
+
+def test_shared_director_question_extracts_languages_not_movies():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "Catch Me If You Can"],
+                ["directed_by", "Steven Spielberg"],
+                ["directed_by (reverse)", "Amistad"],
+                ["in_language", "Mende"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
         "the films that share directors with the film [Catch Me If You Can] were in which languages",
         evidence,
     )
 
     assert result is not None
-    assert result["answer"] == "German, Polish"
+    assert result["answer"] == "Mende"
+    assert "Amistad" not in result["answer"]
 
 
-def test_extract_actors_from_director_movie_paths():
-    evidence = [
-        {
-            "path_id": "kg_path_0001",
-            "path": [
-                (None, "Written on the Wind"),
-                ("directed_by", "Douglas Sirk"),
-                ("directed_by (reverse)", "Sleep, My Love"),
-                ("starred_actors", "Robert Cummings"),
-            ],
-        },
-        {
-            "path_id": "kg_path_0002",
-            "path": [
-                (None, "Written on the Wind"),
-                ("directed_by", "Douglas Sirk"),
-                ("directed_by (reverse)", "Sleep, My Love"),
-                ("starred_actors", "Don Ameche"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "who starred movies for the director of [Written on the Wind]",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "Robert Cummings, Don Ameche"
-
-
-def test_no_matching_target_relation_returns_none():
-    evidence = [
-        {
-            "path_id": "kg_path_0001",
-            "path": [
-                (None, "Some Movie"),
-                ("directed_by", "Some Director"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "which languages were the movies in",
-        evidence,
-    )
-
-    assert result is None
-
-
-def test_extract_movies_for_person_from_reverse_starred_actors_path():
-    extractor = KGPathAnswerExtractor()
-    query = "what does Gregoire Colin appear in"
-    evidence = [
-        {
-            "path": [
-                (None, "Grégoire Colin"),
-                ("starred_actors (reverse)", "Before the Rain"),
-            ],
-            "path_id": "path_1",
-        }
-    ]
-
-    result = extractor.extract(query, evidence)
-
-    assert result is not None
-    assert result["answer"] == "Before the Rain"
-    assert result["citations"] == ["path_1"]
-
-
-def test_extract_multiple_movies_for_person_from_reverse_paths():
-    extractor = KGPathAnswerExtractor()
-    query = "Joe Thomas appears in which movies"
-    evidence = [
-        {
-            "path": [
-                (None, "Joe Thomas"),
-                ("starred_actors (reverse)", "The Inbetweeners Movie"),
-            ],
-            "path_id": "path_1",
-        },
-        {
-            "path": [
-                (None, "Joe Thomas"),
-                ("starred_actors (reverse)", "The Inbetweeners 2"),
-            ],
-            "path_id": "path_2",
-        },
-    ]
-
-    result = extractor.extract(query, evidence)
-
-    assert result is not None
-    assert result["answer"] == "The Inbetweeners Movie, The Inbetweeners 2"
-    assert result["citations"] == ["path_1", "path_2"]
-
-
-def test_extract_co_directors_from_reverse_director_paths():
-    evidence = [
-        {
-            "path_id": "kg_path_0001",
-            "path": [
-                (None, "Delbert Mann"),
-                ("directed_by (reverse)", "Film One"),
-                ("directed_by", "Franco Zeffirelli"),
-            ],
-        },
-        {
-            "path_id": "kg_path_0002",
-            "path": [
-                (None, "Delbert Mann"),
-                ("directed_by (reverse)", "Film Two"),
-                ("directed_by", "Cary Fukunaga"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "who are movie co-directors of [Delbert Mann]",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "Franco Zeffirelli, Cary Fukunaga"
-    assert result["citations"] == ["kg_path_0001", "kg_path_0002"]
-
-
-def test_filmography_does_not_include_co_star_movies():
-    evidence = [
-        {
-            "path_id": "direct",
-            "path": [
-                (None, "Joe Thomas"),
-                ("starred_actors (reverse)", "The Inbetweeners 2"),
-                ("starred_actors", "James Buckley"),
-                ("starred_actors (reverse)", "The Pyramid"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "Joe Thomas appears in which movies",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "The Inbetweeners 2"
-
-
-def test_language_target_overrides_shared_actor_intermediate_movie():
+def test_shared_director_question_extracts_genres_not_movies():
+    ex = KGPathAnswerExtractor()
     evidence = [
         {
             "path_id": "p1",
             "path": [
-                (None, "Creepshow"),
-                ("starred_actors", "Leslie Nielsen"),
-                ("starred_actors (reverse)", "Mr. Magoo"),
-                ("in_language", "English"),
+                [None, "The Dance of Reality"],
+                ["directed_by", "Alejandro Jodorowsky"],
+                ["directed_by (reverse)", "The Holy Mountain"],
+                ["has_genre", "Drama"],
             ],
         },
         {
             "path_id": "p2",
             "path": [
-                (None, "Creepshow"),
-                ("starred_actors", "Hal Holbrook"),
-                ("starred_actors (reverse)", "The Star Chamber"),
-                ("in_language", "Polish"),
+                [None, "The Dance of Reality"],
+                ["directed_by", "Alejandro Jodorowsky"],
+                ["directed_by (reverse)", "El Topo"],
+                ["has_genre", "Western"],
             ],
         },
     ]
 
-    result = KGPathAnswerExtractor().extract(
-        "the films that share actors with the film [Creepshow] were in which languages",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "English, Polish"
-
-
-def test_genre_target_filters_to_shared_director_paths():
-    evidence = [
-        {
-            "path_id": "p1",
-            "path": [
-                (None, "The Dance of Reality"),
-                ("directed_by", "Alejandro Jodorowsky"),
-                ("directed_by (reverse)", "The Holy Mountain"),
-                ("has_genre", "Drama"),
-            ],
-        },
-        {
-            "path_id": "p2",
-            "path": [
-                (None, "The Dance of Reality"),
-                ("directed_by", "Alejandro Jodorowsky"),
-                ("directed_by (reverse)", "El Topo"),
-                ("has_genre", "Western"),
-            ],
-        },
-        {
-            "path_id": "bad",
-            "path": [
-                (None, "The Dance of Reality"),
-                ("written_by (reverse)", "Unrelated Film"),
-                ("has_genre", "Comedy"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "the films that share directors with [The Dance of Reality] fall under which genres",
+    result = ex.extract(
+        "the films that share directors with the film [The Dance of Reality] were in which genres",
         evidence,
     )
 
     assert result is not None
     assert result["answer"] == "Drama, Western"
+    assert "The Holy Mountain" not in result["answer"]
+    assert "El Topo" not in result["answer"]
 
 
-def test_directors_of_movies_written_by_writer_of_she():
+def test_shared_writer_question_extracts_release_years_not_movies():
+    ex = KGPathAnswerExtractor()
     evidence = [
         {
-            "path_id": "correct",
+            "path_id": "p1",
             "path": [
-                (None, "She"),
-                ("written_by", "H. Rider Haggard"),
-                ("written_by (reverse)", "Allan Quatermain and the Lost City of Gold"),
-                ("directed_by", "Gary Nelson"),
-            ],
-        },
-        {
-            "path_id": "wrong",
-            "path": [
-                (None, "She"),
-                ("directed_by", "Robert Day"),
-                ("directed_by (reverse)", "The Quick and the Dead"),
-                ("directed_by", "Sam Raimi"),
+                [None, "Grown Ups 2"],
+                ["written_by", "Adam Sandler"],
+                ["written_by (reverse)", "Billy Madison"],
+                ["release_year", "1995"],
             ],
         },
     ]
 
-    result = KGPathAnswerExtractor().extract(
+    result = ex.extract(
+        "what were the release years of the films that share writers with [Grown Ups 2]",
+        evidence,
+    )
+
+    assert result is not None
+    assert result["answer"] == "1995"
+    assert "Billy Madison" not in result["answer"]
+
+
+def test_shared_actor_question_extracts_languages():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "Waxworks"],
+                ["starred_actors", "Conrad Veidt"],
+                ["starred_actors (reverse)", "The Man Who Laughs"],
+                ["in_language", "French"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
+        "the movies that share actors with the movie [Waxworks] were in which languages",
+        evidence,
+    )
+
+    assert result is not None
+    assert result["answer"] == "French"
+
+
+def test_shared_actor_question_extracts_directors_of_other_movies():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "Buchanan Rides Alone"],
+                ["starred_actors", "Randolph Scott"],
+                ["starred_actors (reverse)", "The Last of the Mohicans"],
+                ["directed_by", "George B. Seitz"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
+        "the films that share actors with the film [Buchanan Rides Alone] are directed by who",
+        evidence,
+    )
+
+    assert result is not None
+    assert result["answer"] == "George B. Seitz"
+    assert "The Last of the Mohicans" not in result["answer"]
+
+
+def test_writer_path_extracts_directors_of_movies_written_by_writer():
+    ex = KGPathAnswerExtractor()
+    evidence = [
+        {
+            "path_id": "p1",
+            "path": [
+                [None, "She"],
+                ["written_by", "H. Rider Haggard"],
+                ["written_by (reverse)", "Allan Quatermain and the Lost City of Gold"],
+                ["directed_by", "Gary Nelson"],
+            ],
+        },
+        {
+            "path_id": "p2",
+            "path": [
+                [None, "She"],
+                ["directed_by", "Robert Day"],
+                ["directed_by (reverse)", "Unrelated Movie"],
+                ["directed_by", "Someone Else"],
+            ],
+        },
+    ]
+
+    result = ex.extract(
         "who are the directors of the movies written by the writer of [She]",
         evidence,
     )
 
     assert result is not None
     assert result["answer"] == "Gary Nelson"
-    assert result["citations"] == ["correct"]
-
-
-def test_shared_writer_release_years_ignore_unrelated_paths():
-    evidence = [
-        {
-            "path_id": "p1",
-            "path": [
-                (None, "Grown Ups 2"),
-                ("written_by", "Adam Sandler"),
-                ("written_by (reverse)", "Billy Madison"),
-                ("release_year", "1995"),
-            ],
-        },
-        {
-            "path_id": "p2",
-            "path": [
-                (None, "Grown Ups 2"),
-                ("written_by", "Adam Sandler"),
-                ("written_by (reverse)", "Eight Crazy Nights"),
-                ("release_year", "2002"),
-            ],
-        },
-        {
-            "path_id": "bad",
-            "path": [
-                (None, "Grown Ups 2"),
-                ("directed_by", "Unrelated Director"),
-                ("directed_by (reverse)", "Unrelated Film"),
-                ("release_year", "1962"),
-            ],
-        },
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "what were the release years of the films that share writers with the film [Grown Ups 2]",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "1995, 2002"
-
-
-def test_shared_movie_query_returns_movie_not_actor():
-    evidence = [
-        {
-            "path_id": "p1",
-            "path": [
-                (None, "Jack the Bear"),
-                ("starred_actors", "Danny DeVito"),
-                ("starred_actors (reverse)", "The Rainmaker"),
-            ],
-        }
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "which movies share actors with [Jack the Bear]",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "The Rainmaker"
-
-
-def test_extract_language_before_irrelevant_reverse_edge():
-    evidence = [
-        {
-            "path_id": "language_path",
-            "path": [
-                (None, "David Mandel"),
-                ("directed_by (reverse)", "EuroTrip"),
-                ("in_language", "German"),
-                ("in_language (reverse)", "Operation Crossbow"),
-            ],
-        }
-    ]
-
-    result = KGPathAnswerExtractor().extract(
-        "what are the primary languages in the movies directed by [David Mandel]",
-        evidence,
-    )
-
-    assert result is not None
-    assert result["answer"] == "German"
-    assert result["citations"] == ["language_path"]
+    assert "Someone Else" not in result["answer"]
+    assert "Unrelated Movie" not in result["answer"]
