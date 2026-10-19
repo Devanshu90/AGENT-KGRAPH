@@ -1,5 +1,4 @@
-﻿
-class KGPathAnswerExtractor:
+﻿class KGPathAnswerExtractor:
     def __init__(self):
         self.relation_keywords = {
             "directed_by": ["directed", "director", "directors", "co-director", "codirector"],
@@ -19,6 +18,7 @@ class KGPathAnswerExtractor:
             "common actor", "common actors", "same movie with", "same film with",
             "appeared in the same movie", "appeared in the same film",
             "acted in the same movie", "acted in the same film",
+            "same actor of", "same actors of", "same actor as", "same actors as",
         ]):
             return "starred_actors"
 
@@ -44,12 +44,14 @@ class KGPathAnswerExtractor:
             "which languages", "what languages", "in which languages",
             "were in which languages", "primary languages",
             "what language", "which language",
+            "languages spoken in", "language spoken in",
         ]):
             return "in_language"
 
         if any(x in q for x in [
             "which genres", "what genres", "which genre",
             "what genre", "fall under", "types of",
+            "what types are", "what types", "genres of", "genre of",
         ]):
             return "has_genre"
 

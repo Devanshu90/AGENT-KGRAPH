@@ -1,4 +1,3 @@
-
 import re
 import unicodedata
 
@@ -22,57 +21,91 @@ class KGRetriever:
         return re.sub(r"\s+", " ", value).strip().casefold()
 
     def find_entities(self, query):
-        seeds = []
         mentions = re.findall(r"\[([^\]]+)\]", query)
+        seeds = []
+
+        def add_candidates(candidates, mention):
+            key = self._normalize_entity(mention)
+            relevant = self._relevant_relations(query)
+            target = set(self._target_relations(query))
+            scored = []
+
+            for entity in candidates:
+                score = 0.0
+
+                if str(entity) == mention:
+                    score += 2.0
+
+                for _, _, data in self.kg.graph.out_edges(
+                    entity, data=True
+                ):
+                    relation = str(
+                        data.get("predicate", "")
+                    ).casefold()
+                    if relation in relevant:
+                        score += 2.0
+                    if relation in target:
+                        score += 1.0
+
+                for _, _, data in self.kg.graph.in_edges(
+                    entity, data=True
+                ):
+                    relation = str(
+                        data.get("predicate", "")
+                    ).casefold()
+                    if relation in relevant:
+                        score += 2.0
+                    if relation in target:
+                        score += 1.0
+
+                scored.append((score, entity))
+
+            scored.sort(key=lambda item: item[0], reverse=True)
+
+            if scored:
+                best_score = scored[0][0]
+                best = [
+                    entity for score, entity in scored
+                    if score == best_score
+                ]
+                seeds.extend(best)
 
         for mention in mentions:
             key = self._normalize_entity(mention)
+            candidates = self.entity_lookup.get(key, [])
 
-            for entity in self.entity_lookup.get(key, []):
-                if not any(
-                    self._normalize_entity(existing)
-                    == self._normalize_entity(entity)
-                    for existing in seeds
-                ):
-                    seeds.append(entity)
-
-            if not any(
-                self._normalize_entity(entity) == key
-                for entity in seeds
-            ):
-                mention_tokens = set(key.split())
-                candidates = []
+            if candidates:
+                add_candidates(candidates, mention)
+            else:
+                tokens = set(key.split())
+                partial = []
 
                 for entities in self.entity_lookup.values():
                     for entity in entities:
                         entity_key = self._normalize_entity(entity)
-                        entity_tokens = set(entity_key.split())
-                        overlap = mention_tokens & entity_tokens
-
+                        overlap = tokens & set(entity_key.split())
                         if overlap:
-                            score = (
+                            partial.append((
                                 len(overlap),
-                                len(overlap) / max(len(entity_tokens), 1),
-                            )
-                            candidates.append((score, entity))
+                                len(overlap) / max(
+                                    len(entity_key.split()), 1
+                                ),
+                                entity,
+                            ))
 
-                if candidates:
-                    candidates.sort(
-                        key=lambda item: item[0],
+                if partial:
+                    partial.sort(
+                        key=lambda item: (item[0], item[1]),
                         reverse=True,
                     )
-                    best_score = candidates[0][0]
-                    best = [
-                        entity
-                        for score, entity in candidates
-                        if score == best_score
-                    ]
-
-                    if len(best) == 1 and best[0] not in seeds:
-                        seeds.append(best[0])
-
-            if len(seeds) >= self.max_seeds:
-                break
+                    best_score = partial[0][:2]
+                    add_candidates(
+                        [
+                            entity for a, b, entity in partial
+                            if (a, b) == best_score
+                        ],
+                        mention,
+                    )
 
         if not seeds and not mentions:
             query_normalized = self._normalize_entity(query)
@@ -83,22 +116,19 @@ class KGRetriever:
                     r"(?<!\w)" + re.escape(key) + r"(?!\w)",
                     query_normalized,
                 ):
-                    for entity in entities:
-                        matches.append((len(key), entity))
+                    matches.extend(entities)
 
-            matches.sort(
-                key=lambda item: item[0],
-                reverse=True,
-            )
+            seeds.extend(matches)
 
-            for _, entity in matches:
-                if entity not in seeds:
-                    seeds.append(entity)
+        unique = []
+        seen = set()
 
-                if len(seeds) >= self.max_seeds:
-                    break
+        for entity in seeds:
+            if entity not in seen:
+                seen.add(entity)
+                unique.append(entity)
 
-        return seeds
+        return unique[:self.max_seeds]
 
     def _edge_score(self, source, target, data):
         return (
@@ -346,8 +376,6 @@ class KGRetriever:
             "movies did",
             "films does",
             "movies does",
-            "appear in",
-            "act in",
         ])
 
         if is_filmography:

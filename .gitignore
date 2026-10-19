@@ -40,3 +40,12 @@ runs/
 # Temporary files
 *.tmp
 *.temp
+# Local MetaQA evaluation artifacts
+metaqa_full_evaluation.json
+metaqa_full_evaluation_checkpoint.json
+metaqa_full_evaluation_checkpoint.backup.json
+metaqa_hit1_results.json
+metaqa_full_evaluation.json
+metaqa_full_evaluation_checkpoint.json
+metaqa_full_evaluation_checkpoint.backup.json
+metaqa_hit1_results.json

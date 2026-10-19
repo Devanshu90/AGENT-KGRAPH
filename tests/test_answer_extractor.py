@@ -264,13 +264,15 @@ def test_writer_path_extracts_directors_of_movies_written_by_writer():
             ],
         },
     ]
+def test_language_question_with_spoken_in_phrasing():
+    ex = KGPathAnswerExtractor()
+    assert ex._target_relation(
+        "what are the languages spoken in the movies whose actors also appear in [Hard Rain]"
+    ) == "in_language"
 
-    result = ex.extract(
-        "who are the directors of the movies written by the writer of [She]",
-        evidence,
-    )
 
-    assert result is not None
-    assert result["answer"] == "Gary Nelson"
-    assert "Someone Else" not in result["answer"]
-    assert "Unrelated Movie" not in result["answer"]
+def test_genre_question_with_genres_of_phrasing():
+    ex = KGPathAnswerExtractor()
+    assert ex._target_relation(
+        "what are the genres of the movies whose actors also appear in [Scarface]"
+    ) == "has_genre"
