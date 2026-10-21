@@ -649,8 +649,8 @@ if __name__=="__main__":
                 result["evidence"]
             )
         )
-
-        self._free_synthesizer()
+        if evolve:
+            self._free_synthesizer()
 
         evolution_result=(
             self._run_evolution_process(
