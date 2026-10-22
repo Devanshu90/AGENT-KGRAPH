@@ -3,9 +3,9 @@ Real Model Benchmark: verifier
 Status: PASS
 Load success: True
 Inference success: True
-Load time (ms): 10376.753
-Inference time (ms): 1159.313
-Peak memory (KB): 21925.519
+Load time (ms): 8346.458
+Inference time (ms): 941.225
+Peak memory (KB): 21924.224
 
 Details:
 {

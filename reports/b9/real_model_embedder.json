@@ -4,7 +4,7 @@
   "sample_size": 1,
   "real_model_benchmark_status": "completed",
   "success": true,
-  "total_duration_ms": 28089.153,
+  "total_duration_ms": 25935.692,
   "environment": {
     "python": "3.13.15",
     "platform": "Windows-11-10.0.26300-SP0",
@@ -22,9 +22,9 @@
     "status": "PASS",
     "load_success": true,
     "inference_success": true,
-    "load_time_ms": 10738.918,
-    "inference_time_ms": 97.906,
-    "peak_memory_kb": 6239.775,
+    "load_time_ms": 9867.108,
+    "inference_time_ms": 39.179,
+    "peak_memory_kb": 6235.675,
     "details": {
       "output_length": 1,
       "first_item_type": "dict"

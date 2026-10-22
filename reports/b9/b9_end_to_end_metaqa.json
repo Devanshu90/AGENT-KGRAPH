@@ -7,32 +7,33 @@
     "synthesizer_max_new_tokens": 64,
     "synthesizer_temperature": 0.0,
     "vector_corpus_loaded": false,
-    "kg_path": "data/kg/metaqa_graph.json"
+    "kg_path": "data/kg/metaqa_graph.json",
+    "exact_match_method": "normalized answer-set equality"
   },
   "overall": {
-    "exact_match": 0.0,
-    "token_f1": 0.3856435231435231,
-    "average_latency_ms": 41312.00829999822,
-    "total_latency_ms": 247880.28589999885
+    "exact_match": 0.8333333333333334,
+    "token_f1": 0.4465919701213819,
+    "average_latency_ms": 566.6875500016127,
+    "total_latency_ms": 3407.5946000011754
   },
   "hop_metrics": {
     "1": {
       "count": 2,
-      "exact_match": 0.0,
-      "token_f1": 0.4602272727272727,
-      "average_latency_ms": 45.96364999815705
+      "exact_match": 1.0,
+      "token_f1": 0.8333333333333333,
+      "average_latency_ms": 72.96710000082385
     },
     "2": {
       "count": 2,
-      "exact_match": 0.0,
-      "token_f1": 0.35384615384615387,
-      "average_latency_ms": 123184.01599999925
+      "exact_match": 0.5,
+      "token_f1": 0.25882352941176473,
+      "average_latency_ms": 845.3250000020489
     },
     "3": {
       "count": 2,
-      "exact_match": 0.0,
-      "token_f1": 0.34285714285714286,
-      "average_latency_ms": 706.0452499972598
+      "exact_match": 1.0,
+      "token_f1": 0.24761904761904763,
+      "average_latency_ms": 781.7705500019656
     }
   },
   "route_distribution": {
@@ -46,12 +47,12 @@
       "answers": [
         "Before the Rain"
       ],
-      "prediction": "Career Girls, Katrin Cartlidge, Labina Mitevska, Jason Statham, Jet Li, Before the Rain",
+      "prediction": "Before the Rain",
       "route": "kg",
-      "evidence_count": 8,
-      "exact_match": 0.0,
-      "token_f1": 0.375,
-      "latency_ms": 8.490799998980947
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 31.222300000081304
     },
     {
       "question_id": "metaqa_1hop_test_0000001",
@@ -61,12 +62,12 @@
         "The Inbetweeners Movie",
         "The Inbetweeners 2"
       ],
-      "prediction": "The Pyramid, The Inbetweeners Movie, The Inbetweeners 2",
+      "prediction": "The Inbetweeners 2, The Inbetweeners Movie",
       "route": "kg",
-      "evidence_count": 8,
-      "exact_match": 0.0,
-      "token_f1": 0.5454545454545454,
-      "latency_ms": 83.43649999733316
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 0.6666666666666666,
+      "latency_ms": 114.71190000156639
     },
     {
       "question_id": "metaqa_2hop_test_0000000",
@@ -79,12 +80,12 @@
         "Ken Kwapis",
         "Luke Greenfield"
       ],
-      "prediction": "Sam Mendes Sources: kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0008",
+      "prediction": "George Clooney, Sam Mendes, Ken Kwapis, Luke Greenfield, Nancy Meyers, Gus Van Sant, Michael Hoffman",
       "route": "kg",
-      "evidence_count": 8,
+      "evidence_count": 50,
       "exact_match": 0.0,
-      "token_f1": 0.4,
-      "latency_ms": 119313.65599999845
+      "token_f1": 0.11764705882352941,
+      "latency_ms": 1184.9333999998635
     },
     {
       "question_id": "metaqa_2hop_test_0000001",
@@ -96,12 +97,12 @@
         "Lewis Milestone",
         "Robert Stevenson"
       ],
-      "prediction": "Robert Stevenson Sources: kg_path_0001, kg_path_0002, kg_path_0003, kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0",
+      "prediction": "Robert Stevenson, Cary Fukunaga, Franco Zeffirelli, Lewis Milestone",
       "route": "kg",
-      "evidence_count": 8,
-      "exact_match": 0.0,
-      "token_f1": 0.3076923076923077,
-      "latency_ms": 127054.37600000005
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 0.4,
+      "latency_ms": 505.71660000423435
     },
     {
       "question_id": "metaqa_3hop_test_0000000",
@@ -115,10 +116,10 @@
       ],
       "prediction": "Japanese, German, Polish, Mende",
       "route": "kg",
-      "evidence_count": 8,
-      "exact_match": 0.0,
+      "evidence_count": 50,
+      "exact_match": 1.0,
       "token_f1": 0.4,
-      "latency_ms": 1059.0767999965465
+      "latency_ms": 1120.2466000031563
     },
     {
       "question_id": "metaqa_3hop_test_0000001",
@@ -146,12 +147,12 @@
         "Lana Turner",
         "George Sanders"
       ],
-      "prediction": "Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson",
+      "prediction": "Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson, Lana Turner, Sandra Dee, Susan Kohner, George Sanders, Boris Karloff, Charles Coburn, Lucille Ball, Cornel Wilde, Patricia Knight, Fred MacMurray, Barbara Stanwyck, Joan Bennett, Rock Hudson, Jane Wyman",
       "route": "kg",
-      "evidence_count": 8,
-      "exact_match": 0.0,
-      "token_f1": 0.2857142857142857,
-      "latency_ms": 353.01369999797316
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 0.09523809523809523,
+      "latency_ms": 443.29450000077486
     }
   ]
 }

@@ -1,0 +1,485 @@
+import re
+import unicodedata
+
+
+class KGRetriever:
+    def __init__(self, kg, max_seeds=5):
+        self.kg = kg
+        self.max_seeds = max_seeds
+        self.entity_lookup = {}
+
+        for entity in self.kg.graph.nodes:
+            key = self._normalize_entity(entity)
+            self.entity_lookup.setdefault(key, []).append(entity)
+
+    def _normalize_entity(self, value):
+        value = unicodedata.normalize("NFKD", str(value))
+        value = "".join(
+            c for c in value
+            if not unicodedata.combining(c)
+        )
+        return re.sub(r"\s+", " ", value).strip().casefold()
+
+    def find_entities(self, query):
+        mentions = re.findall(r"\[([^\]]+)\]", query)
+        seeds = []
+
+        def add_candidates(candidates, mention):
+            key = self._normalize_entity(mention)
+            relevant = self._relevant_relations(query)
+            target = set(self._target_relations(query))
+            scored = []
+
+            for entity in candidates:
+                score = 0.0
+
+                if str(entity) == mention:
+                    score += 2.0
+
+                for _, _, data in self.kg.graph.out_edges(
+                    entity, data=True
+                ):
+                    relation = str(
+                        data.get("predicate", "")
+                    ).casefold()
+                    if relation in relevant:
+                        score += 2.0
+                    if relation in target:
+                        score += 1.0
+
+                for _, _, data in self.kg.graph.in_edges(
+                    entity, data=True
+                ):
+                    relation = str(
+                        data.get("predicate", "")
+                    ).casefold()
+                    if relation in relevant:
+                        score += 2.0
+                    if relation in target:
+                        score += 1.0
+
+                scored.append((score, entity))
+
+            scored.sort(key=lambda item: item[0], reverse=True)
+
+            if scored:
+                best_score = scored[0][0]
+                best = [
+                    entity for score, entity in scored
+                    if score == best_score
+                ]
+                seeds.extend(best)
+
+        for mention in mentions:
+            key = self._normalize_entity(mention)
+            candidates = self.entity_lookup.get(key, [])
+
+            if candidates:
+                add_candidates(candidates, mention)
+            else:
+                tokens = set(key.split())
+                partial = []
+
+                for entities in self.entity_lookup.values():
+                    for entity in entities:
+                        entity_key = self._normalize_entity(entity)
+                        overlap = tokens & set(entity_key.split())
+                        if overlap:
+                            partial.append((
+                                len(overlap),
+                                len(overlap) / max(
+                                    len(entity_key.split()), 1
+                                ),
+                                entity,
+                            ))
+
+                if partial:
+                    partial.sort(
+                        key=lambda item: (item[0], item[1]),
+                        reverse=True,
+                    )
+                    best_score = partial[0][:2]
+                    add_candidates(
+                        [
+                            entity for a, b, entity in partial
+                            if (a, b) == best_score
+                        ],
+                        mention,
+                    )
+
+        if not seeds and not mentions:
+            query_normalized = self._normalize_entity(query)
+            matches = []
+
+            for key, entities in self.entity_lookup.items():
+                if len(key) >= 4 and re.search(
+                    r"(?<!\w)" + re.escape(key) + r"(?!\w)",
+                    query_normalized,
+                ):
+                    matches.extend(entities)
+
+            seeds.extend(matches)
+
+        unique = []
+        seen = set()
+
+        for entity in seeds:
+            if entity not in seen:
+                seen.add(entity)
+                unique.append(entity)
+
+        return unique[:self.max_seeds]
+
+    def _edge_score(self, source, target, data):
+        return (
+            self.kg.graph.nodes[source].get("confidence", 1.0)
+            * self.kg.graph.nodes[target].get("confidence", 1.0)
+            * data.get("confidence", 0.0)
+        )
+
+    def _edge_results(self, source, target, seed, data):
+        score = self._edge_score(source, target, data)
+
+        if score < self.kg.config.path_min_score:
+            return None
+
+        predicate = data.get("predicate", "related_to")
+
+        return {
+            "seed": seed,
+            "path": [source, predicate, target],
+            "score": score,
+        }
+
+    def _multi_hop_paths(self, seed):
+        max_hops = self.kg.config.hop_limit
+        min_score = self.kg.config.path_min_score
+        results = []
+
+        def dfs(node, path, score, depth, visited):
+            if depth >= max_hops:
+                return
+
+            edges = []
+
+            for source, target, key, data in self.kg.graph.out_edges(
+                node,
+                keys=True,
+                data=True,
+            ):
+                edges.append((source, target, data, False))
+
+            for source, target, key, data in self.kg.graph.in_edges(
+                node,
+                keys=True,
+                data=True,
+            ):
+                edges.append((source, target, data, True))
+
+            for source, target, data, reversed_edge in edges:
+                next_node = source if reversed_edge else target
+                predicate = data.get("predicate", "related_to")
+
+                # Permit a direct self-loop for MetaQA entities such as Lemmy,
+                # but do not revisit nodes or follow self-loops deeper in a path.
+                is_seed_self_loop = (
+                    depth == 0
+                    and source == seed
+                    and target == seed
+                    and next_node == seed
+                    and not reversed_edge
+                    and predicate == "starred_actors"
+                )
+
+                if next_node in visited and not is_seed_self_loop:
+                    continue
+
+                edge_score = self._edge_score(source, target, data)
+                new_score = score * edge_score
+
+                if new_score < min_score:
+                    continue
+
+                if reversed_edge:
+                    relation = f"{predicate} (reverse)"
+                else:
+                    relation = predicate
+
+                new_path = path + [(relation, next_node)]
+
+                results.append({
+                    "seed": seed,
+                    "path": new_path,
+                    "score": new_score,
+                })
+
+                # A self-loop is a terminal one-hop result, not a reason to
+                # recurse into the same node and generate cyclic paths.
+                if is_seed_self_loop:
+                    continue
+
+                dfs(
+                    next_node,
+                    new_path,
+                    new_score,
+                    depth + 1,
+                    visited | {next_node},
+                )
+
+        dfs(
+            seed,
+            [(None, seed)],
+            1.0,
+            0,
+            {seed},
+        )
+
+        return results
+
+    def _relevant_relations(self, query):
+        query_lower = query.casefold()
+
+        mapping = {
+            "starred_actors": [
+                "starred", "star", "appears", "appear",
+                "acted", "actor", "actors", "cast",
+                "starred_actors",
+            ],
+            "directed_by": [
+                "directed", "director", "directors", "direct",
+                "co-director", "codirector", "co-directors",
+            ],
+            "written_by": [
+                "written", "writer", "writers",
+                "screenwriter", "screenwriters",
+            ],
+            "in_language": ["language", "languages"],
+            "has_genre": ["genre", "genres", "types", "fall under"],
+            "has_tags": ["tag", "tags"],
+            "release_year": [
+                "release year", "release years",
+                "released", "release", "year",
+            ],
+        }
+
+        relevant = set()
+
+        for relation, words in mapping.items():
+            for word in words:
+                if word in query_lower:
+                    relevant.add(relation)
+                    break
+
+        return relevant
+
+    def _target_relations(self, query):
+        q = query.casefold()
+
+        if any(word in q for word in ["language", "languages"]):
+            return ["in_language"]
+
+        if any(word in q for word in [
+            "genre", "genres", "types", "fall under",
+        ]):
+            return ["has_genre"]
+
+        if any(word in q for word in [
+            "release year", "release years", "released",
+            "when did", "when were", "when was",
+        ]):
+            return ["release_year"]
+
+        if any(word in q for word in ["tag", "tags"]):
+            return ["has_tags"]
+
+        if any(phrase in q for phrase in [
+            "screenwriter", "screenwriters", "who wrote",
+            "which writer", "what writer",
+        ]):
+            return ["written_by"]
+
+        if any(phrase in q for phrase in [
+            "who starred", "who stars", "who acted",
+            "who appears", "which actors", "what actors",
+            "which actor", "what actor",
+        ]):
+            return ["starred_actors"]
+
+        if any(phrase in q for phrase in [
+            "who directed", "who are the directors",
+            "who are directors", "directors of",
+            "directed by who", "which director",
+            "what director", "co-director", "codirector",
+            "co-directors",
+        ]):
+            return ["directed_by"]
+
+        if any(phrase in q for phrase in [
+            "who are the writers", "who are writers",
+            "writers of", "which writers", "what writers",
+            "who is the writer", "who was the writer",
+        ]):
+            return ["written_by"]
+
+        if any(word in q for word in [
+            "directed", "director", "directors",
+        ]):
+            return ["directed_by"]
+
+        if any(word in q for word in [
+            "written", "writer", "writers",
+        ]):
+            return ["written_by"]
+
+        if any(word in q for word in [
+            "starred", "stars", "actor", "actors",
+            "cast", "appear", "acted",
+        ]):
+            return ["starred_actors"]
+
+        return []
+
+    def _path_relation_score(self, path, relevant_relations):
+        if not relevant_relations:
+            return 0.0
+
+        score = 0.0
+
+        for item in path:
+            if not isinstance(item, (list, tuple)):
+                continue
+
+            if len(item) != 2 or item[0] is None:
+                continue
+
+            relation = str(item[0]).casefold()
+
+            for target in relevant_relations:
+                if target.casefold() in relation:
+                    score += 3.0
+
+        return score
+
+    def _final_relation_score(self, path, target_relations):
+        if not target_relations or len(path) < 2:
+            return 0.0
+
+        final_relation = str(path[-1][0]).casefold()
+
+        for relation in target_relations:
+            if relation.casefold() in final_relation:
+                return 100.0
+
+        return 0.0
+
+    def _rank_path(self, result, relevant_relations, target_relations):
+        path = result["path"]
+        query = getattr(self, "_active_query", "").casefold()
+        hop_count = max(len(path) - 1, 0)
+
+        is_filmography = any(phrase in query for phrase in [
+            "what films did",
+            "what films does",
+            "what does",
+            "what movies did",
+            "what movies does",
+            "which movies did",
+            "which films did",
+            "appears in which movies",
+            "appears in which films",
+            "films did",
+            "movies did",
+            "films does",
+            "movies does",
+        ])
+
+        if is_filmography:
+            if hop_count == 1 and len(path) == 2:
+                relation = str(path[1][0]).casefold()
+                is_reverse_actor_edge = relation == "starred_actors (reverse)"
+                is_seed_self_loop = (
+                    relation == "starred_actors"
+                    and path[0][1] == path[1][1]
+                )
+
+                if is_reverse_actor_edge or is_seed_self_loop:
+                    return 200.0 + result["score"] * 0.01
+
+            return -100.0 + result["score"] * 0.01
+
+        if any(word in query for word in [
+            "co-director", "codirector", "co-directors",
+        ]):
+            relations = [
+                str(item[0]).casefold()
+                for item in path
+                if isinstance(item, (list, tuple))
+                and len(item) == 2
+                and item[0] is not None
+            ]
+
+            if (
+                len(path) == 3
+                and len(relations) == 2
+                and "directed_by" in relations[0]
+                and "reverse" in relations[0]
+                and "directed_by" in relations[1]
+                and "reverse" not in relations[1]
+            ):
+                return 200.0 + result["score"] * 0.01
+
+        relation_score = self._path_relation_score(
+            path,
+            relevant_relations,
+        )
+        final_relation_score = self._final_relation_score(
+            path,
+            target_relations,
+        )
+        target_bonus = (
+            2.0
+            if final_relation_score > 0 and hop_count >= 2
+            else 0.0
+        )
+
+        return (
+            final_relation_score
+            + relation_score
+            + target_bonus
+            + result["score"] * 0.01
+        )
+
+    def search(self, query):
+        self._active_query = query
+        seeds = self.find_entities(query)
+        results = []
+
+        for seed in seeds:
+            results.extend(self._multi_hop_paths(seed))
+
+        relevant_relations = self._relevant_relations(query)
+        target_relations = self._target_relations(query)
+
+        results.sort(
+            key=lambda item: self._rank_path(
+                item,
+                relevant_relations,
+                target_relations,
+            ),
+            reverse=True,
+        )
+
+        unique = []
+        seen = set()
+
+        for result in results:
+            path_key = tuple(str(item) for item in result["path"])
+
+            if path_key in seen:
+                continue
+
+            seen.add(path_key)
+            result["path_id"] = f"kg_path_{len(unique) + 1:04d}"
+            unique.append(result)
+
+        return unique[:50]

@@ -3,9 +3,9 @@ Real Model Benchmark: embedder
 Status: PASS
 Load success: True
 Inference success: True
-Load time (ms): 10738.918
-Inference time (ms): 97.906
-Peak memory (KB): 6239.775
+Load time (ms): 9867.108
+Inference time (ms): 39.179
+Peak memory (KB): 6235.675
 
 Details:
 {

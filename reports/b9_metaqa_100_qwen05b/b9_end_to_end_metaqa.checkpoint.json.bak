@@ -1,0 +1,1765 @@
+{
+  "identity": "9aafa8d34cf2605fd0f45a874b5cbaf90e7b9acf0497c1c1f3c1e86a4526e7ea",
+  "identity_data": {
+    "split": "test",
+    "samples_per_hop": 34,
+    "dataset_signature": [
+      {
+        "question_id": "metaqa_1hop_test_0000000",
+        "hop": 1,
+        "question": "what does [Grégoire Colin] appear in",
+        "answers": [
+          "Before the Rain"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000001",
+        "hop": 1,
+        "question": "[Joe Thomas] appears in which movies",
+        "answers": [
+          "The Inbetweeners Movie",
+          "The Inbetweeners 2"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000002",
+        "hop": 1,
+        "question": "what films did [Michelle Trachtenberg] star in",
+        "answers": [
+          "Inspector Gadget",
+          "Black Christmas",
+          "Ice Princess",
+          "Harriet the Spy",
+          "The Scribbler"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000003",
+        "hop": 1,
+        "question": "what does [Helen Mack] star in",
+        "answers": [
+          "The Son of Kong",
+          "Kiss and Make-Up",
+          "Divorce"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000004",
+        "hop": 1,
+        "question": "what films did [Shahid Kapoor] act in",
+        "answers": [
+          "Haider",
+          "Jab We Met",
+          "Chance Pe Dance"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000005",
+        "hop": 1,
+        "question": "[Brendan Gleeson] appears in which movies",
+        "answers": [
+          "The Raven",
+          "Lake Placid",
+          "Calvary",
+          "The Smurfs 2",
+          "Stonehearst Asylum",
+          "The Grand Seduction",
+          "The General",
+          "Six Shooter",
+          "Harrison's Flowers",
+          "Into the Storm",
+          "The Tiger's Tail"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000006",
+        "hop": 1,
+        "question": "what films does [Paresh Rawal] appear in",
+        "answers": [
+          "Table No. 21",
+          "Cheeni Kum"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000007",
+        "hop": 1,
+        "question": "what does [Doug Collins] star in",
+        "answers": [
+          "Michael Jordan to the Max"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000008",
+        "hop": 1,
+        "question": "what films does [Brigitte Nielsen] appear in",
+        "answers": [
+          "Cobra",
+          "Red Sonja"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000009",
+        "hop": 1,
+        "question": "[Mona McKinnon] appears in which movies",
+        "answers": [
+          "Plan 9 from Outer Space"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000010",
+        "hop": 1,
+        "question": "what films did [Christina Ricci] act in",
+        "answers": [
+          "Sleepy Hollow",
+          "Monster",
+          "Black Snake Moan",
+          "Buffalo '66",
+          "After.Life",
+          "Now and Then",
+          "The Opposite of Sex",
+          "Bel Ami",
+          "Prozac Nation",
+          "The Man Who Cried",
+          "Pecker",
+          "Pumpkin",
+          "The Gathering",
+          "That Darn Cat",
+          "Desert Blue",
+          "Miranda",
+          "The Last of the High Kings",
+          "All's Faire in Love",
+          "Around the Block"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000011",
+        "hop": 1,
+        "question": "[Brian Backer] appears in which movies",
+        "answers": [
+          "Moving Violations"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000012",
+        "hop": 1,
+        "question": "what films does [William Atherton] appear in",
+        "answers": [
+          "Die Hard 2",
+          "The Sugarland Express",
+          "The Day of the Locust",
+          "Buried Alive",
+          "The Citizen"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000013",
+        "hop": 1,
+        "question": "what does [Jeremy Piven] act in",
+        "answers": [
+          "So Undercover",
+          "Keeping Up with the Steins",
+          "Just Write"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000014",
+        "hop": 1,
+        "question": "what films did [Roger Bart] star in",
+        "answers": [
+          "Excision"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000015",
+        "hop": 1,
+        "question": "[Ruggero Raimondi] appears in which movies",
+        "answers": [
+          "Carmen"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000016",
+        "hop": 1,
+        "question": "what films did [Robert Strauss] act in",
+        "answers": [
+          "Stalag 17",
+          "Attack"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000017",
+        "hop": 1,
+        "question": "what films did [Aleksandr Gordon] act in",
+        "answers": [
+          "The Killers"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000018",
+        "hop": 1,
+        "question": "what does [Stephen Furst] act in",
+        "answers": [
+          "The Dream Team"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000019",
+        "hop": 1,
+        "question": "what does [Hiromi Nagasaku] star in",
+        "answers": [
+          "Doppelganger"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000020",
+        "hop": 1,
+        "question": "what films does [Claude Akins] appear in",
+        "answers": [
+          "Battle for the Planet of the Apes",
+          "Comanche Station",
+          "A Man Called Sledge"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000021",
+        "hop": 1,
+        "question": "what films did [Arjun Rampal] act in",
+        "answers": [
+          "Ra.One",
+          "Om Shanti Om",
+          "Don",
+          "Raajneeti",
+          "D-Day",
+          "Aankhen",
+          "Heroine"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000022",
+        "hop": 1,
+        "question": "what movies was [Chris O'Donnell] an actor in",
+        "answers": [
+          "Scent of a Woman",
+          "Vertical Limit",
+          "Kinsey",
+          "The Three Musketeers",
+          "School Ties",
+          "The Bachelor",
+          "Cookie's Fortune",
+          "The Chamber",
+          "In Love and War",
+          "Mad Love",
+          "Men Don't Leave"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000023",
+        "hop": 1,
+        "question": "what does [May Robson] act in",
+        "answers": [
+          "A Star Is Born",
+          "Wife vs. Secretary"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000024",
+        "hop": 1,
+        "question": "what films did [Melvin Van Peebles] star in",
+        "answers": [
+          "Sweet Sweetback's Baadasssss Song"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000025",
+        "hop": 1,
+        "question": "what does [Tannishtha Chatterjee] appear in",
+        "answers": [
+          "Brick Lane",
+          "Road, Movie"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000026",
+        "hop": 1,
+        "question": "what movies was [Michael Tully] an actor in",
+        "answers": [
+          "Septien"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000027",
+        "hop": 1,
+        "question": "what movies was [Dan Petronijevic] an actor in",
+        "answers": [
+          "Cottage Country"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000028",
+        "hop": 1,
+        "question": "what films did [Phil Silvers] act in",
+        "answers": [
+          "A Funny Thing Happened on the Way to the Forum",
+          "A Lady Takes a Chance",
+          "Top Banana"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000029",
+        "hop": 1,
+        "question": "what films does [James B. Schwartz] appear in",
+        "answers": [
+          "Faces of Death IV"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000030",
+        "hop": 1,
+        "question": "what films did [Piolo Pascual] star in",
+        "answers": [
+          "On the Job"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000031",
+        "hop": 1,
+        "question": "what movies was [Eiji Funakoshi] an actor in",
+        "answers": [
+          "Fires on the Plain"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000032",
+        "hop": 1,
+        "question": "what films does [Richard Roundtree] appear in",
+        "answers": [
+          "Shaft",
+          "Q",
+          "An Eye for an Eye",
+          "Shaft in Africa"
+        ]
+      },
+      {
+        "question_id": "metaqa_1hop_test_0000033",
+        "hop": 1,
+        "question": "what movies did [Darren McGavin] star in",
+        "answers": [
+          "Billy Madison",
+          "The Night Stalker",
+          "Mrs. Pollifax-Spy",
+          "The Challenge"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000000",
+        "hop": 2,
+        "question": "which person directed the movies starred by [John Krasinski]",
+        "answers": [
+          "Nancy Meyers",
+          "Sam Mendes",
+          "George Clooney",
+          "Ken Kwapis",
+          "Luke Greenfield"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000001",
+        "hop": 2,
+        "question": "who are movie co-directors of [Delbert Mann]",
+        "answers": [
+          "Franco Zeffirelli",
+          "Cary Fukunaga",
+          "Lewis Milestone",
+          "Robert Stevenson"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000002",
+        "hop": 2,
+        "question": "what are the primary languages in the movies directed by [David Mandel]",
+        "answers": [
+          "German"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000003",
+        "hop": 2,
+        "question": "the screenwriter [Mimsy Farmer] co-wrote movies with who",
+        "answers": [
+          "Barbet Schroeder"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000004",
+        "hop": 2,
+        "question": "the films acted by [Shaun White] were in which genres",
+        "answers": [
+          "Sport",
+          "Documentary"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000005",
+        "hop": 2,
+        "question": "what are the genres of the films directed by [Jerry Lewis]",
+        "answers": [
+          "Drama",
+          "Comedy",
+          "War"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000006",
+        "hop": 2,
+        "question": "who appeared in the same movie with [Angie Everhart]",
+        "answers": [
+          "Erika Eleniak",
+          "Dennis Miller"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000007",
+        "hop": 2,
+        "question": "what are the genres of the films directed by [Mike Nichols]",
+        "answers": [
+          "Drama",
+          "Horror",
+          "Comedy",
+          "War",
+          "Thriller"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000008",
+        "hop": 2,
+        "question": "who are the actors in the films written by [John Travis]",
+        "answers": [
+          "Haley Bennett",
+          "Chace Crawford",
+          "Jake Weber"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000009",
+        "hop": 2,
+        "question": "the movies starred by [Clifford Rose] were written by who",
+        "answers": [
+          "Adrian Mitchell",
+          "Geoffrey Skelton",
+          "Peter Weiss"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000010",
+        "hop": 2,
+        "question": "what genres do the films starred by [Al St. John] fall under",
+        "answers": [
+          "Comedy",
+          "Short"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000011",
+        "hop": 2,
+        "question": "the director of [JFK] also directed which movies",
+        "answers": [
+          "U Turn",
+          "Savages",
+          "Wall Street",
+          "Natural Born Killers",
+          "Platoon",
+          "Salvador",
+          "The Doors",
+          "Comandante",
+          "W.",
+          "The Hand",
+          "Born on the Fourth of July",
+          "World Trade Center",
+          "South of the Border",
+          "Seizure",
+          "Any Given Sunday",
+          "Talk Radio",
+          "Nixon",
+          "Alexander"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000012",
+        "hop": 2,
+        "question": "when were the movies starred by [Meredith Edwards] released",
+        "answers": [
+          "1949"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000013",
+        "hop": 2,
+        "question": "the movies starred by [Dorothy Malone] were directed by who",
+        "answers": [
+          "Rob Cohen",
+          "Andrew L. Stone",
+          "Joseph Pevney",
+          "Raoul Walsh",
+          "Robert Aldrich",
+          "John Ireland",
+          "Douglas Sirk",
+          "Charles Marquis Warren"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000014",
+        "hop": 2,
+        "question": "what were the release years the films starred by [Jean Rochefort]",
+        "answers": [
+          "1990",
+          "1972"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000015",
+        "hop": 2,
+        "question": "what genres are the movies written by [Gene Wilder] in",
+        "answers": [
+          "Comedy",
+          "Musical"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000016",
+        "hop": 2,
+        "question": "the director of [The Brown Bunny] also directed which movies",
+        "answers": [
+          "Buffalo '66"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000017",
+        "hop": 2,
+        "question": "the films directed by [Philippe Grandrieux] starred which actors",
+        "answers": [
+          "Marc Barbé",
+          "Elina Löwensohn"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000018",
+        "hop": 2,
+        "question": "which movies have the same actor of [Jack the Bear]",
+        "answers": [
+          "Ransom",
+          "Bingo",
+          "Tin Men",
+          "The Rainmaker",
+          "Throw Momma from the Train",
+          "Screwed",
+          "Of Mice and Men",
+          "Twins",
+          "The Good Night",
+          "Deck the Halls",
+          "Snake Eyes",
+          "Solitary Man",
+          "Living Out Loud",
+          "Batman Returns",
+          "Hoffa",
+          "What's the Worst That Could Happen?",
+          "Get Shorty",
+          "Terms of Endearment",
+          "Drowning Mona",
+          "Impostor",
+          "The War of the Roses",
+          "Heist",
+          "Romancing the Stone",
+          "Ruthless People",
+          "Wise Guys",
+          "Open Season",
+          "Going Ape!",
+          "Renaissance Man",
+          "Matilda",
+          "Albino Alligator",
+          "Apollo 13",
+          "The Jewel of the Nile",
+          "Other People's Money",
+          "The Lorax",
+          "Death to Smoochy",
+          "Mission to Mars",
+          "Just Add Water",
+          "The Human Stain"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000019",
+        "hop": 2,
+        "question": "what types are the movies written by [Rowland Barber]",
+        "answers": [
+          "Comedy"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000020",
+        "hop": 2,
+        "question": "the films written by [Babaloo Mandel] starred which actors",
+        "answers": [
+          "Nancy Travis",
+          "Jason Robards",
+          "Dianne Wiest",
+          "Olivia d'Abo",
+          "Eugene Levy",
+          "Joan Cusack",
+          "Steve Martin",
+          "Michael J. Fox",
+          "Kirk Douglas",
+          "Geena Davis",
+          "John Candy",
+          "Daryl Hannah",
+          "Billy Crystal",
+          "David Paymer",
+          "Daniel Stern",
+          "Patricia Wettig",
+          "Tom Hanks",
+          "Mary Steenburgen",
+          "Bruno Kirby",
+          "Uma Thurman",
+          "Natalie Portman",
+          "Stockard Channing",
+          "Dabney Coleman",
+          "Ashley Judd",
+          "Madonna",
+          "Lori Petty"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000021",
+        "hop": 2,
+        "question": "what were the release years the films written by [Gary David Goldberg]",
+        "answers": [
+          "2005",
+          "1995",
+          "1989"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000022",
+        "hop": 2,
+        "question": "who are the actors in the movies written by [Daniel Barnz]",
+        "answers": [
+          "Alex Pettyfer",
+          "Holly Hunter",
+          "Maggie Gyllenhaal",
+          "Viola Davis"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000023",
+        "hop": 2,
+        "question": "what types are the movies directed by [Anthony Hickox]",
+        "answers": [
+          "Action",
+          "Comedy",
+          "Adventure",
+          "Thriller",
+          "Crime"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000024",
+        "hop": 2,
+        "question": "what are the films that are directed by the same director of [Finding Neverland]",
+        "answers": [
+          "Machine Gun Preacher",
+          "Quantum of Solace",
+          "Stay",
+          "Everything Put Together",
+          "World War Z",
+          "Monster's Ball",
+          "The Kite Runner"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000025",
+        "hop": 2,
+        "question": "who is listed as director of [Dave Annable] starred movies",
+        "answers": [
+          "Rob Hedden"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000026",
+        "hop": 2,
+        "question": "the films directed by [Deon Taylor] were in which genres",
+        "answers": [
+          "Horror"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000027",
+        "hop": 2,
+        "question": "the director [Gerd Oswald] co-directed films with who",
+        "answers": [
+          "James Dearden"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000028",
+        "hop": 2,
+        "question": "who acted together with [Breckin Meyer]",
+        "answers": [
+          "Peter Facinelli",
+          "Eddie Griffin",
+          "Vinnie Jones",
+          "Bill Murray",
+          "Eddie Mills",
+          "Ethan Embry",
+          "Jennifer Love Hewitt",
+          "Anna Paquin"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000029",
+        "hop": 2,
+        "question": "when were the films directed by [Peter Lord] released",
+        "answers": [
+          "2000"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000030",
+        "hop": 2,
+        "question": "what languages are the films directed by [Francesco Rosi] in",
+        "answers": [
+          "German",
+          "Spanish",
+          "French",
+          "Italian"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000031",
+        "hop": 2,
+        "question": "which movies share the same director of [I Wanna Hold Your Hand]",
+        "answers": [
+          "The Polar Express",
+          "Death Becomes Her",
+          "Flight",
+          "Contact",
+          "Beowulf",
+          "Cast Away",
+          "Romancing the Stone",
+          "Back to the Future",
+          "Back to the Future Part II",
+          "A Christmas Carol",
+          "Who Framed Roger Rabbit",
+          "Back to the Future Part III",
+          "What Lies Beneath",
+          "Used Cars",
+          "Forrest Gump"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000032",
+        "hop": 2,
+        "question": "the films acted by [Rita Wilson] were released in which years",
+        "answers": [
+          "1996"
+        ]
+      },
+      {
+        "question_id": "metaqa_2hop_test_0000033",
+        "hop": 2,
+        "question": "the movies directed by [Tony Bancroft] were written by who",
+        "answers": [
+          "Raymond Singer",
+          "Robert D. San Souci",
+          "Philip LaZebnik",
+          "Chris Sanders",
+          "Rita Hsiao"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000000",
+        "hop": 3,
+        "question": "the films that share directors with the film [Catch Me If You Can] were in which languages",
+        "answers": [
+          "German",
+          "Polish",
+          "Mende",
+          "Japanese"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000001",
+        "hop": 3,
+        "question": "who starred movies for the director of [Written on the Wind]",
+        "answers": [
+          "Sandra Dee",
+          "Charles Coburn",
+          "Cornel Wilde",
+          "John Gavin",
+          "Warren William",
+          "Susan Kohner",
+          "Joan Bennett",
+          "Fred MacMurray",
+          "Barbara Stanwyck",
+          "Don Ameche",
+          "Jane Wyman",
+          "Rochelle Hudson",
+          "Boris Karloff",
+          "Patricia Knight",
+          "Robert Cummings",
+          "Rock Hudson",
+          "Lucille Ball",
+          "Claudette Colbert",
+          "Lana Turner",
+          "George Sanders"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000002",
+        "hop": 3,
+        "question": "the films that share actors with the film [Creepshow] were in which languages",
+        "answers": [
+          "Polish",
+          "English"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000003",
+        "hop": 3,
+        "question": "what were the release years of the films that share writers with the film [Grown Ups 2]",
+        "answers": [
+          "1995",
+          "1996",
+          "1999",
+          "1998",
+          "1989",
+          "2002",
+          "2000",
+          "2008",
+          "2011",
+          "2010"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000004",
+        "hop": 3,
+        "question": "who is listed as director of the films starred by [The Inner Circle] actors",
+        "answers": [
+          "John Landis",
+          "Atom Egoyan",
+          "Gary Trousdale",
+          "Steven Spielberg",
+          "Louis Leterrier",
+          "Alan Alda",
+          "Nora Ephron",
+          "Wolfgang Petersen",
+          "Allen Coulter",
+          "Richard Benjamin",
+          "Orson Welles",
+          "Neil Jordan",
+          "William Dieterle",
+          "Stephen Frears",
+          "Peter Yates",
+          "Markus Schleinzer",
+          "Wayne Wang",
+          "Jean Delannoy",
+          "Robert Zemeckis",
+          "Guy Jenkin",
+          "Christopher Hampton",
+          "Jack Clayton",
+          "Rocky Morton",
+          "Annabel Jankel",
+          "Mike Hodges",
+          "Kirk Wise",
+          "Ellen Perry",
+          "John Byrum",
+          "Abel Ferrara",
+          "Robert M. Young"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000005",
+        "hop": 3,
+        "question": "the films that share directors with the film [The Dance of Reality] were in which genres",
+        "answers": [
+          "Drama",
+          "Western"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000006",
+        "hop": 3,
+        "question": "what genres do the films that share directors with [Scarlet Street] fall under",
+        "answers": [
+          "Crime",
+          "Drama",
+          "Fantasy",
+          "Animation",
+          "Western",
+          "War",
+          "Thriller"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000007",
+        "hop": 3,
+        "question": "who are the directors of the movies written by the writer of [She]",
+        "answers": [
+          "Gary Nelson"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000008",
+        "hop": 3,
+        "question": "the movies that share actors with the movie [Waxworks] were in which languages",
+        "answers": [
+          "Swedish",
+          "German",
+          "French",
+          "English"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000009",
+        "hop": 3,
+        "question": "who directed movies for the writer of [The Broken Circle Breakdown]",
+        "answers": [
+          "Felix van Groeningen"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000010",
+        "hop": 3,
+        "question": "when did the movies starred by [Jupiter Ascending] actors release",
+        "answers": [
+          "2007",
+          "2014",
+          "2008",
+          "2009",
+          "2011",
+          "2010",
+          "2013",
+          "2012"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000011",
+        "hop": 3,
+        "question": "the films that share actors with the film [Buchanan Rides Alone] are directed by who",
+        "answers": [
+          "Irving Pichel",
+          "Allan Dwan",
+          "Walter Lang",
+          "George B. Seitz",
+          "Robert Day",
+          "Joseph H. Lewis",
+          "George Waggner",
+          "Irving Cummings",
+          "Michael Curtiz",
+          "Roy Huggins",
+          "Budd Boetticher",
+          "Mark Sandrich",
+          "H. Bruce Humberstone",
+          "Rouben Mamoulian",
+          "Henry King",
+          "Nathan Juran",
+          "Charles Vidor",
+          "Michael Mann",
+          "William A. Seiter",
+          "Richard L. Bare",
+          "Sam Peckinpah",
+          "Maurice Tourneur",
+          "Ray Enright",
+          "Lewis Seiler",
+          "Garson Kanin",
+          "Edwin L. Marin",
+          "Fritz Lang",
+          "Clarence Brown",
+          "Rowland V. Lee"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000012",
+        "hop": 3,
+        "question": "when did the films written by [Send Me No Flowers] writers release",
+        "answers": [
+          "1983",
+          "1932",
+          "1966",
+          "1941",
+          "1972",
+          "1944",
+          "1961",
+          "1954",
+          "1938",
+          "1958"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000013",
+        "hop": 3,
+        "question": "who are the writers that the actors in their films also appear in the film [The Creature Wasn't Nice]",
+        "answers": [
+          "Stephen King",
+          "Krzysztof Zanussi",
+          "Bruce Kimmel",
+          "Craig Mazin",
+          "Robert Zemeckis",
+          "Joseph Dougherty",
+          "Don Mancini",
+          "Aaron Seltzer",
+          "Pat Proft",
+          "Bob Gale",
+          "Bob Logan",
+          "Cyril Hume",
+          "Jason Friedberg",
+          "Mary Chase",
+          "Cid Ricketts Sumner"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000014",
+        "hop": 3,
+        "question": "when did the movies starred by [Spencer's Mountain] actors release",
+        "answers": [
+          "1953",
+          "1960",
+          "1961",
+          "1944",
+          "1945",
+          "1948",
+          "1949",
+          "1968",
+          "1963",
+          "1981",
+          "1942",
+          "1943",
+          "1966",
+          "1941",
+          "1946",
+          "1947",
+          "1962",
+          "1989",
+          "1999",
+          "1955",
+          "1957",
+          "1956",
+          "1937",
+          "1950",
+          "1935",
+          "1952",
+          "1939",
+          "1938",
+          "1959",
+          "1998",
+          "1991",
+          "1993",
+          "1994",
+          "1996",
+          "1977",
+          "1976",
+          "1970",
+          "1964",
+          "1965",
+          "1940"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000015",
+        "hop": 3,
+        "question": "what genres are the movies starred by [Trog] actors",
+        "answers": [
+          "Horror",
+          "Drama",
+          "Fantasy",
+          "Music",
+          "Western",
+          "Comedy",
+          "Musical",
+          "Thriller"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000016",
+        "hop": 3,
+        "question": "who are the screenwriters that the directors of their movies also directed [The End of the Affair]",
+        "answers": [
+          "Catherine Breillat",
+          "Duilio Coletti",
+          "Robert Vincent O'Neill",
+          "Harold Robbins",
+          "John Michael Hayes",
+          "Angela Carter",
+          "Richard Brooks",
+          "Peter Stone",
+          "Robert Alan Aurthur",
+          "Edward Anhalt",
+          "Harry Brown",
+          "Melchior Lengyel",
+          "Charles Perrault",
+          "John Paxton",
+          "Elizabeth Taylor",
+          "Alfred Hayes",
+          "Raymond Chandler",
+          "Joseph Michael Cala",
+          "Neil Jordan",
+          "John Fante",
+          "Ranald MacDougall",
+          "Guy Bolton",
+          "Samson Raphaelson",
+          "Albert Husson",
+          "Howard Fast",
+          "David Twohy",
+          "Joseph Petracca",
+          "Ernest K. Gann",
+          "Dalton Trumbo",
+          "Irwin Shaw",
+          "Oakley Hall",
+          "Nelson Algren",
+          "David Leland",
+          "Herman Wouk",
+          "Louis L'Amour",
+          "Edward Dmytryk"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000017",
+        "hop": 3,
+        "question": "what are the languages spoken in the movies whose actors also appear in [Hard Rain]",
+        "answers": [
+          "Mende",
+          "French",
+          "English"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000018",
+        "hop": 3,
+        "question": "what are the genres of the movies whose writers also wrote [Ex-Lady]",
+        "answers": [
+          "Drama",
+          "Fantasy",
+          "Comedy",
+          "Musical",
+          "War"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000019",
+        "hop": 3,
+        "question": "who starred films for the director of [Flickering Lights]",
+        "answers": [
+          "Mads Mikkelsen",
+          "Ulrich Thomsen",
+          "Line Kruse",
+          "Nikolaj Lie Kaas"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000020",
+        "hop": 3,
+        "question": "what are the genres of the movies whose actors also appear in [Scarface]",
+        "answers": [
+          "Romance",
+          "Comedy",
+          "Biography",
+          "Family",
+          "Horror",
+          "Crime",
+          "Drama",
+          "Fantasy",
+          "Animation",
+          "War",
+          "Western",
+          "Music",
+          "Sport",
+          "Documentary",
+          "Musical",
+          "Thriller",
+          "Adventure"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000021",
+        "hop": 3,
+        "question": "what genres do the movies that share directors with [Squirm] fall under",
+        "answers": [
+          "Horror",
+          "Comedy"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000022",
+        "hop": 3,
+        "question": "which person wrote the films acted by the actors in [The Slingshot]",
+        "answers": [
+          "Matt Damon",
+          "Ben Affleck",
+          "J.D. Zeik",
+          "Dashiell Hammett",
+          "Eric Lomax",
+          "Ronald Harwood",
+          "David Mamet",
+          "Hans Petter Moland",
+          "Aimee Lagos",
+          "Catherine Johnson",
+          "Steve Barancik",
+          "Hans Alfredson",
+          "Wesley Strick",
+          "Zafar Hai",
+          "Kjell Grede"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000023",
+        "hop": 3,
+        "question": "who are the directors that the actors in their films also appear in the film [The Birdcage]",
+        "answers": [
+          "Tim Burton",
+          "Peter Kassovitz",
+          "Frederick De Cordova",
+          "Joseph L. Mankiewicz",
+          "Lawrence Kasdan",
+          "Woody Allen",
+          "Peter Hyams",
+          "Ronald Neame",
+          "Roger Spottiswoode",
+          "Barry Levinson",
+          "Fielder Cook",
+          "Shinji Aoyama",
+          "Paul Mazursky",
+          "Don Bluth",
+          "John Moore",
+          "Peter Masterson",
+          "Sydney Pollack",
+          "Bobcat Goldthwait",
+          "Arthur Penn",
+          "Kelly Reichardt",
+          "Les Mayfield",
+          "Danny DeVito",
+          "Bob Clark",
+          "Wes Anderson",
+          "Gilbert Cates",
+          "Chris Columbus",
+          "Peter Weir",
+          "Richard Brooks",
+          "Catherine Hardwicke",
+          "Robert Benton",
+          "Roger Christian",
+          "Gus Van Sant",
+          "Basil Dearden",
+          "John Cameron Mitchell",
+          "Susan Stroman",
+          "George Roy Hill",
+          "Donald Petrie",
+          "Bill Forsyth",
+          "Mark Mylod",
+          "George Schaefer",
+          "Ron Clements",
+          "Garry Marshall",
+          "Robert Altman",
+          "Tom Shadyac",
+          "Don Medford",
+          "Sam Raimi",
+          "Mel Brooks",
+          "Ron Howard",
+          "Arie Posin",
+          "Ted Kotcheff",
+          "Robert Day",
+          "John Frankenheimer",
+          "Nicolas Roeg",
+          "Joe Johnston",
+          "Michael Ritchie",
+          "William Friedkin",
+          "Penny Marshall",
+          "David Duchovny",
+          "Peter Markle",
+          "Walt Becker",
+          "Stephen Hopkins",
+          "Simon Moore",
+          "Michael Apted",
+          "David Anspaugh",
+          "Griffin Dunne",
+          "Jessie Nelson",
+          "Harold Ramis",
+          "Ken Kwapis",
+          "Penny Panayotopoulou",
+          "James Foley",
+          "Andrew Bergman",
+          "Dick Richards",
+          "Bud Yorkin",
+          "Omar Naim",
+          "Steven Spielberg",
+          "Vincent Ward",
+          "Tony Scott",
+          "Richard Donner",
+          "Irwin Allen",
+          "Francis Ford Coppola",
+          "Tarsem Singh",
+          "Dirk Shafer",
+          "Barry Sonnenfeld",
+          "Jesse V. Johnson",
+          "Richard Lester",
+          "Gary Fleder",
+          "Stanley Donen",
+          "Andrew Davis",
+          "Alan Parker",
+          "Clint Eastwood",
+          "Gary Goldman",
+          "Ivan Reitman",
+          "Howard Deutch",
+          "Phil Alden Robinson",
+          "David Mamet",
+          "Nicholas Meyer",
+          "Mark Romanek",
+          "Roger Donaldson",
+          "John Musker"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000024",
+        "hop": 3,
+        "question": "the films that share writers with the film [The Unsinkable Molly Brown] were in which genres",
+        "answers": [
+          "Drama",
+          "Fantasy",
+          "Music",
+          "Adventure",
+          "Action",
+          "Comedy",
+          "Musical",
+          "Biography"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000025",
+        "hop": 3,
+        "question": "who starred in the movies whose writers also wrote [A Very Potter Musical]",
+        "answers": [
+          "Joey Richter",
+          "Bonnie Gruesen",
+          "Lauren Lopez",
+          "Darren Criss"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000026",
+        "hop": 3,
+        "question": "when did the movies release whose actors also appear in the movie [Winter Passing]",
+        "answers": [
+          "2002",
+          "2003",
+          "2008",
+          "2007"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000027",
+        "hop": 3,
+        "question": "who are the directors of films whose writers also wrote [People Like Us]",
+        "answers": [
+          "Marc Webb",
+          "Michael Bay"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000028",
+        "hop": 3,
+        "question": "who directed films for the writer of [Deathstalker II]",
+        "answers": [
+          "Jim Wynorski"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000029",
+        "hop": 3,
+        "question": "the films written by the writer of [Lions for Lambs] starred who",
+        "answers": [
+          "Rachel McAdams",
+          "Ben Affleck",
+          "Brad Pitt",
+          "Russell Crowe",
+          "Jennifer Garner",
+          "Jamie Foxx",
+          "Chris Cooper",
+          "Jason Bateman",
+          "Helen Mirren"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000030",
+        "hop": 3,
+        "question": "what are the genres of the films whose screenwriters also wrote [Summer Hours]",
+        "answers": [
+          "Drama",
+          "Thriller"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000031",
+        "hop": 3,
+        "question": "what were the release dates of films starred by actors in [The Teahouse of the August Moon]",
+        "answers": [
+          "1953",
+          "1925",
+          "1984",
+          "1968",
+          "1969",
+          "1980",
+          "1964",
+          "1965",
+          "1966",
+          "1967",
+          "1960",
+          "1961",
+          "1962",
+          "1963",
+          "1955",
+          "1954",
+          "1957",
+          "1951",
+          "1950",
+          "1935",
+          "1952",
+          "1997",
+          "1958",
+          "1990",
+          "1995",
+          "1994",
+          "1979",
+          "1996",
+          "1977",
+          "1976",
+          "1978",
+          "1972",
+          "2001",
+          "2006"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000032",
+        "hop": 3,
+        "question": "who are the actors in the films directed by the director of [The Mirror Has Two Faces]",
+        "answers": [
+          "Barbra Streisand",
+          "Nick Nolte"
+        ]
+      },
+      {
+        "question_id": "metaqa_3hop_test_0000033",
+        "hop": 3,
+        "question": "the films that share directors with the film [The Vanishing American] were in which languages",
+        "answers": [
+          "French",
+          "English"
+        ]
+      }
+    ],
+    "kg_path": "data/kg/metaqa_graph.json",
+    "synthesizer_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "load_in_4bit": false,
+    "synthesizer_max_new_tokens": 64,
+    "synthesizer_temperature": 0.0,
+    "vector_corpus_loaded": false,
+    "metric_method": "normalized answer-set equality and set token F1"
+  },
+  "completed_count": 18,
+  "results": [
+    {
+      "question_id": "metaqa_1hop_test_0000000",
+      "hop": 1,
+      "question": "what does [Grégoire Colin] appear in",
+      "answers": [
+        "Before the Rain"
+      ],
+      "prediction": "Before the Rain",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 23.603800000273623
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000001",
+      "hop": 1,
+      "question": "[Joe Thomas] appears in which movies",
+      "answers": [
+        "The Inbetweeners Movie",
+        "The Inbetweeners 2"
+      ],
+      "prediction": "The Inbetweeners 2, The Inbetweeners Movie",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 247.2912999946857
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000002",
+      "hop": 1,
+      "question": "what films did [Michelle Trachtenberg] star in",
+      "answers": [
+        "Inspector Gadget",
+        "Black Christmas",
+        "Ice Princess",
+        "Harriet the Spy",
+        "The Scribbler"
+      ],
+      "prediction": "Ice Princess, The Scribbler, Harriet the Spy, Black Christmas, Inspector Gadget",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 196.36879999598023
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000003",
+      "hop": 1,
+      "question": "what does [Helen Mack] star in",
+      "answers": [
+        "The Son of Kong",
+        "Kiss and Make-Up",
+        "Divorce"
+      ],
+      "prediction": "Divorce, Kiss and Make-Up, The Son of Kong",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 188.09160000819247
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000004",
+      "hop": 1,
+      "question": "what films did [Shahid Kapoor] act in",
+      "answers": [
+        "Haider",
+        "Jab We Met",
+        "Chance Pe Dance"
+      ],
+      "prediction": "Chance Pe Dance, Jab We Met, Haider",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 876.1140999995405
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000005",
+      "hop": 1,
+      "question": "[Brendan Gleeson] appears in which movies",
+      "answers": [
+        "The Raven",
+        "Lake Placid",
+        "Calvary",
+        "The Smurfs 2",
+        "Stonehearst Asylum",
+        "The Grand Seduction",
+        "The General",
+        "Six Shooter",
+        "Harrison's Flowers",
+        "Into the Storm",
+        "The Tiger's Tail"
+      ],
+      "prediction": "Harrison's Flowers, The Grand Seduction, The Smurfs 2, The Raven, The Tiger's Tail, Into the Storm, Six Shooter, The General, Lake Placid, Stonehearst Asylum, Calvary",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 921.7295999987982
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000006",
+      "hop": 1,
+      "question": "what films does [Paresh Rawal] appear in",
+      "answers": [
+        "Table No. 21",
+        "Cheeni Kum"
+      ],
+      "prediction": "Table No. 21, Cheeni Kum",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 61.0199999937322
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000007",
+      "hop": 1,
+      "question": "what does [Doug Collins] star in",
+      "answers": [
+        "Michael Jordan to the Max"
+      ],
+      "prediction": "Michael Jordan to the Max",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 27.74009999120608
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000008",
+      "hop": 1,
+      "question": "what films does [Brigitte Nielsen] appear in",
+      "answers": [
+        "Cobra",
+        "Red Sonja"
+      ],
+      "prediction": "Cobra, Red Sonja",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 65.71530000655912
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000009",
+      "hop": 1,
+      "question": "[Mona McKinnon] appears in which movies",
+      "answers": [
+        "Plan 9 from Outer Space"
+      ],
+      "prediction": "Plan 9 from Outer Space",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 5.945700002484955
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000010",
+      "hop": 1,
+      "question": "what films did [Christina Ricci] act in",
+      "answers": [
+        "Sleepy Hollow",
+        "Monster",
+        "Black Snake Moan",
+        "Buffalo '66",
+        "After.Life",
+        "Now and Then",
+        "The Opposite of Sex",
+        "Bel Ami",
+        "Prozac Nation",
+        "The Man Who Cried",
+        "Pecker",
+        "Pumpkin",
+        "The Gathering",
+        "That Darn Cat",
+        "Desert Blue",
+        "Miranda",
+        "The Last of the High Kings",
+        "All's Faire in Love",
+        "Around the Block"
+      ],
+      "prediction": "Black Snake Moan, Prozac Nation, Pecker, Pumpkin, Monster, Miranda, Desert Blue, Buffalo '66, Bel Ami, The Gathering, That Darn Cat, The Man Who Cried, The Last of the High Kings, All's Faire in Love, After.Life, Sleepy Hollow, Around the Block, The Opposite of Sex, Now and Then",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 2512.413699994795
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000011",
+      "hop": 1,
+      "question": "[Brian Backer] appears in which movies",
+      "answers": [
+        "Moving Violations"
+      ],
+      "prediction": "Moving Violations",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 92.24270000413526
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000012",
+      "hop": 1,
+      "question": "what films does [William Atherton] appear in",
+      "answers": [
+        "Die Hard 2",
+        "The Sugarland Express",
+        "The Day of the Locust",
+        "Buried Alive",
+        "The Citizen"
+      ],
+      "prediction": "The Citizen, The Sugarland Express, The Day of the Locust, Die Hard 2, Buried Alive",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 249.4759000110207
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000013",
+      "hop": 1,
+      "question": "what does [Jeremy Piven] act in",
+      "answers": [
+        "So Undercover",
+        "Keeping Up with the Steins",
+        "Just Write"
+      ],
+      "prediction": "Keeping Up with the Steins, Just Write, So Undercover",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 241.15999999048654
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000014",
+      "hop": 1,
+      "question": "what films did [Roger Bart] star in",
+      "answers": [
+        "Excision"
+      ],
+      "prediction": "Excision",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 113.28720000165049
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000015",
+      "hop": 1,
+      "question": "[Ruggero Raimondi] appears in which movies",
+      "answers": [
+        "Carmen"
+      ],
+      "prediction": "Carmen",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 1185.2953999914462
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000016",
+      "hop": 1,
+      "question": "what films did [Robert Strauss] act in",
+      "answers": [
+        "Stalag 17",
+        "Attack"
+      ],
+      "prediction": "Attack, Stalag 17",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 40.0863999966532
+    },
+    {
+      "question_id": "metaqa_1hop_test_0000017",
+      "hop": 1,
+      "question": "what films did [Aleksandr Gordon] act in",
+      "answers": [
+        "The Killers"
+      ],
+      "prediction": "The Killers",
+      "route": "kg",
+      "evidence_count": 50,
+      "exact_match": 1.0,
+      "token_f1": 1.0,
+      "latency_ms": 191.58389999938663
+    }
+  ]
+}

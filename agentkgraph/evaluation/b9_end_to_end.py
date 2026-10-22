@@ -1,13 +1,16 @@
-
+﻿
+import argparse
 import gc
+import hashlib
 import json
+import os
 import re
 import statistics
 import time
 from pathlib import Path
 
 from agentkgraph.config import Config
-from agentkgraph.evaluation.metrics import exact_match, token_f1
+from agentkgraph.evaluation.metrics import set_exact_match, set_token_f1
 from agentkgraph.pipeline import Engine
 
 
@@ -33,10 +36,17 @@ def metaqa_set_exact_match(prediction, answers):
 
 
 class B9EndToEndBenchmark:
-    def __init__(self, split="test", samples_per_hop=2, output_dir="reports/b9"):
+    def __init__(
+        self,
+        split="test",
+        samples_per_hop=2,
+        output_dir="reports/b9",
+        resume=True
+    ):
         self.split = split
         self.samples_per_hop = samples_per_hop
         self.output_dir = Path(output_dir)
+        self.resume = resume
 
     def _load_records(self):
         path = Path(f"data/processed/metaqa/{self.split}.jsonl")
@@ -50,7 +60,10 @@ class B9EndToEndBenchmark:
                 if hop in groups and len(groups[hop]) < self.samples_per_hop:
                     groups[hop].append(record)
 
-                if all(len(groups[x]) >= self.samples_per_hop for x in (1, 2, 3)):
+                if all(
+                    len(groups[x]) >= self.samples_per_hop
+                    for x in (1, 2, 3)
+                ):
                     break
 
         records = []
@@ -63,10 +76,15 @@ class B9EndToEndBenchmark:
     def _build_engine(self):
         config = Config()
         config.kg.hop_limit = 3
+        config.models.synthesizer = "Qwen/Qwen2.5-0.5B-Instruct"
         config.models.synthesizer_max_new_tokens = 64
         config.models.synthesizer_temperature = 0.0
+        config.models.load_in_4bit = False
 
+        print("Synthesizer: Qwen/Qwen2.5-0.5B-Instruct")
+        print("4-bit quantization: disabled")
         print("Building Engine without full corpus...")
+
         engine = Engine(
             passages=[],
             config=config,
@@ -77,75 +95,152 @@ class B9EndToEndBenchmark:
         engine.load_kg("data/kg/metaqa_graph.json")
 
         return engine
-
     def _evaluate(self, prediction, answers):
+        predicted = [
+            part.strip()
+            for part in str(prediction or "").split(",")
+            if part.strip()
+        ]
+
         return {
-            "exact_match": metaqa_set_exact_match(prediction, answers),
-            "token_f1": token_f1(prediction, answers)
+            "exact_match": set_exact_match(predicted, answers),
+            "token_f1": set_token_f1(predicted, answers)
         }
 
-    def run(self):
-        records = self._load_records()
+    def _checkpoint_path(self):
+        return self.output_dir / "b9_end_to_end_metaqa.checkpoint.json"
 
-        print()
-        print(f"Selected {len(records)} MetaQA questions:")
+    def _identity(self, records):
+        dataset_signature = [
+            {
+                "question_id": str(record["question_id"]),
+                "hop": int(record["hop"]),
+                "question": record["question"],
+                "answers": record["answers"]
+            }
+            for record in records
+        ]
 
-        for hop in (1, 2, 3):
-            count = sum(1 for r in records if int(r["hop"]) == hop)
-            print(f"  {hop}-hop: {count}")
+        identity_data = {
+            "split": self.split,
+            "samples_per_hop": self.samples_per_hop,
+            "dataset_signature": dataset_signature,
+            "kg_path": "data/kg/metaqa_graph.json",
+            "synthesizer_model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "load_in_4bit": False,
+            "synthesizer_max_new_tokens": 64,
+            "synthesizer_temperature": 0.0,
+            "vector_corpus_loaded": False,
+            "metric_method": "normalized answer-set equality and set token F1"
+        }
 
-        engine = self._build_engine()
-        results = []
+        raw = json.dumps(
+            identity_data,
+            sort_keys=True,
+            ensure_ascii=False
+        )
+
+        return hashlib.sha256(raw.encode("utf-8")).hexdigest(), identity_data
+
+    def _save_checkpoint(self, identity, identity_data, results):
+        path = self._checkpoint_path()
+        tmp = path.with_suffix(".tmp")
+
+        payload = {
+            "identity": identity,
+            "identity_data": identity_data,
+            "completed_count": len(results),
+            "results": results
+        }
+
+        with tmp.open("w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
+            f.flush()
+            os.fsync(f.fileno())
+
+        os.replace(tmp, path)
+
+    def _load_checkpoint(self, identity, records):
+        path = self._checkpoint_path()
+
+        if not self.resume or not path.exists():
+            return []
 
         try:
-            total_start = time.perf_counter()
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RuntimeError(
+                f"Checkpoint is unreadable: {path}. "
+                "Inspect or move it aside before restarting."
+            ) from exc
 
-            for index, record in enumerate(records, 1):
-                question = record["question"]
-                answers = record["answers"]
-                hop = int(record["hop"])
+        if payload.get("identity") != identity:
+            raise RuntimeError(
+                f"Checkpoint does not match the selected dataset or settings: "
+                f"{path}. Use a different output directory or move the "
+                "checkpoint aside. No checkpoint results were reused."
+            )
 
-                print()
-                print(f"[{index}/{len(records)}] {hop}-hop: {question}")
+        results = payload.get("results")
 
-                start = time.perf_counter()
-                answer_result = engine.answer(question, evolve=False)
+        if not isinstance(results, list):
+            raise RuntimeError("Checkpoint results must be a list.")
 
-                route = answer_result.get("route")
-                evidence = answer_result.get("evidence", [])
-                answer = answer_result.get("answer", "")
-                elapsed = (time.perf_counter() - start) * 1000
+        if payload.get("completed_count") != len(results):
+            raise RuntimeError(
+                "Checkpoint completed_count does not match its results."
+            )
 
-                metrics = self._evaluate(answer, answers)
+        if len(results) > len(records):
+            raise RuntimeError(
+                "Checkpoint has more results than the selected questions."
+            )
 
-                item = {
-                    "question_id": record["question_id"],
-                    "hop": hop,
-                    "question": question,
-                    "answers": answers,
-                    "prediction": answer,
-                    "route": route,
-                    "evidence_count": len(evidence),
-                    "exact_match": metrics["exact_match"],
-                    "token_f1": metrics["token_f1"],
-                    "latency_ms": elapsed
-                }
+        required = {
+            "question_id",
+            "hop",
+            "question",
+            "answers",
+            "prediction",
+            "route",
+            "evidence_count",
+            "exact_match",
+            "token_f1",
+            "latency_ms"
+        }
 
-                results.append(item)
+        for i, item in enumerate(results):
+            record = records[i]
 
-                print(f"  route: {route}")
-                print(f"  evidence: {len(evidence)}")
-                print(f"  EM: {metrics['exact_match']:.3f}")
-                print(f"  F1: {metrics['token_f1']:.3f}")
-                print(f"  latency: {elapsed:.2f} ms")
-                print(f"  answer: {answer!r}")
+            if not isinstance(item, dict) or not required.issubset(item):
+                raise RuntimeError(
+                    f"Checkpoint result {i} has missing or invalid fields."
+                )
 
-            total_elapsed = (time.perf_counter() - total_start) * 1000
+            if (
+                str(item["question_id"]) != str(record["question_id"])
+                or item["question"] != record["question"]
+                or int(item["hop"]) != int(record["hop"])
+                or item["answers"] != record["answers"]
+            ):
+                raise RuntimeError(
+                    f"Checkpoint result {i} does not match the dataset."
+                )
 
-        finally:
-            engine.unload_all()
-            gc.collect()
+            for key in ("exact_match", "token_f1", "latency_ms"):
+                value = item[key]
+                if (
+                    not isinstance(value, (int, float))
+                    or isinstance(value, bool)
+                    or not (float("-inf") < float(value) < float("inf"))
+                ):
+                    raise RuntimeError(
+                        f"Checkpoint result {i} has invalid {key}."
+                    )
 
+        return results
+
+    def _build_report(self, results, total_elapsed):
         overall = {
             "exact_match": statistics.mean(
                 r["exact_match"] for r in results
@@ -156,7 +251,7 @@ class B9EndToEndBenchmark:
             "average_latency_ms": statistics.mean(
                 r["latency_ms"] for r in results
             ) if results else 0.0,
-            "total_latency_ms": total_elapsed if results else 0.0
+            "total_latency_ms": total_elapsed
         }
 
         hop_metrics = {}
@@ -182,7 +277,9 @@ class B9EndToEndBenchmark:
 
         for result in results:
             route = result["route"] or "unknown"
-            route_distribution[route] = route_distribution.get(route, 0) + 1
+            route_distribution[route] = (
+                route_distribution.get(route, 0) + 1
+            )
 
         report = {
             "benchmark": "B9 real-model end-to-end MetaQA",
@@ -222,6 +319,7 @@ class B9EndToEndBenchmark:
             f"  Exact Match: {overall['exact_match']:.4f}",
             f"  Token F1: {overall['token_f1']:.4f}",
             f"  Average latency: {overall['average_latency_ms']:.2f} ms",
+            f"  This invocation total latency: {total_elapsed:.2f} ms",
             "",
             "Hop Metrics:"
         ]
@@ -260,8 +358,9 @@ class B9EndToEndBenchmark:
 
         print()
         print("=" * 60)
-        print("B9 END-TO-END BENCHMARK COMPLETE")
+        print("B9 END-TO-END BENCHMARK REPORT")
         print("=" * 60)
+        print(f"Completed questions: {len(results)}")
         print(f"Exact Match: {overall['exact_match']:.4f}")
         print(f"Token F1: {overall['token_f1']:.4f}")
         print(f"Average latency: {overall['average_latency_ms']:.2f} ms")
@@ -271,14 +370,117 @@ class B9EndToEndBenchmark:
 
         return report
 
+    def run(self):
+        records = self._load_records()
+
+        print()
+        print(f"Selected {len(records)} MetaQA questions:")
+
+        for hop in (1, 2, 3):
+            count = sum(1 for r in records if int(r["hop"]) == hop)
+            print(f"  {hop}-hop: {count}")
+
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+
+        identity, identity_data = self._identity(records)
+        results = self._load_checkpoint(identity, records)
+
+        print(f"Checkpoint: {self._checkpoint_path()}")
+        print(f"Already completed: {len(results)}/{len(records)}")
+
+        if len(results) == len(records):
+            print("All selected questions already have checkpoint results.")
+            return self._build_report(results, total_elapsed=0.0)
+
+        engine = self._build_engine()
+        run_start = time.perf_counter()
+
+        try:
+            for index, record in enumerate(
+                records[len(results):],
+                len(results) + 1
+            ):
+                question = record["question"]
+                answers = record["answers"]
+                hop = int(record["hop"])
+
+                print()
+                print(f"[{index}/{len(records)}] {hop}-hop: {question}")
+
+                start = time.perf_counter()
+                answer_result = engine.answer(question, evolve=False)
+
+                route = answer_result.get("route")
+                evidence = answer_result.get("evidence", [])
+                answer = answer_result.get("answer", "")
+                elapsed = (time.perf_counter() - start) * 1000
+
+                metrics = self._evaluate(answer, answers)
+
+                item = {
+                    "question_id": record["question_id"],
+                    "hop": hop,
+                    "question": question,
+                    "answers": answers,
+                    "prediction": answer,
+                    "route": route,
+                    "evidence_count": len(evidence),
+                    "exact_match": metrics["exact_match"],
+                    "token_f1": metrics["token_f1"],
+                    "latency_ms": elapsed
+                }
+
+                results.append(item)
+
+                self._save_checkpoint(
+                    identity,
+                    identity_data,
+                    results
+                )
+
+                print(f"  route: {route}")
+                print(f"  evidence: {len(evidence)}")
+                print(f"  EM: {metrics['exact_match']:.3f}")
+                print(f"  F1: {metrics['token_f1']:.3f}")
+                print(f"  latency: {elapsed:.2f} ms")
+                print(f"  answer: {answer!r}")
+                print(f"  checkpoint saved: {len(results)}/{len(records)}")
+
+        finally:
+            engine.unload_all()
+            del engine
+            gc.collect()
+
+        total_elapsed = (time.perf_counter() - run_start) * 1000
+
+        return self._build_report(results, total_elapsed)
+
 
 def main():
-    benchmark = B9EndToEndBenchmark(
-        split="test",
-        samples_per_hop=2
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--split", default="test")
+    parser.add_argument("--samples-per-hop", type=int, default=2)
+    parser.add_argument("--output-dir", default="reports/b9")
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Ignore an existing checkpoint and start from question one."
     )
+    args = parser.parse_args()
+
+    if args.samples_per_hop <= 0:
+        parser.error("--samples-per-hop must be positive")
+
+    benchmark = B9EndToEndBenchmark(
+        split=args.split,
+        samples_per_hop=args.samples_per_hop,
+        output_dir=args.output_dir,
+        resume=not args.no_resume
+    )
+
     benchmark.run()
 
 
 if __name__ == "__main__":
     main()
+

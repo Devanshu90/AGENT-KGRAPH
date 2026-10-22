@@ -4,7 +4,7 @@
   "sample_size": 1,
   "real_model_benchmark_status": "completed",
   "success": true,
-  "total_duration_ms": 23532.075,
+  "total_duration_ms": 20357.675,
   "environment": {
     "python": "3.13.15",
     "platform": "Windows-11-10.0.26300-SP0",
@@ -22,9 +22,9 @@
     "status": "PASS",
     "load_success": true,
     "inference_success": true,
-    "load_time_ms": 11027.608,
-    "inference_time_ms": 2947.322,
-    "peak_memory_kb": 59131.573,
+    "load_time_ms": 9146.266,
+    "inference_time_ms": 3048.509,
+    "peak_memory_kb": 59128.146,
     "details": {
       "output": "vector"
     },

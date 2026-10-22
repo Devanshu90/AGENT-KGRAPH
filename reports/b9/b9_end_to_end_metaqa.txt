@@ -4,26 +4,26 @@ Split: test
 Samples: 6
 
 Overall:
-  Exact Match: 0.0000
-  Token F1: 0.3856
-  Average latency: 41312.01 ms
+  Exact Match: 0.8333
+  Token F1: 0.4466
+  Average latency: 566.69 ms
 
 Hop Metrics:
   1-hop:
     Count: 2
-    EM: 0.0000
-    F1: 0.4602
-    Latency: 45.96 ms
+    EM: 1.0000
+    F1: 0.8333
+    Latency: 72.97 ms
   2-hop:
     Count: 2
-    EM: 0.0000
-    F1: 0.3538
-    Latency: 123184.02 ms
+    EM: 0.5000
+    F1: 0.2588
+    Latency: 845.33 ms
   3-hop:
     Count: 2
-    EM: 0.0000
-    F1: 0.3429
-    Latency: 706.05 ms
+    EM: 1.0000
+    F1: 0.2476
+    Latency: 781.77 ms
 
 Route Distribution:
 {
@@ -35,53 +35,53 @@ Per-question Results:
 Question ID: metaqa_1hop_test_0000000
 Hop: 1
 Route: kg
-Evidence: 8
-EM: 0.0000
-F1: 0.3750
-Latency: 8.49 ms
-Prediction: Career Girls, Katrin Cartlidge, Labina Mitevska, Jason Statham, Jet Li, Before the Rain
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 31.22 ms
+Prediction: Before the Rain
 
 Question ID: metaqa_1hop_test_0000001
 Hop: 1
 Route: kg
-Evidence: 8
-EM: 0.0000
-F1: 0.5455
-Latency: 83.44 ms
-Prediction: The Pyramid, The Inbetweeners Movie, The Inbetweeners 2
+Evidence: 50
+EM: 1.0000
+F1: 0.6667
+Latency: 114.71 ms
+Prediction: The Inbetweeners 2, The Inbetweeners Movie
 
 Question ID: metaqa_2hop_test_0000000
 Hop: 2
 Route: kg
-Evidence: 8
+Evidence: 50
 EM: 0.0000
-F1: 0.4000
-Latency: 119313.66 ms
-Prediction: Sam Mendes Sources: kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0008
+F1: 0.1176
+Latency: 1184.93 ms
+Prediction: George Clooney, Sam Mendes, Ken Kwapis, Luke Greenfield, Nancy Meyers, Gus Van Sant, Michael Hoffman
 
 Question ID: metaqa_2hop_test_0000001
 Hop: 2
 Route: kg
-Evidence: 8
-EM: 0.0000
-F1: 0.3077
-Latency: 127054.38 ms
-Prediction: Robert Stevenson Sources: kg_path_0001, kg_path_0002, kg_path_0003, kg_path_0004, kg_path_0005, kg_path_0006, kg_path_0007, kg_path_0
+Evidence: 50
+EM: 1.0000
+F1: 0.4000
+Latency: 505.72 ms
+Prediction: Robert Stevenson, Cary Fukunaga, Franco Zeffirelli, Lewis Milestone
 
 Question ID: metaqa_3hop_test_0000000
 Hop: 3
 Route: kg
-Evidence: 8
-EM: 0.0000
+Evidence: 50
+EM: 1.0000
 F1: 0.4000
-Latency: 1059.08 ms
+Latency: 1120.25 ms
 Prediction: Japanese, German, Polish, Mende
 
 Question ID: metaqa_3hop_test_0000001
 Hop: 3
 Route: kg
-Evidence: 8
-EM: 0.0000
-F1: 0.2857
-Latency: 353.01 ms
-Prediction: Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson
+Evidence: 50
+EM: 1.0000
+F1: 0.0952
+Latency: 443.29 ms
+Prediction: Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson, Lana Turner, Sandra Dee, Susan Kohner, George Sanders, Boris Karloff, Charles Coburn, Lucille Ball, Cornel Wilde, Patricia Knight, Fred MacMurray, Barbara Stanwyck, Joan Bennett, Rock Hudson, Jane Wyman

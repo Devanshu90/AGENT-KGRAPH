@@ -25,7 +25,6 @@ class KGRetriever:
         seeds = []
 
         def add_candidates(candidates, mention):
-            key = self._normalize_entity(mention)
             relevant = self._relevant_relations(query)
             target = set(self._target_relations(query))
             scored = []
@@ -42,6 +41,7 @@ class KGRetriever:
                     relation = str(
                         data.get("predicate", "")
                     ).casefold()
+
                     if relation in relevant:
                         score += 2.0
                     if relation in target:
@@ -53,6 +53,7 @@ class KGRetriever:
                     relation = str(
                         data.get("predicate", "")
                     ).casefold()
+
                     if relation in relevant:
                         score += 2.0
                     if relation in target:
@@ -64,11 +65,10 @@ class KGRetriever:
 
             if scored:
                 best_score = scored[0][0]
-                best = [
+                seeds.extend(
                     entity for score, entity in scored
                     if score == best_score
-                ]
-                seeds.extend(best)
+                )
 
         for mention in mentions:
             key = self._normalize_entity(mention)
@@ -84,6 +84,7 @@ class KGRetriever:
                     for entity in entities:
                         entity_key = self._normalize_entity(entity)
                         overlap = tokens & set(entity_key.split())
+
                         if overlap:
                             partial.append((
                                 len(overlap),
@@ -99,6 +100,7 @@ class KGRetriever:
                         reverse=True,
                     )
                     best_score = partial[0][:2]
+
                     add_candidates(
                         [
                             entity for a, b, entity in partial
@@ -163,37 +165,44 @@ class KGRetriever:
             edges = []
 
             for source, target, key, data in self.kg.graph.out_edges(
-                node,
-                keys=True,
-                data=True,
+                node, keys=True, data=True
             ):
                 edges.append((source, target, data, False))
 
             for source, target, key, data in self.kg.graph.in_edges(
-                node,
-                keys=True,
-                data=True,
+                node, keys=True, data=True
             ):
                 edges.append((source, target, data, True))
 
             for source, target, data, reversed_edge in edges:
                 next_node = source if reversed_edge else target
+                predicate = data.get("predicate", "related_to")
 
-                if next_node in visited:
+                is_seed_self_loop = (
+                    depth == 0
+                    and source == seed
+                    and target == seed
+                    and next_node == seed
+                    and not reversed_edge
+                    and predicate == "starred_actors"
+                )
+
+                if next_node in visited and not is_seed_self_loop:
                     continue
 
-                edge_score = self._edge_score(source, target, data)
+                edge_score = self._edge_score(
+                    source, target, data
+                )
                 new_score = score * edge_score
 
                 if new_score < min_score:
                     continue
 
-                predicate = data.get("predicate", "related_to")
-
-                if reversed_edge:
-                    relation = f"{predicate} (reverse)"
-                else:
-                    relation = predicate
+                relation = (
+                    f"{predicate} (reverse)"
+                    if reversed_edge
+                    else predicate
+                )
 
                 new_path = path + [(relation, next_node)]
 
@@ -202,6 +211,9 @@ class KGRetriever:
                     "path": new_path,
                     "score": new_score,
                 })
+
+                if is_seed_self_loop:
+                    continue
 
                 dfs(
                     next_node,
@@ -250,10 +262,8 @@ class KGRetriever:
         relevant = set()
 
         for relation, words in mapping.items():
-            for word in words:
-                if word in query_lower:
-                    relevant.add(relation)
-                    break
+            if any(word in query_lower for word in words):
+                relevant.add(relation)
 
         return relevant
 
@@ -379,13 +389,19 @@ class KGRetriever:
         ])
 
         if is_filmography:
-            if (
-                hop_count == 1
-                and len(path) == 2
-                and str(path[1][0]).casefold()
-                == "starred_actors (reverse)"
-            ):
-                return 200.0 + result["score"] * 0.01
+            if hop_count == 1 and len(path) == 2:
+                relation = str(path[1][0]).casefold()
+
+                is_reverse_actor_edge = (
+                    relation == "starred_actors (reverse)"
+                )
+                is_seed_self_loop = (
+                    relation == "starred_actors"
+                    and path[0][1] == path[1][1]
+                )
+
+                if is_reverse_actor_edge or is_seed_self_loop:
+                    return 200.0 + result["score"] * 0.01
 
             return -100.0 + result["score"] * 0.01
 
@@ -410,13 +426,37 @@ class KGRetriever:
             ):
                 return 200.0 + result["score"] * 0.01
 
+        if (
+            "director of" in query
+            and any(phrase in query for phrase in [
+                "who are the actors",
+                "which actors",
+                "what actors",
+            ])
+        ):
+            relations = [
+                str(item[0]).casefold()
+                for item in path
+                if isinstance(item, (list, tuple))
+                and len(item) == 2
+                and item[0] is not None
+            ]
+
+            if relations == [
+                "directed_by",
+                "directed_by (reverse)",
+                "starred_actors",
+            ]:
+                return 250.0 + result["score"] * 0.01
+
+            if relations == ["starred_actors"]:
+                return 240.0 + result["score"] * 0.01
+
         relation_score = self._path_relation_score(
-            path,
-            relevant_relations,
+            path, relevant_relations
         )
         final_relation_score = self._final_relation_score(
-            path,
-            target_relations,
+            path, target_relations
         )
         target_bonus = (
             2.0
@@ -461,7 +501,89 @@ class KGRetriever:
                 continue
 
             seen.add(path_key)
-            result["path_id"] = f"kg_path_{len(unique) + 1:04d}"
             unique.append(result)
 
-        return unique[:50]
+        q = query.casefold()
+
+        is_shared_movie_query = (
+            any(phrase in q for phrase in [
+                "same actor", "same actors",
+                "shared actor", "shared actors",
+                "common actor", "common actors",
+                "share actor", "share actors",
+            ])
+            and any(word in q for word in [
+                "movie", "movies", "film", "films",
+            ])
+        )
+
+        is_shared_attribute_query = (
+            any(phrase in q for phrase in [
+                "whose actors also appear",
+                "actors also appear in",
+                "actors who also appear in",
+            ])
+            and any(word in q for word in [
+                "genre", "genres", "language", "languages",
+            ])
+        )
+
+        if is_shared_movie_query or is_shared_attribute_query:
+            diverse = []
+            remaining = []
+            answer_keys = set()
+
+            for result in unique:
+                path = result["path"]
+                key = None
+
+                if is_shared_movie_query and len(path) >= 3:
+                    rel1 = str(path[1][0]).casefold()
+                    rel2 = str(path[2][0]).casefold()
+
+                    if (
+                        "starred_actors" in rel1
+                        and "starred_actors" in rel2
+                        and "reverse" in rel2
+                    ):
+                        key = (
+                            "movie",
+                            str(path[2][1]).casefold(),
+                        )
+
+                elif is_shared_attribute_query and len(path) >= 4:
+                    relations = [
+                        str(item[0]).casefold()
+                        for item in path[1:]
+                        if isinstance(item, (list, tuple))
+                        and len(item) == 2
+                    ]
+
+                    if (
+                        len(relations) >= 3
+                        and "starred_actors" in relations[0]
+                        and "reverse" in relations[1]
+                        and relations[2] in {
+                            "has_genre",
+                            "in_language",
+                        }
+                    ):
+                        key = (
+                            relations[2],
+                            str(path[3][1]).casefold(),
+                        )
+
+                if key is not None and key not in answer_keys:
+                    answer_keys.add(key)
+                    diverse.append(result)
+                else:
+                    remaining.append(result)
+
+            unique = diverse + remaining
+
+        selected = unique[:50]
+
+        for idx, result in enumerate(selected, start=1):
+            result["path_id"] = f"kg_path_{idx:04d}"
+
+        return selected
