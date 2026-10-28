@@ -1,0 +1,952 @@
+B9 REAL-MODEL END-TO-END METAQA
+============================================================
+Split: test
+Samples: 102
+
+Overall:
+  Exact Match: 0.7451
+  Token F1: 0.8354
+  Average latency: 7684.04 ms
+  This invocation total latency: 785256.35 ms
+
+Hop Metrics:
+  1-hop:
+    Count: 34
+    EM: 0.9706
+    F1: 0.9824
+    Latency: 165.66 ms
+  2-hop:
+    Count: 34
+    EM: 0.6765
+    F1: 0.8423
+    Latency: 3753.91 ms
+  3-hop:
+    Count: 34
+    EM: 0.5882
+    F1: 0.6815
+    Latency: 19132.57 ms
+
+Route Distribution:
+{
+  "kg": 102
+}
+
+Per-question Results:
+
+Question ID: metaqa_1hop_test_0000000
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 8.65 ms
+Prediction: Before the Rain
+
+Question ID: metaqa_1hop_test_0000001
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 100.79 ms
+Prediction: The Inbetweeners 2, The Inbetweeners Movie
+
+Question ID: metaqa_1hop_test_0000002
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 101.74 ms
+Prediction: Ice Princess, The Scribbler, Harriet the Spy, Black Christmas, Inspector Gadget
+
+Question ID: metaqa_1hop_test_0000003
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 82.92 ms
+Prediction: Divorce, Kiss and Make-Up, The Son of Kong
+
+Question ID: metaqa_1hop_test_0000004
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 415.00 ms
+Prediction: Chance Pe Dance, Jab We Met, Haider
+
+Question ID: metaqa_1hop_test_0000005
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 321.20 ms
+Prediction: Harrison's Flowers, The Grand Seduction, The Smurfs 2, The Raven, The Tiger's Tail, Into the Storm, Six Shooter, The General, Lake Placid, Stonehearst Asylum, Calvary
+
+Question ID: metaqa_1hop_test_0000006
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 23.68 ms
+Prediction: Table No. 21, Cheeni Kum
+
+Question ID: metaqa_1hop_test_0000007
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 7.15 ms
+Prediction: Michael Jordan to the Max
+
+Question ID: metaqa_1hop_test_0000008
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 30.86 ms
+Prediction: Cobra, Red Sonja
+
+Question ID: metaqa_1hop_test_0000009
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 2.11 ms
+Prediction: Plan 9 from Outer Space
+
+Question ID: metaqa_1hop_test_0000010
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 1090.59 ms
+Prediction: Black Snake Moan, Prozac Nation, Pecker, Pumpkin, Monster, Miranda, Desert Blue, Buffalo '66, Bel Ami, The Gathering, That Darn Cat, The Man Who Cried, The Last of the High Kings, All's Faire in Love, After.Life, Sleepy Hollow, Around the Block, The Opposite of Sex, Now and Then
+
+Question ID: metaqa_1hop_test_0000011
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 41.00 ms
+Prediction: Moving Violations
+
+Question ID: metaqa_1hop_test_0000012
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 129.75 ms
+Prediction: The Citizen, The Sugarland Express, The Day of the Locust, Die Hard 2, Buried Alive
+
+Question ID: metaqa_1hop_test_0000013
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 183.02 ms
+Prediction: Keeping Up with the Steins, Just Write, So Undercover
+
+Question ID: metaqa_1hop_test_0000014
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 56.07 ms
+Prediction: Excision
+
+Question ID: metaqa_1hop_test_0000015
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 82.05 ms
+Prediction: Carmen
+
+Question ID: metaqa_1hop_test_0000016
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 19.77 ms
+Prediction: Attack, Stalag 17
+
+Question ID: metaqa_1hop_test_0000017
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 91.89 ms
+Prediction: The Killers
+
+Question ID: metaqa_1hop_test_0000018
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 39.78 ms
+Prediction: The Dream Team
+
+Question ID: metaqa_1hop_test_0000019
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 49.20 ms
+Prediction: Doppelganger
+
+Question ID: metaqa_1hop_test_0000020
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 15.03 ms
+Prediction: Battle for the Planet of the Apes, A Man Called Sledge, Comanche Station
+
+Question ID: metaqa_1hop_test_0000021
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 586.00 ms
+Prediction: Om Shanti Om, Ra.One, D-Day, Don, Aankhen, Raajneeti, Heroine
+
+Question ID: metaqa_1hop_test_0000022
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 758.98 ms
+Prediction: The Bachelor, The Three Musketeers, School Ties, Mad Love, Scent of a Woman, The Chamber, In Love and War, Men Don't Leave, Kinsey, Cookie's Fortune, Vertical Limit
+
+Question ID: metaqa_1hop_test_0000023
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 106.55 ms
+Prediction: A Star Is Born, Wife vs. Secretary
+
+Question ID: metaqa_1hop_test_0000024
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 745.83 ms
+Prediction: Sweet Sweetback's Baadasssss Song
+
+Question ID: metaqa_1hop_test_0000025
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.4000
+Latency: 66.85 ms
+Prediction: Brick Lane, Road, Movie
+
+Question ID: metaqa_1hop_test_0000026
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 120.44 ms
+Prediction: Septien
+
+Question ID: metaqa_1hop_test_0000027
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 74.67 ms
+Prediction: Cottage Country
+
+Question ID: metaqa_1hop_test_0000028
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 87.17 ms
+Prediction: A Lady Takes a Chance, Top Banana, A Funny Thing Happened on the Way to the Forum
+
+Question ID: metaqa_1hop_test_0000029
+Hop: 1
+Route: kg
+Evidence: 12
+EM: 1.0000
+F1: 1.0000
+Latency: 0.62 ms
+Prediction: Faces of Death IV
+
+Question ID: metaqa_1hop_test_0000030
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 12.85 ms
+Prediction: On the Job
+
+Question ID: metaqa_1hop_test_0000031
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 17.81 ms
+Prediction: Fires on the Plain
+
+Question ID: metaqa_1hop_test_0000032
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 58.46 ms
+Prediction: Q, Shaft in Africa, Shaft, An Eye for an Eye
+
+Question ID: metaqa_1hop_test_0000033
+Hop: 1
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 103.93 ms
+Prediction: The Challenge, Billy Madison, The Night Stalker, Mrs. Pollifax-Spy
+
+Question ID: metaqa_2hop_test_0000000
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.7692
+Latency: 1250.62 ms
+Prediction: George Clooney, Sam Mendes, Ken Kwapis, Luke Greenfield, Nancy Meyers, Roland Emmerich, Gus Van Sant, Michael Hoffman
+
+Question ID: metaqa_2hop_test_0000001
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 517.52 ms
+Prediction: Robert Stevenson, Cary Fukunaga, Franco Zeffirelli, Lewis Milestone
+
+Question ID: metaqa_2hop_test_0000002
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 237.86 ms
+Prediction: German
+
+Question ID: metaqa_2hop_test_0000003
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.6667
+Latency: 25.08 ms
+Prediction: Barbet Schroeder, Ernest Thompson
+
+Question ID: metaqa_2hop_test_0000004
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 17.48 ms
+Prediction: Sport, Documentary
+
+Question ID: metaqa_2hop_test_0000005
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 3042.90 ms
+Prediction: War, Comedy, Drama
+
+Question ID: metaqa_2hop_test_0000006
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 74.50 ms
+Prediction: Dennis Miller, Erika Eleniak
+
+Question ID: metaqa_2hop_test_0000007
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 1908.06 ms
+Prediction: War, Drama, Comedy, Thriller, Horror
+
+Question ID: metaqa_2hop_test_0000008
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 29.97 ms
+Prediction: Jake Weber, Haley Bennett, Chace Crawford
+
+Question ID: metaqa_2hop_test_0000009
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 21.63 ms
+Prediction: Peter Weiss, Adrian Mitchell, Geoffrey Skelton
+
+Question ID: metaqa_2hop_test_0000010
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 45.25 ms
+Prediction: Comedy, Short
+
+Question ID: metaqa_2hop_test_0000011
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.1053
+Latency: 162.94 ms
+Prediction: Savages
+
+Question ID: metaqa_2hop_test_0000012
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 56.63 ms
+Prediction: 1949
+
+Question ID: metaqa_2hop_test_0000013
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.9412
+Latency: 175.34 ms
+Prediction: Raoul Walsh, Manuel Poirier, Robert Aldrich, John Ireland, Rob Cohen, Charles Marquis Warren, Douglas Sirk, Joseph Pevney, Andrew L. Stone
+
+Question ID: metaqa_2hop_test_0000014
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 84.60 ms
+Prediction: 1972, 1990
+
+Question ID: metaqa_2hop_test_0000015
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.6667
+Latency: 2123.49 ms
+Prediction: Comedy, Musical, Short, Western
+
+Question ID: metaqa_2hop_test_0000016
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 112434.73 ms
+Prediction: Directed_by
+
+Question ID: metaqa_2hop_test_0000017
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 55.33 ms
+Prediction: Elina Löwensohn, Marc Barbé
+
+Question ID: metaqa_2hop_test_0000018
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.6667
+Latency: 1030.46 ms
+Prediction: The Rainmaker, Renaissance Man, Solitary Man, Hoffa, Screwed, Batman Returns, Twins, Living Out Loud, Tin Men, Going Ape!, What's the Worst That Could Happen?, Heist, Romancing the Stone, Wise Guys, The War of the Roses, The Jewel of the Nile, Ruthless People, Deck the Halls, The Lorax
+
+Question ID: metaqa_2hop_test_0000019
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 46.96 ms
+Prediction: Comedy
+
+Question ID: metaqa_2hop_test_0000020
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.8814
+Latency: 487.10 ms
+Prediction: Uma Thurman, Dabney Coleman, Natalie Portman, Joan Cusack, Ashley Judd, Stockard Channing, François Berléand, Rocco Siffredi, Caroline Ducey, Sagamore Stévenin, Billy Crystal, Daniel Stern, Bruno Kirby, Patricia Wettig, Michael J. Fox, Kirk Douglas, Nancy Travis, Olivia d'Abo, Tom Hanks, Geena Davis, Lori Petty, Madonna, Daryl Hannah, John Candy, Eugene Levy, Edmond O'Brien, Michael Redgrave, Jan Sterling, Steve Martin, Mary Steenburgen, Dianne Wiest, Jason Robards, David Paymer
+
+Question ID: metaqa_2hop_test_0000021
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 808.40 ms
+Prediction: 2005, 1995, 1989
+
+Question ID: metaqa_2hop_test_0000022
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 463.27 ms
+Prediction: Viola Davis, Maggie Gyllenhaal, Holly Hunter, Alex Pettyfer
+
+Question ID: metaqa_2hop_test_0000023
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 198.08 ms
+Prediction: Action, Crime, Adventure, Comedy, Thriller
+
+Question ID: metaqa_2hop_test_0000024
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0408
+Latency: 114.94 ms
+Prediction: Stay, Bharat Nalluri, Ang Lee, Norman Z. McLeod, Tim Burton, Terry Gilliam, David Koepp, Emir Kusturica, George Bowers, Florian Henckel von Donnersmarck, John Badham, John Waters, Gore Verbinski, Laurence Dunmore, Rand Ravich, Jeremy Leven, Jim Jarmusch, Mike Newell, Wally Pfister, Lasse Hallström, Bruce Robinson, Robert Rodriguez, Mike Johnson, Adrian Shergold, Hilary Brougher, Paul Cox, Frédéric Fonteyne, Thom Best, Kay Pollak, Eric Small, Peter Werner, Angela Robinson, Daniel Taplitz, János Szász, Nick Cassavetes, Hans Weingartner, Andy Cadiff, Lukas Moodysson, Johnnie To, Jim Sheridan, Susanne Bier, John Simpson
+
+Question ID: metaqa_2hop_test_0000025
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 53.86 ms
+Prediction: Rob Hedden
+
+Question ID: metaqa_2hop_test_0000026
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 23.92 ms
+Prediction: Horror
+
+Question ID: metaqa_2hop_test_0000027
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 484.27 ms
+Prediction: James Dearden
+
+Question ID: metaqa_2hop_test_0000028
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 272.32 ms
+Prediction: Anna Paquin, Bill Murray, Jennifer Love Hewitt, Vinnie Jones, Eddie Griffin, Ethan Embry, Peter Facinelli, Eddie Mills
+
+Question ID: metaqa_2hop_test_0000029
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.6667
+Latency: 183.58 ms
+Prediction: 2000, 2006
+
+Question ID: metaqa_2hop_test_0000030
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 285.77 ms
+Prediction: Italian, French, Spanish, German
+
+Question ID: metaqa_2hop_test_0000031
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.2353
+Latency: 832.39 ms
+Prediction: A Christmas Carol, Beowulf
+
+Question ID: metaqa_2hop_test_0000032
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 66.95 ms
+Prediction: 1996
+
+Question ID: metaqa_2hop_test_0000033
+Hop: 2
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 16.71 ms
+Prediction: Chris Sanders, Philip LaZebnik, Rita Hsiao, Raymond Singer, Robert D. San Souci
+
+Question ID: metaqa_3hop_test_0000000
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 698.42 ms
+Prediction: Japanese, German, Polish, Mende
+
+Question ID: metaqa_3hop_test_0000001
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 897.16 ms
+Prediction: Robert Cummings, Don Ameche, Claudette Colbert, John Gavin, Warren William, Rochelle Hudson, Lana Turner, Sandra Dee, Susan Kohner, George Sanders, Boris Karloff, Charles Coburn, Lucille Ball, Cornel Wilde, Patricia Knight, Fred MacMurray, Barbara Stanwyck, Joan Bennett, Rock Hudson, Jane Wyman
+
+Question ID: metaqa_3hop_test_0000002
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 145.71 ms
+Prediction: English, Polish
+
+Question ID: metaqa_3hop_test_0000003
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 584.75 ms
+Prediction: 1995, 2002, 2010, 1989, 1998, 2011, 2008, 2000, 1999, 1996
+
+Question ID: metaqa_3hop_test_0000004
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.7500
+Latency: 977.37 ms
+Prediction: Jack Clayton, Markus Schleinzer, Nora Ephron, Ellen Perry, Mike Hodges, Christopher Hampton, Peter Yates, Orson Welles, Louis Leterrier, Wolfgang Petersen, Stephen Hopkins, Charles McDougall, Jude Law, Ewan McGregor, Guy Jenkin, Atom Egoyan, Stephen Frears, Alan Alda, John Byrum, Robert Zemeckis, Richard Benjamin, Annabel Jankel, Rocky Morton, Neil Jordan, Steven Spielberg, Allen Coulter, Abel Ferrara, Wayne Wang, Robert M. Young, John Landis, Jean Delannoy, William Dieterle, Gary Trousdale, Kirk Wise, Julie Dash, Mike Nichols, David Mamet, Peter Faiman, Mary Lambert, Joe Johnston, Pedro Almodóvar, Barry Levinson, Frank Oz, Arthur Hiller, Tristram Powell, Vincente Minnelli, Claude Chabrol, Mika Kaurismäki, Martin Campbell, Tony Scott
+
+Question ID: metaqa_3hop_test_0000005
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 58.81 ms
+Prediction: Drama, Western
+
+Question ID: metaqa_3hop_test_0000006
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 496.09 ms
+Prediction: Western, Drama, Crime, War, Fantasy, Animation, Thriller
+
+Question ID: metaqa_3hop_test_0000007
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 38.66 ms
+Prediction: Gary Nelson
+
+Question ID: metaqa_3hop_test_0000008
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 191.83 ms
+Prediction: French, Swedish, German, English
+
+Question ID: metaqa_3hop_test_0000009
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 152779.37 ms
+Prediction: Directed by
+
+Question ID: metaqa_3hop_test_0000010
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 5.12 ms
+Prediction: 2010, 2011, 2008, 2007, 2012, 2009, 2014, 2013
+
+Question ID: metaqa_3hop_test_0000011
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 146.48 ms
+Prediction: George B. Seitz, Clarence Brown, Maurice Tourneur, Michael Mann, George Waggner, Richard L. Bare, H. Bruce Humberstone, Sam Peckinpah, Budd Boetticher, Robert Day, Michael Curtiz, Ray Enright, Joseph H. Lewis, Fritz Lang, Garson Kanin, Lewis Seiler, Henry King, Walter Lang, William A. Seiter, Roy Huggins, Mark Sandrich, Rowland V. Lee, Rouben Mamoulian, Charles Vidor, Irving Pichel, Allan Dwan, Irving Cummings, Edwin L. Marin, Nathan Juran
+
+Question ID: metaqa_3hop_test_0000012
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.4651
+Latency: 821.91 ms
+Prediction: 1958, 1944, 1966, 1954, 1972, 1961, 1932, 1983, 1941, 1938, 1964, 1973, 1968, 1999, 1967, 1971, 2003, 1984, 1965, 1963, 1996, 1937, 1987, 1975, 2002, 1989, 1962, 1994, 1982, 1991, 1985, 1951, 1959
+
+Question ID: metaqa_3hop_test_0000013
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 175098.95 ms
+Prediction: written_by
+
+Question ID: metaqa_3hop_test_0000014
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.8235
+Latency: 74.47 ms
+Prediction: 1940, 1968, 1948, 1956, 1993, 1962, 1977, 1938, 1999, 1964, 1942, 1970, 1935, 1943, 1941, 1989, 1959, 1947, 1966, 1939, 1965, 1981, 1937, 1955, 1946, 1957, 1976, 1961
+
+Question ID: metaqa_3hop_test_0000015
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 574.98 ms
+Prediction: Thriller, Drama, Comedy, Music, Fantasy, Western, Musical, Horror
+
+Question ID: metaqa_3hop_test_0000016
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0444
+Latency: 1066.68 ms
+Prediction: Angel, Neil Jordan, The Company of Wolves, We're No Angels, Mona Lisa, The Caine Mutiny, The Young Lions, The Reluctant Saint, Mirage
+
+Question ID: metaqa_3hop_test_0000017
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 1196.97 ms
+Prediction: French, English, Mende
+
+Question ID: metaqa_3hop_test_0000018
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 825.55 ms
+Prediction: Drama, Fantasy, Musical, Comedy, War
+
+Question ID: metaqa_3hop_test_0000019
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 826.35 ms
+Prediction: Mads Mikkelsen, Nikolaj Lie Kaas, Line Kruse, Ulrich Thomsen
+
+Question ID: metaqa_3hop_test_0000020
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.5833
+Latency: 2120.61 ms
+Prediction: Crime, Drama, War, Fantasy, Western, Documentary, Family
+
+Question ID: metaqa_3hop_test_0000021
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 302.66 ms
+Prediction: Comedy, Horror
+
+Question ID: metaqa_3hop_test_0000022
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 1595.12 ms
+Prediction: Stellan Skarsgård, Hideo Sakaki, Ethan Hawke, Josh Hamilton, Vincent Spano, Catherine Deneuve, Daniel Auteuil, Marthe Villalonga, Ernie Reyes Jr., Nicolas Cowan, Frank Ramírez, Fausto Cabrera, Robert Duvall, Michael Douglas, Barbara Hershey, Debra Winger, Chuck Pfarrer, Lance Henriksen, John Goodman, Melanie Griffith, Don Johnson, William Holden, Broderick Crawford
+
+Question ID: metaqa_3hop_test_0000023
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 142829.28 ms
+Prediction: Director
+
+Question ID: metaqa_3hop_test_0000024
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 495.17 ms
+Prediction: Biography, Adventure, Action, Musical, Comedy, Fantasy, Drama, Music
+
+Question ID: metaqa_3hop_test_0000025
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.4211
+Latency: 220.38 ms
+Prediction: Darren Criss, Lauren Lopez, Joey Richter, Bonnie Gruesen, Aaron Eckhart, Jennifer Aniston, Akshay Kumar, Katrina Kaif, Sunil Shetty, Sameera Reddy, Jamie Lee Curtis, Donald Pleasence, Stephen Lang, Nicki Aycox, Henry Ian Cusick
+
+Question ID: metaqa_3hop_test_0000026
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 317.68 ms
+Prediction: 2008, 2007, 2003, 2002
+
+Question ID: metaqa_3hop_test_0000027
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0851
+Latency: 1916.93 ms
+Prediction: Alex Kurtzman, Marc Webb, Michael Bay, Brett Ratner, Peter Farrelly, James Gunn, Steven Brill, Steve Carr, Griffin Dunne, Bob Odenkirk, Rusty Cundieff, Will Graham, James Duffy, Jonathan van Tulleken, Patrik Forsberg, Howard Hawks, Richard Rosson, Brian De Palma, Jonathan Kaplan, Stephen Frears, Richard Donner, John Landis, Garry Marshall, Frederick De Cordova, Luc Besson, Ettore Scola, Michael Pressman, John N. Smith, William Dieterle, Max Reinhardt, Peter Hall, Michael Hoffman, Tim Burton, David Hollander, Steve Kloves, Jessie Nelson, Alan Alda, Patricia Birch, Rob Reiner, Amy Heckerling, Fred Schepisi, George Miller, Robert Zemeckis, Jocelyn Moorhouse, Robert Towne
+
+Question ID: metaqa_3hop_test_0000028
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 270.89 ms
+Prediction: Jim Wynorski
+
+Question ID: metaqa_3hop_test_0000029
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 1720.34 ms
+Prediction: William Goldman, Donald E. Westlake, James Salter, Lorenzo Semple Jr., David Rayfiel, James Grady, Neil Simon, Jack Engelhard, Kurt Luedtke, Karen Blixen, Francis Ford Coppola, Tennessee Williams, Fred Coe, Richard Maibaum, F. Scott Fitzgerald, Cyril Hume, Owen Davis, Baz Luhrmann, W.D. Richter, Joe Hyams, Gavin Lambert, Arthur Laurents, Jeremy Larner, Phil Alden Robinson, Lawrence Lasker, Walter F. Parkes, Carl Bernstein, Bob Woodward, Ivan Reitman, Bernard Malamud, Mark Spragg, John Milius, Edward Anhalt, Vardis Fisher, Robert Bunker, George Roy Hill, David S. Ward, Lem Dobbs, Neil Gordon, Bill Bryson, Matthew Michael Carnahan, Heywood Gould
+
+Question ID: metaqa_3hop_test_0000030
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 1119.42 ms
+Prediction: Drama, Thriller
+
+Question ID: metaqa_3hop_test_0000031
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 784.72 ms
+Prediction: Marlon Brando
+
+Question ID: metaqa_3hop_test_0000032
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 0.0000
+F1: 0.0000
+Latency: 159168.02 ms
+Prediction: Directed_by
+
+Question ID: metaqa_3hop_test_0000033
+Hop: 3
+Route: kg
+Evidence: 50
+EM: 1.0000
+F1: 1.0000
+Latency: 140.43 ms
+Prediction: English, French

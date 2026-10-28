@@ -264,6 +264,17 @@ def test_writer_path_extracts_directors_of_movies_written_by_writer():
             ],
         },
     ]
+
+    result = ex.extract(
+        "the director of the films written by [H. Rider Haggard] was who",
+        evidence,
+    )
+
+    assert result is not None
+    assert "Gary Nelson" in result["answer"]
+    assert "Someone Else" not in result["answer"]
+
+
 def test_language_question_with_spoken_in_phrasing():
     ex = KGPathAnswerExtractor()
     assert ex._target_relation(
