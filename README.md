@@ -233,7 +233,7 @@ A compatible GPU may improve model inference performance, depending on the confi
 Replace the placeholder with the actual repository URL.
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone <https://github.com/Devanshu90/AGENT-KGRAPH>
 cd AGENT-KGRAPH
 ```
 
